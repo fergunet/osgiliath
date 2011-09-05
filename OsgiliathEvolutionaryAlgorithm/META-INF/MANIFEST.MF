@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geneticalgorithm Plug-in
+Bundle-SymbolicName: OsgiliathEvolutionaryAlgorithm
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Service-Component: OSGI-INF/EvolutionaryAlgorithm.xml
+Import-Package: 
+ es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.algorithms.types,
+ es.ugr.osgiliath.network,
+ es.ugr.osgiliath.problem,
+ es.ugr.osgiliath.utils
+Export-Package: es.ugr.osgiliath.evolutionary,
+ es.ugr.osgiliath.evolutionary.distances,
+ es.ugr.osgiliath.evolutionary.elements;uses:="es.ugr.osgiliath.algorithms,es.ugr.osgiliath.evolutionary.individual",
+ es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.evolutionary.individual.comparators,
+ es.ugr.osgiliath.geneticalgorithm.distributed;
+  uses:="es.ugr.osgiliath.evolutionary.components,
+   es.ugr.osgiliath.algorithms,
+   es.ugr.osgiliath.problem,
+   es.ugr.osgiliath.network,
+   es.ugr.osgiliath.evolutionary.operators,
+   es.ugr.osgiliath.evolutionary.individual"
+

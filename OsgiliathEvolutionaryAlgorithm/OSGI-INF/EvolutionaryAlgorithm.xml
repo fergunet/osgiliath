@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" immediate="true" name="OsgiliathEvolutionary">
+   <implementation class="es.ugr.osgiliath.evolutionary.EvolutionaryAlgorithm"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.algorithms.Algorithm"/>
+   </service>
+   <reference bind="setPopulation" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Population" name="Population" policy="static" unbind="unsetPopulation"/>
+   <reference bind="setMutator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Mutator" name="Mutator" policy="static" unbind="unsetMutator"/>
+   <reference bind="setParentSelector" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.ParentSelector" name="ParentSelector" policy="static"  unbind="unsetParentSelector"/>
+   <reference bind="setReplacer" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Replacer" name="Replacer" policy="static"  unbind="unsetReplacer"/>
+   <reference bind="setStopCriterion" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.StopCriterion" name="StopCriterion" policy="static" unbind="unsetStopCriterion"/>
+   <reference bind="setRecombinator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Recombinator" name="Recombinator" policy="static" unbind="unsetRecombinator"/>
+   <property name="algorithmName" type="String" value="EvolutionaryAlgorithm"/>
+</scr:component>

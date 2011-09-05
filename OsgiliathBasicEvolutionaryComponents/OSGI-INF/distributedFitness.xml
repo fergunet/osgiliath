@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathBasicEvolutionaryComponentsDistributedFitness">
+   <implementation class="es.osgiliath.evolutionary.basicimplementations.fitnesscalculators.BasicDistributedFitnessCalculator"/>
+   <reference bind="addFitnessCalculator" cardinality="1..n" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="dynamic" target="(calculatorType=daiwal)" unbind="removeFitnessCalculator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator"/>
+   </service>
+   <property name="calculatorType" type="String" value="distributed"/>
+</scr:component>

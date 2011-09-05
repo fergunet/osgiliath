@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathBasicEvolutionaryComponentsPopulation">
+   <implementation class="es.osgiliath.evolutionary.basicimplementations.populations.ListPopulation"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Population"/>
+   </service>
+   <reference bind="setInitializer" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.individual.Initializer" name="Initializer" policy="static" unbind="unsetInitializer"/>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+</scr:component>

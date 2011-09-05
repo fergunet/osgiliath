@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathFunctionsProblemsInitializer">
+   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomInitializer"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.individual.Initializer"/>
+   </service>
+   <reference bind="setProblem" cardinality="1..1" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="unsetProblem"/>
+   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static" target="(calculatorType=distributed)" unbind="unsetFitnessCalculator"/>
+</scr:component>

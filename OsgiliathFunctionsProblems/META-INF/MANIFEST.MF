@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FunctionsProblems
+Bundle-SymbolicName: OsgiliathFunctionsProblems
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.distances,
+ es.ugr.osgiliath.evolutionary.elements,
+ es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.evolutionary.individual.comparators,
+ es.ugr.osgiliath.problem,
+ es.ugr.osgiliath.utils,
+ org.osgi.service.component;version="1.1.0"
+Service-Component: OSGI-INF/FitnessCalculator.xml, OSGI-INF/Initializer.xml, OSGI-INF/Mutator.xml, OSGI-INF/EvolutionaryParameters.xml, OSGI-INF/ProblemParameters.xml, OSGI-INF/Problem.xml

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathNSGA2CrowdingDistanceAssignator">
+   <implementation class="es.ugr.osgiliath.nsgaii.DoubleCrowdingDistanceAssignator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.distances.CrowdingDistanceAssignator"/>
+   </service>
+</scr:component>

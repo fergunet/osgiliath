@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathNSGA2">
+   <implementation class="es.ugr.osgiliath.nsgaii.NSGA2Replacer"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Replacer"/>
+   </service>
+   <property name="replacerName" type="String" value="nsga2"/>
+   <reference bind="setAssignator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.distances.CrowdingDistanceAssignator" name="CrowdingDistanceAssignator" policy="static" unbind="unsetAssignator"/>
+</scr:component>

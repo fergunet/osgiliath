@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OsgiliathNSGA2
+Bundle-SymbolicName: OsgiliathNSGA2
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.evolutionary,
+ es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.basiccomponents.simpleoperators,
+ es.ugr.osgiliath.evolutionary.distances,
+ es.ugr.osgiliath.evolutionary.elements,
+ es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.evolutionary.individual.comparators
+Service-Component: OSGI-INF/nsga2parentselector.xml, OSGI-INF/nsga2crowdingdistanceassignator.xml, OSGI-INF/nsga2replacer.xml

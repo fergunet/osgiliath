@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" immediate="false" name="OsgiliathIntelligentManager">
+   <implementation class="es.ugr.osgiliath.manager.intelligent.IntelligentRandomManager"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Recombinator"/>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.ParentSelector"/>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Replacer"/>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Mutator"/>
+   </service>
+   <property name="replacerType" type="String" value="multiple"/>
+   <property name="selectorType" type="String" value="multiple"/>
+   <property name="mutatorType" type="String" value="multiple"/>
+   <property name="recombinatorType" type="String" value="multiple"/>
+   <reference bind="addReplacer" cardinality="0..n" interface="es.ugr.osgiliath.evolutionary.elements.Replacer" name="Replacer" policy="dynamic" unbind="removeReplacer"/>
+   <reference bind="addParentSelector" cardinality="0..n" interface="es.ugr.osgiliath.evolutionary.elements.ParentSelector" name="ParentSelector" policy="dynamic" unbind="removeParentSelector"/>
+   <reference bind="addMutator" cardinality="0..n" interface="es.ugr.osgiliath.evolutionary.elements.Mutator" name="Mutator" policy="dynamic" unbind="removeMutator"/>
+   <reference bind="addRecombinator" cardinality="0..n" interface="es.ugr.osgiliath.evolutionary.elements.Recombinator" name="Recombinator" policy="dynamic" unbind="removeRecombinator"/>
+</scr:component>

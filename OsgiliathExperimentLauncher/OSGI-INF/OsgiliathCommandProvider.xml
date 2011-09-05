@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="OsgiliathExperimentLauncher">
+   <implementation class="es.ugr.osgiliath.experimentlauncher.Launcher"/>
+   <service>
+      <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
+   </service>
+   <reference bind="addAlgorithm" cardinality="0..n" interface="es.ugr.osgiliath.algorithms.Algorithm" name="Algorithm" policy="dynamic" unbind="removeAlgorithm"/>
+   <reference bind="addParameters" cardinality="0..n" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="dynamic" unbind="removeParameters"/>
+   <reference bind="addProblem" cardinality="0..n" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="removeProblem"/>
+</scr:component>

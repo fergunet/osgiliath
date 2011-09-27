@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" modified="modified" name="OsgiliathFunctionsProblemsFitnessCalculator">
-   <implementation class="es.ugr.osgiliath.problem.mofunctions.MOP2FitnessCalculator"/>
+   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.GriewankFitnessCalculator"/>
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator"/>
    </service>

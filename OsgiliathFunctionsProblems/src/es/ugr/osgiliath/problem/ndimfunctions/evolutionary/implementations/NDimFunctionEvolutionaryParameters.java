@@ -14,24 +14,42 @@ public class NDimFunctionEvolutionaryParameters implements EvolutionaryBasicPara
 	int populationSize;
 	int parentSelectorSize;
 	int replacerSize;
-	boolean toMaximize;
+	//boolean toMaximize;
 
 	/*public void activate(){
 		System.out.println("ACTIVATED");
 	}*/
 	
 	public void activate(){
-		setup(null);
+		
 	}
+	
 	@Override
 	public void setup(Properties props) {
-		numGenerations = 100;
-		getCrossoverProb = 0.4;
-	    mutationProb = 0.1;
-		populationSize = 128;
-		parentSelectorSize = 128;
-	    replacerSize = 128;
-	    toMaximize = false;//cuidaico
+		if(props == null){
+			System.out.println("[WARNING] null properties, setting default ones");
+			numGenerations = 100	;
+			getCrossoverProb = 0.4;
+			mutationProb = 0.1;
+			populationSize = 128;
+			parentSelectorSize = 128;
+			replacerSize = 128;
+			//toMaximize = false;//cuidaico
+		}else{
+			numGenerations = Integer.parseInt(props.getProperty(EvolutionaryBasicParameters.NUM_GENERATIONS_PROP));
+			getCrossoverProb = Double.parseDouble(props.getProperty(EvolutionaryBasicParameters.CROSSOVER_PROB_PROP));
+			mutationProb = Double.parseDouble(props.getProperty(EvolutionaryBasicParameters.MUTATION_PROB_PROP));
+			populationSize = Integer.parseInt(props.getProperty(EvolutionaryBasicParameters.POPULATION_SIZE_PROP));
+			parentSelectorSize = Integer.parseInt(props.getProperty(EvolutionaryBasicParameters.PARENT_SELECTOR_SIZE_PROP));
+			replacerSize = Integer.parseInt(props.getProperty(EvolutionaryBasicParameters.REPLACER_SIZE_PROP));
+		}
+		System.out.println("NDimFunctionEvolutionaryParameters properties:");
+		System.out.println("Gens "+this.numGenerations);
+		System.out.println("Crossover" + this.getCrossoverProb);
+		System.out.println("Mutation" +mutationProb);
+		System.out.println("Population" +populationSize);
+		System.out.println("ParentSelector" +parentSelectorSize);
+		System.out.println("ReplacerSize" +replacerSize);
 	}
 
 	@Override

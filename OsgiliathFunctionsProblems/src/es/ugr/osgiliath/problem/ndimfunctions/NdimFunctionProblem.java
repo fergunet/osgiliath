@@ -13,7 +13,7 @@ public class NdimFunctionProblem implements Problem{
 	ProblemParameters params;
 	public void activate(){ //ESTO CASI QUE MEJOR IRÁ A EXPERIMENT LAUNCHER
 		//setup(null);
-		params.setup(null);
+		//params.setup(null);
 		
 	}
 	

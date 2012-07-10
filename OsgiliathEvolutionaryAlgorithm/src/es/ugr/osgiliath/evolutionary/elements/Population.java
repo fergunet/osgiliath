@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public interface Population {
@@ -12,9 +13,12 @@ public interface Population {
 	
 	public void addIndividual(Individual ind);
 	
-	public void addIndividuals(List<Individual> inds);
+	public void addIndividuals(ArrayList<Individual> inds);
 	
-	public void removeIndividual(Individual ind);/*{
+	public void removeIndividual(Individual ind);
+	
+	public void removeIndividuals(ArrayList<Individual> inds);
+	/*{
 		this.pop.remove(ind);
 	}*/
 	public void removeAllIndividuals();
@@ -23,9 +27,9 @@ public interface Population {
 	
 	public Individual getRandomIndividual();
 	
-	public List<Individual> getNBestIndividuals(int n);
+	public ArrayList<Individual> getNBestIndividuals(int n);
 	
-	public List<Individual> getNWorstIndividuals(int n);
+	public ArrayList<Individual> getNWorstIndividuals(int n);
 	
 	public int getSize();/*{
 		return pop.size();
@@ -38,8 +42,9 @@ public interface Population {
 	}*/
 	
 	public void initializePopulation();
+
 	
 	//TODO una REFERENCIA O LA REAL???
-	public List<Individual> getAllIndividuals();
+	public ArrayList<Individual> getAllIndividuals();
 
 }

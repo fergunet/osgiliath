@@ -1,20 +1,21 @@
 package es.ugr.osgiliath.evolutionary.elements;
 
-import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 
 
-
-public interface EvolutionaryBasicParameters extends AlgorithmParameters{
+public interface EvolutionaryBasicParameters {//extends AlgorithmParameters{
 	
-	static final String NUM_GENERATIONS_PROP = "parameters.evolutionary.generations";
-	static final String CROSSOVER_PROB_PROP = "parameters.evolutionary.crossoverprob";
-	static final String MUTATION_PROB_PROP = "parameters.evolutionary.mutationprob";
-	static final String POPULATION_SIZE_PROP = "parameters.evolutionary.populationsize";
-	static final String PARENT_SELECTOR_SIZE_PROP = "parameters.evolutionary.selectorsize";
-	static final String REPLACER_SIZE_PROP = "parameters.evolutionary.replacersize";
-
+	static final String MAX_GENERATIONS = "algorithm.evolutionary.generations";
+	static final String MAX_EVALUATIONS = "algorithm.evolutionary.evaluations.max";
+	static final String CROSSOVER_PROB = "algorithm.evolutionary.crossover.prob";
+	static final String MUTATOR_PROB = "algorithm.evolutionary.mutator.prob";
+	static final String MUTATOR_STEPSIZE = "algorithm.evolutionary.mutator.stepsize";
+	static final String POPULATION_SIZE = "algorithm.evolutionary.population.size";
+	static final String REPLACER_SIZE = "algorithm.evolutionary.replacer.size";
+	static final String SELECTOR_DUPLICATED_PARENTS = "algorithm.evolutionary.selector.duplicatedparents";
+	static final String SELECTOR_TOURNAMENT_SIZE = "algorithm.evolutionary.selector.tournament.size";
+	static final String SELECTOR_SIZE = "algorithm.evolutionary.selector.size";
 	
-	int getNumGenerations();
+	/*int getNumGenerations();
 	
 	double getCrossoverProb();
 	
@@ -25,6 +26,10 @@ public interface EvolutionaryBasicParameters extends AlgorithmParameters{
 	int getParentSelectorSize();
 	
 	int getReplacerSize();
+	
+	int getNumEvaluations();
+	
+	boolean getDuplicatedParents();*/
 	
 
 }

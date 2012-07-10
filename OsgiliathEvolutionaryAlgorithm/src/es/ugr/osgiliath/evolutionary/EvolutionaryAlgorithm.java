@@ -1,10 +1,12 @@
 package es.ugr.osgiliath.evolutionary;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.algorithms.Algorithm;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
+import es.ugr.osgiliath.events.EventCreator;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Mutator;
 import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
@@ -16,6 +18,8 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
 import es.ugr.osgiliath.network.OsgiliathServer;
 import es.ugr.osgiliath.problem.Problem;
+import es.ugr.osgiliath.problem.Solution;
+import es.ugr.osgiliath.utils.Stopwatch;
 
 public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm{
 	/*
@@ -57,17 +61,21 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 	
 	
 	public void start(){
+		//TODO COGER MEJOR REFERENCIA A SERVICIO OSGILIATHEVENT
+		
 		pop.initializePopulation(); //Estudiar esto
+		
 		actualIteration = 0;
 		do{
+			//System.out.println(pop.toString());
 			//SELECT parents
-			List<Individual> parents = parentSelector.select(pop);
+			ArrayList<Individual> parents = parentSelector.select(pop);
 			
 			//RECOMBINE parents
-			List<Individual> offspring = recombinator.recombine(parents);
+			ArrayList<Individual> offspring = recombinator.recombine(parents);
 			
 			//MUTATE offspring
-			List mutatedOffspring = mutator.mutate(offspring);
+			ArrayList<Individual> mutatedOffspring = mutator.mutate(offspring); //reference?
 			
 			//SELECT new population
 			replacer.select(pop, parents, offspring, mutatedOffspring); //pop must be modified here
@@ -80,7 +88,7 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 	}
 
 	public void stop() {
-		// TODO Auto-generated method stub
+		this.stopCriterion.stop();
 		
 	}
 	
@@ -156,6 +164,20 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 		mutator+"\n\t"+
 		//FitnessCalculator objtFunc;
 		replacer;
+	}
+
+	public Solution getObtainedSolution() {
+		
+		Individual ind = this.pop.getNBestIndividuals(1).get(0);
+		return (Solution) ind;
+	}
+
+	public void reset() {
+		//TODO Añadir el resto de resets
+		this.replacer.reset();
+		this.stopCriterion.reset();
+		this.getEventAdmin().sendEvent(EventCreator.createResetEvent(true));
+		
 	}
 
 

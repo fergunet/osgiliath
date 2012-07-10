@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import es.ugr.osgiliath.network.Task;
 import es.ugr.osgiliath.problem.Problem;
+import es.ugr.osgiliath.problem.Solution;
 
 public interface Algorithm extends Serializable{
 	
@@ -14,6 +15,8 @@ public interface Algorithm extends Serializable{
 	public  void start();
 	public  void stop();
 	public int getActualIteration();
+	public Solution getObtainedSolution();
+	public void reset();
 	
 	//Getters and setters
 	/*public Parameters getParameters();

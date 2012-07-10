@@ -5,5 +5,6 @@ import java.util.Properties;
 public interface ProblemParameters {
 	
 	public void setup(Properties props);
-	public boolean toMaximize();
+	public Object getParameter(String key);
+	//public boolean toMaximize();
 }

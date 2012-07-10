@@ -4,6 +4,7 @@ import org.osgi.service.event.EventAdmin;
 
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.problem.Problem;
+import es.ugr.osgiliath.utils.OsgiliathConfiguration;
 
 public class OsgiliathService {
 
@@ -34,14 +35,12 @@ public class OsgiliathService {
 	
 	//PARAMETERS
 	public void setAlgorithmParameters(AlgorithmParameters parameters) {
-		System.out.println("[Setting Algorithm Parameters]");
 		this.algParams=parameters;
 		
 	}
 
 
 	public void unsetAlgorithmParameters(AlgorithmParameters parameters) {
-		System.out.println("[Unsetting Algorithm Parameters]");
 		this.algParams = null;		
 	}
 	
@@ -61,6 +60,11 @@ public class OsgiliathService {
 	public EventAdmin getEventAdmin(){
 		return this.eventAdmin;
 	}
+	
+	public String getFrameworkId(){
+		return System.getProperty(OsgiliathConfiguration.FRAMEWORK_ID_PROP);
+	}
+	
 	
 	
 	

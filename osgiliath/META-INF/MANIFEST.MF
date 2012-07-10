@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Osgiliath Plug-in
-Bundle-SymbolicName: es.ugr.osgiliath
+Bundle-SymbolicName: es.ugr.osgiliath;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: ugr
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.osgi.framework;version="1.4.0",
  org.osgi.service.component;version="1.1.0",
  org.osgi.service.event;version="1.1.0"
-Export-Package: es.ugr.osgiliath.algorithms,
- es.ugr.osgiliath.algorithms.types,
+Export-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.events,
  es.ugr.osgiliath.network,
  es.ugr.osgiliath.problem,
- es.ugr.osgiliath.utils,
- es.ugr.osgiliath
+ es.ugr.osgiliath.utils

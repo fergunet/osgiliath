@@ -29,7 +29,7 @@ public class RemoteConfigurator {
 	}
 	public void assignDistributionProperties(){
 		try {
-			System.out.println("Veamos");
+			System.out.println("[Osgiliath Remote Configurator]");
 			//Configuration yeja = configAdmin.getConfiguration("es.ugr.osgiliath.evolutionary.elements.FitnessCalculator");
 			Configuration yeja3 = configAdmin.getConfiguration("OsgiliathFunctionsProblemsFitnessCalculator");
 			//Configuration yeja2 = configAdmin.getConfiguration("pollas");

@@ -7,12 +7,13 @@ import java.util.List;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.Population;
+import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
 
 public class ListPopulation extends OsgiliathService implements Population{
 
-	private List<Individual> individuals;
+	private ArrayList<Individual> individuals;
 	
 	private Initializer initializer = null;
 	
@@ -43,8 +44,8 @@ public class ListPopulation extends OsgiliathService implements Population{
 	}
 
 	@Override
-	public List<Individual> getNBestIndividuals(int n) {
-		List<Individual> bests = new ArrayList<Individual>();
+	public ArrayList<Individual> getNBestIndividuals(int n) {
+		ArrayList<Individual> bests = new ArrayList<Individual>();
 		
 		Collections.sort(this.individuals); //TODO OJO! Que esto no termina de gustarme
 		for(int i = 0; i<n;i++){
@@ -56,8 +57,8 @@ public class ListPopulation extends OsgiliathService implements Population{
 	}
 
 	@Override
-	public List<Individual> getNWorstIndividuals(int n) {
-		List<Individual> worst = new ArrayList<Individual>();
+	public ArrayList<Individual> getNWorstIndividuals(int n) {
+		ArrayList<Individual> worst = new ArrayList<Individual>();
 		
 		Collections.sort(this.individuals); //TODO OJO! Que esto no termina de gustarme
 		for(int i = individuals.size()-n; i<individuals.size();i++){
@@ -74,11 +75,12 @@ public class ListPopulation extends OsgiliathService implements Population{
 
 	@Override
 	public void initializePopulation() {
-		int popSize = ((EvolutionaryBasicParameters) this.getAlgorithmParameters()).getPopulationSize();
-		for(int i = 0; i<popSize;i++){
-			Individual ind = this.initializer.initializeIndividual();
-			this.individuals.add(ind);
-		}
+		int popSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.POPULATION_SIZE);
+		
+		//The initializer is the 
+		ArrayList<Individual> inds = this.initializer.initializeIndividuals(popSize);
+		this.individuals = inds;
+		
 
 		
 	}
@@ -108,13 +110,13 @@ public class ListPopulation extends OsgiliathService implements Population{
 	}
 
 	@Override
-	public List<Individual> getAllIndividuals() {
-		// TODO Auto-generated method stub
+	public ArrayList<Individual> getAllIndividuals() {
+		// TODO copy or reference?
 		return this.individuals; //O una copia?
 	}
 
 	@Override
-	public void addIndividuals(List<Individual> inds) {
+	public void addIndividuals(ArrayList<Individual> inds) {
 		this.individuals.addAll(inds);
 		
 	}
@@ -124,6 +126,13 @@ public class ListPopulation extends OsgiliathService implements Population{
 		this.individuals.clear();
 		
 	}
+
+	@Override
+	public void removeIndividuals(ArrayList<Individual> inds) {
+		this.individuals.removeAll(inds);
+		
+	}
+
 
 
 

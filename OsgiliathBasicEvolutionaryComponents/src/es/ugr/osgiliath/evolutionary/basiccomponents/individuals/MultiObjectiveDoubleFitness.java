@@ -156,4 +156,22 @@ public class MultiObjectiveDoubleFitness implements MultiObjectiveFitness {
 		return this.distance;
 	}
 
+	@Override
+	public Fitness add(Fitness other) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Fitness subtract(Fitness another) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Fitness divide(int denominator) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

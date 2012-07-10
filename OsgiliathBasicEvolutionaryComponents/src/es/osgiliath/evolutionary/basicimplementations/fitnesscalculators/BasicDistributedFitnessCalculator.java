@@ -22,12 +22,12 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 	}
 
 	@Override
-	public List<Fitness> calculateFitnessForAll(List<Individual> inds) {
+	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
 		
 		int indsPerCalculator = inds.size()/this.fitnessCalculators.size()+1; //+1 to increase the load balancing
 		
 		
-		List<Fitness> calculatedFitness = new LinkedList<Fitness>();
+		ArrayList<Fitness> calculatedFitness = new ArrayList<Fitness>();
 		List<Thread> threads = new ArrayList<Thread>();
 		
 		
@@ -40,7 +40,8 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 			
 			System.out.println("["+fromIndex+","+toIndex+"[");	
 			
-			List<Individual> portion = inds.subList(fromIndex, toIndex); 
+			ArrayList<Individual> portion = new ArrayList<Individual>();
+			portion.addAll(inds.subList(fromIndex, toIndex)); 
 			threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(i),portion));
 		
 		}
@@ -59,7 +60,7 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 		}
 		
 		for(Thread t:threads){
-			List<Fitness> calcFitnessPortion = ((ThreadFitnessCalculator) t).getCalculatedFitness();
+			ArrayList<Fitness> calcFitnessPortion = ((ThreadFitnessCalculator) t).getCalculatedFitness();
 			calculatedFitness.addAll(calcFitnessPortion);
 		}
 		
@@ -79,21 +80,23 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 	}
 	
 	private class ThreadFitnessCalculator extends Thread{
-		private List<Fitness> calculatedFitness;
-		private List<Individual> indsToCalculate;
+		private ArrayList<Fitness> calculatedFitness;
+		private ArrayList<Individual> indsToCalculate;
 		private FitnessCalculator fc;
 		
-		public ThreadFitnessCalculator(FitnessCalculator fc, List<Individual> individuals){
+		public ThreadFitnessCalculator(FitnessCalculator fc, ArrayList<Individual> individuals){
 			this.fc = fc;
 			this.indsToCalculate = individuals;
 		}
 		
 		
 		public void run(){
+			System.out.println("HEBRA: VOY A INICIAR");
+			fc.calculateFitness(this.indsToCalculate.get(0));
 			this.calculatedFitness = fc.calculateFitnessForAll(this.indsToCalculate);
 		}
 		
-		public List<Fitness> getCalculatedFitness(){
+		public ArrayList<Fitness> getCalculatedFitness(){
 			return this.calculatedFitness;
 		}
 	}

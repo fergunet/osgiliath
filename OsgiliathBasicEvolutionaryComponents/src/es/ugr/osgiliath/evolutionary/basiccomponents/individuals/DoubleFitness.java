@@ -1,5 +1,7 @@
 package es.ugr.osgiliath.evolutionary.basiccomponents.individuals;
 
+import java.text.DecimalFormat;
+
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 
@@ -12,6 +14,10 @@ public class DoubleFitness extends OsgiliathService implements Fitness{
 	public DoubleFitness(Double d, boolean maximize) { 
 		this.fitness=d;
 		this.maximize = maximize;
+	}
+	
+	public Double getDoubleValue(){
+		return this.fitness;
 	}
 	
 	@Override
@@ -42,7 +48,9 @@ public class DoubleFitness extends OsgiliathService implements Fitness{
 	}
 	
 	public String toString(){
-		return "F:"+fitness.toString();
+		DecimalFormat num = new DecimalFormat("####.00000000");
+		String theFit = num.format(fitness);
+		return theFit;
 	}
 
 
@@ -62,6 +70,33 @@ public class DoubleFitness extends OsgiliathService implements Fitness{
 	public double getDistance() {
 		return this.distance;
 		
+	}
+
+	@Override
+	public Fitness add(Fitness other) {
+		double ov = ((DoubleFitness) other).getDoubleValue().doubleValue();
+		double tv = this.getDoubleValue().doubleValue() + ov;
+		
+		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		return f;
+		
+	}
+
+	@Override
+	public Fitness subtract(Fitness other) {
+		double ov = ((DoubleFitness) other).getDoubleValue().doubleValue();
+		double tv = this.getDoubleValue().doubleValue() - ov;
+		
+		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		return f;
+	}
+
+	@Override
+	public Fitness divide(int denominator) {
+		double tv = this.getDoubleValue().doubleValue() / denominator;
+		
+		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		return f;
 	}
 
 

@@ -24,9 +24,9 @@ public class BasicSPXListRecombinator extends OsgiliathService implements Recomb
 	 */
 	@Override
 	
-	public List<Individual> recombine(List<Individual> parents) {
+	public ArrayList<Individual> recombine(ArrayList<Individual> parents) {
 		System.out.println("SPX");
-		List<Individual> offspring = new ArrayList<Individual>();
+		ArrayList<Individual> offspring = new ArrayList<Individual>();
 		//Collections.shuffle(parents); //TODO ojo!!!
 		for(int i=0;i<parents.size()-1;i=i+2){
 			Individual father = parents.get(i);
@@ -48,15 +48,26 @@ public class BasicSPXListRecombinator extends OsgiliathService implements Recomb
 			
 			List<ListGenome> childs = rec.cross((ListGenome)father.getGenome(), (ListGenome)mother.getGenome(), crossPoint);
 			for(ListGenome chG:childs){
-				
 				Individual ind = new BasicIndividual();
+				ind.setGenome(chG);
+				offspring.add(ind);
+				/*Individual ind = new BasicIndividual();
 				ind.setGenome(chG);
 				Fitness fit = this.fitnessCalculator.calculateFitness(ind);
 				ind.setFitness(fit);
-				offspring.add(ind);
-				//System.out.println("HIJO  "+ind);
+				offspring.add(ind);*/
+				
 			}
 			
+			
+			
+		}
+		List<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(offspring);
+		
+		int ind = 0;
+		for(Fitness f:fits){
+			offspring.get(ind).setFitness(f);
+			ind++;
 		}
 		return offspring;
 	}

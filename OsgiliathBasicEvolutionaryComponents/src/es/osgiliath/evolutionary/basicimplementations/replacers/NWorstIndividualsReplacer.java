@@ -1,5 +1,6 @@
 package es.osgiliath.evolutionary.basicimplementations.replacers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
@@ -17,16 +18,16 @@ public class NWorstIndividualsReplacer extends OsgiliathService implements Repla
 	 */
 	
 	@Override
-	public void select(Population pop, List<Individual> parents,
-			List<Individual> offspring, List<Individual> mutatedOffspring) {
+	public void select(Population pop, ArrayList<Individual> parents,
+			ArrayList<Individual> offspring, ArrayList<Individual> mutatedOffspring) {
 		//System.out.println("SELECTOR PRE");
 		//System.out.println("POP "+pop);
-		EvolutionaryBasicParameters evParams = (EvolutionaryBasicParameters) this.getAlgorithmParameters();
+		//EvolutionaryBasicParameters evParams = (EvolutionaryBasicParameters) this.getAlgorithmParameters();
 		
 		for(Individual i:offspring)
 			pop.addIndividual(i);
-		
-		int removed = (offspring.size() < evParams.getReplacerSize())?offspring.size():evParams.getReplacerSize();
+		int replacerSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.REPLACER_SIZE);
+		int removed = (offspring.size() < replacerSize)?offspring.size():replacerSize;
 		List<Individual> worst = pop.getNWorstIndividuals(removed);
 		List<Individual> best = pop.getNBestIndividuals(1);
 		
@@ -39,6 +40,10 @@ public class NWorstIndividualsReplacer extends OsgiliathService implements Repla
 		
 		
 		
+		
+	}
+	
+	public void reset(){
 		
 	}
 	

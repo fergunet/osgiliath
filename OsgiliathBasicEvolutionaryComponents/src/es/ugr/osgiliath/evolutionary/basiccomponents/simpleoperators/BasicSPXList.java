@@ -9,7 +9,7 @@ import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
 import es.ugr.osgiliath.evolutionary.individual.Gene;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 
-public class BasicSPXList {
+public class BasicSPXList{
 	/**
 	 * Single point crossover of a list. The point is inclusive. Example point = 3-> 0 1 2 3 | 4 5 6. 
 	 * So the point must be in range [0,size()-2]

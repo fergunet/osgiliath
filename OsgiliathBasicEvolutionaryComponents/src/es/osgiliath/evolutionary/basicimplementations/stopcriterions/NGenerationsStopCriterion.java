@@ -10,16 +10,32 @@ public class NGenerationsStopCriterion extends OsgiliathService implements StopC
 
 	
 	int iterations = 0;
+	boolean forceStop = false;
 	@Override
 	public boolean hasFinished() { //update aquí?
 		iterations++;
-		System.out.println(iterations);
-		int nGen = ((EvolutionaryBasicParameters) this.getAlgorithmParameters()).getNumGenerations();
+		//System.out.println(iterations);
+		int nGen = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MAX_GENERATIONS);
+		
+		if(forceStop)
+			return true;
+		
 		if(iterations<nGen)
 			return false;
 		else
 			return true;
 			
+		
+	}
+	@Override
+	public void reset() {
+		iterations = 0;
+		forceStop = false;
+		
+	}
+	@Override
+	public void stop() {
+		this.forceStop = true;
 		
 	}
 	

@@ -3,6 +3,7 @@ package es.ugr.osgiliath.evolutionary.basiccomponents.individuals;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.problem.SolutionValue;
 
 public class BasicIndividual implements Individual{
 
@@ -42,6 +43,18 @@ public class BasicIndividual implements Individual{
 	
 	public String toString(){
 		return f+":"+g;
+	}
+
+	@Override
+	public void setSolutionValue(SolutionValue sValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public SolutionValue getSolutionValue() {
+		// TODO Auto-generated method stub
+		return this.f;
 	}
 
 

@@ -11,6 +11,7 @@ import es.ugr.osgiliath.evolutionary.basiccomponents.simpleoperators.BasicUPXLis
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Recombinator;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
+import es.ugr.osgiliath.evolutionary.individual.Genome;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public class BasicUPXRecombinator extends OsgiliathService implements Recombinator {
@@ -18,9 +19,9 @@ public class BasicUPXRecombinator extends OsgiliathService implements Recombinat
 	FitnessCalculator fitnessCalculator;
 
 	@Override
-	public List<Individual> recombine(List<Individual> parents) {
-		System.out.println("UPX");
-		List<Individual> offspring = new ArrayList<Individual>();
+	public ArrayList<Individual> recombine(ArrayList<Individual> parents) {
+		//System.out.println("UPX");
+		ArrayList<Individual> offspring = new ArrayList<Individual>();
 		for(int i=0;i<parents.size()-1;i=i+2){
 			Individual father = parents.get(i);
 			Individual mother = parents.get(i+1);			
@@ -31,13 +32,13 @@ public class BasicUPXRecombinator extends OsgiliathService implements Recombinat
 		    BasicUPXList rec = new BasicUPXList();	
 		    
 			List<Double> probs = new ArrayList<Double>();
-			for(int p = 0;p<minSize;p++)
-				probs.add(new Double(0.5));
+			/*for(int p = 0;p<minSize;p++)
+				probs.add(new Double(0.5));*/
 			//System.out.println("FATHER "+father);
 			//System.out.println("MOTHER "+mother);
-			List<ListGenome> childs = rec.cross((ListGenome)father.getGenome(), (ListGenome)mother.getGenome(), probs);
+			ArrayList<Genome> childs = rec.cross(father.getGenome(), mother.getGenome());
 			
-			for(ListGenome chG:childs){
+			for(Genome chG:childs){
 				
 				Individual ind = new BasicIndividual();
 				ind.setGenome(chG);
@@ -46,6 +47,8 @@ public class BasicUPXRecombinator extends OsgiliathService implements Recombinat
 				offspring.add(ind);
 				//System.out.println("SON  "+ind);
 			}
+			
+			
 			
 		}
 		return offspring;

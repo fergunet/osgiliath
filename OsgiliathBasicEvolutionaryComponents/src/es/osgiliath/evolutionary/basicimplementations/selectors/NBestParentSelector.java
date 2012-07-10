@@ -1,5 +1,6 @@
 package es.osgiliath.evolutionary.basicimplementations.selectors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
@@ -16,13 +17,13 @@ public class NBestParentSelector extends OsgiliathService implements ParentSelec
 	 * @see es.ugr.osgiliath.evolutionary.components.selectors.ParentSelector#select(es.ugr.osgiliath.evolutionary.elements.Population)
 	 */
 	@Override
-	public List<Individual> select(Population pop) {
+	public ArrayList<Individual> select(Population pop) {
 		//System.out.println("NEW GENERATION");
 		//System.out.println(pop);
 		
-		EvolutionaryBasicParameters params = (EvolutionaryBasicParameters) this.getAlgorithmParameters(); //bound thanks to OsgiliathService
-		int n = params.getParentSelectorSize();
-		List<Individual> bests = pop.getNBestIndividuals(n);
+		//EvolutionaryBasicParameters params = (EvolutionaryBasicParameters) this.getAlgorithmParameters(); //bound thanks to OsgiliathService
+		int n = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
+		ArrayList<Individual> bests = pop.getNBestIndividuals(n);
 		return bests;
 	}
 	

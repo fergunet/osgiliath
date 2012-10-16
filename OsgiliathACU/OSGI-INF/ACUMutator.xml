@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ACUMutator">
+   <implementation class="es.ugr.osgiliath.acu.ACUMutator"/>
+   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static" unbind="unsetFitnessCalculator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Mutator"/>
+   </service>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+   <reference bind="setMutation" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Mutation" name="Mutation" policy="static" unbind="unsetMutation"/>
+   <reference bind="setACUBank" cardinality="1..1" interface="es.ugr.osgiliath.acu.ACUBank" name="ACUBank" policy="static" unbind="unsetACUBank"/>
+</scr:component>

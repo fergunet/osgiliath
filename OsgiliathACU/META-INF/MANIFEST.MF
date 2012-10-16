@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OsgiliathACU
+Bundle-SymbolicName: OsgiliathACU
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.events,
+ es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.elements,
+ es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.evolutionary.migrator,
+ es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations,
+ es.ugr.osgiliath.utils,
+ org.osgi.service.event;version="1.3.0"
+Service-Component: OSGI-INF/ACUInitializer.xml, OSGI-INF/ACURecombinator.xml, OSGI-INF/ACUReplacer.xml, OSGI-INF/ACUMutator.xml, OSGI-INF/ACULogger.xml, OSGI-INF/ACUBank.xml
+Export-Package: es.ugr.osgiliath.acu

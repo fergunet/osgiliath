@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ACUInitializer">
+   <implementation class="es.ugr.osgiliath.acu.ACUInitializer"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.individual.Initializer"/>
+   </service>
+   <property name="name" type="String" value="acuinitializer"/>
+   <reference bind="setInitializer" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.individual.Initializer" target ="(name=binaryinitializer)" name="Initializer" policy="static" unbind="unsetInitializer"/>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static"/>
+</scr:component>

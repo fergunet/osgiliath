@@ -1,13 +1,9 @@
 package es.ugr.osgiliath.evolutionary;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.algorithms.Algorithm;
-import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.events.EventCreator;
-import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Mutator;
 import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
 import es.ugr.osgiliath.evolutionary.elements.Population;
@@ -15,11 +11,8 @@ import es.ugr.osgiliath.evolutionary.elements.Recombinator;
 import es.ugr.osgiliath.evolutionary.elements.Replacer;
 import es.ugr.osgiliath.evolutionary.elements.StopCriterion;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
-import es.ugr.osgiliath.evolutionary.individual.Initializer;
-import es.ugr.osgiliath.network.OsgiliathServer;
-import es.ugr.osgiliath.problem.Problem;
 import es.ugr.osgiliath.problem.Solution;
-import es.ugr.osgiliath.utils.Stopwatch;
+import es.ugr.osgiliath.utils.Logger;
 
 public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm{
 	/*
@@ -43,6 +36,7 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 	Replacer replacer;
 	Mutator mutator;
 	
+	Logger logger;
 	
 	//AlgorithmParameters parameters;
 	
@@ -63,27 +57,42 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 	public void start(){
 		//TODO COGER MEJOR REFERENCIA A SERVICIO OSGILIATHEVENT
 		
+		
+		long time = System.currentTimeMillis();
 		pop.initializePopulation(); //Estudiar esto
 		
 		actualIteration = 0;
 		do{
 			//System.out.println(pop.toString());
 			//SELECT parents
+			long timeSelection = System.nanoTime();
 			ArrayList<Individual> parents = parentSelector.select(pop);
+			timeSelection = System.nanoTime() - timeSelection;
 			
 			//RECOMBINE parents
+			long timeRecombination = System.nanoTime();
 			ArrayList<Individual> offspring = recombinator.recombine(parents);
+			timeRecombination = System.nanoTime() - timeRecombination;
 			
 			//MUTATE offspring
-			ArrayList<Individual> mutatedOffspring = mutator.mutate(offspring); //reference?
+			long timeMutation = System.nanoTime();
+			ArrayList<Individual> mutatedOffspring = mutator.mutate(pop, offspring); //reference?
+			timeMutation = System.nanoTime() - timeMutation;
 			
 			//SELECT new population
+			long timeReplacement = System.nanoTime();
 			replacer.select(pop, parents, offspring, mutatedOffspring); //pop must be modified here
+			timeReplacement = System.nanoTime() - timeReplacement;
+			
+			
 			
 			//this.getEventAdmin();
 			actualIteration++;
-			
+			//System.out.println("IT "+actualIteration);
+			System.out.println(this.getObtainedSolution().getSolutionValue());
+			logger.statsX(timeSelection+";"+timeRecombination+";"+timeMutation+";"+timeReplacement+"\n", "times");
 		}while(!stopCriterion.hasFinished());
+		
 		
 	}
 
@@ -179,7 +188,14 @@ public class EvolutionaryAlgorithm extends OsgiliathService implements Algorithm
 		this.getEventAdmin().sendEvent(EventCreator.createResetEvent(true));
 		
 	}
+	
+	public void setLogger(Logger l){
+		this.logger = l;
+	}
 
+	public void unsetLogger(Logger l){
+		this.logger = null;
+	}
 
 
 

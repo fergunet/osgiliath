@@ -8,6 +8,6 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public interface Mutator  {
 	
-	public ArrayList<Individual> mutate(ArrayList<Individual> individuals);
+	public ArrayList<Individual> mutate(Population pop, ArrayList<Individual> individuals);
 
 }

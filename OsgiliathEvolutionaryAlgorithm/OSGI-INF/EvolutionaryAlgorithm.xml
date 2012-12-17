@@ -12,4 +12,5 @@
    <reference bind="setRecombinator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Recombinator" name="Recombinator" policy="static" unbind="unsetRecombinator"/>
    <property name="algorithmName" type="String" value="EvolutionaryAlgorithm"/>
    <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
+   <reference bind="setLogger" cardinality="1..1" interface="es.ugr.osgiliath.utils.Logger" name="Logger" policy="static" unbind="unsetLogger"/>
 </scr:component>

@@ -7,7 +7,7 @@ public interface Genome extends Serializable, Cloneable{
 	
 	public Object clone();
 	
-	public List<Gene> getGeneList(); //Although the representation could not be a List
+//	public List<Gene> getGeneList(); //Although the representation could not be a List
 	
 
 }

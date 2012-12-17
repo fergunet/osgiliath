@@ -14,6 +14,11 @@ public interface EvolutionaryBasicParameters {//extends AlgorithmParameters{
 	static final String SELECTOR_DUPLICATED_PARENTS = "algorithm.evolutionary.selector.duplicatedparents";
 	static final String SELECTOR_TOURNAMENT_SIZE = "algorithm.evolutionary.selector.tournament.size";
 	static final String SELECTOR_SIZE = "algorithm.evolutionary.selector.size";
+	static final String MIGRATION_TYPE = "algorithm.evolutionary.migration.type";
+	static final String MIGRATION_SIZE = "algorithm.evolutionary.migration.size";
+	static final String MIGRATION_GENS = "algorithm.evolutionary.migration.generations";
+	static final String BEST = "best";
+	static final String RANDOM = "random";
 	
 	/*int getNumGenerations();
 	

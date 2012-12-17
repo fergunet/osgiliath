@@ -13,7 +13,7 @@ public class NRandomParentSelection extends OsgiliathService implements ParentSe
 
 	@Override
 	public ArrayList<Individual> select(Population pop) {
-		EvolutionaryBasicParameters params = (EvolutionaryBasicParameters) this.getAlgorithmParameters(); //bound thanks to OsgiliathService
+		//EvolutionaryBasicParameters params = ( this.getAlgorithmParameters(); //bound thanks to OsgiliathService
 		int n = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
 		ArrayList<Individual> parents = new ArrayList<Individual>();
 		

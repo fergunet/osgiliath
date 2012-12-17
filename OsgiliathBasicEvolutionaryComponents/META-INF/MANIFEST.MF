@@ -12,12 +12,11 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.individual,
  es.ugr.osgiliath.problem,
  org.osgi.service.event;version="1.3.0"
-Service-Component: OSGI-INF/ListPopulation.xml, OSGI-INF/StopCriterion.xml, OSGI-INF/RandomParentSelection.xml, OSGI-INF/NWorstIndividualReplacer.xml, OSGI-INF/SPXRecombinator.xml, OSGI-INF/UPXRecombinator.xml, OSGI-INF/distributedFitness.xml, OSGI-INF/DTournamentSelector.xml, OSGI-INF/MaxEvaluationsStopCriterion.xml
+Service-Component: OSGI-INF/Crossover.xml, OSGI-INF/StopCriterion.xml, OSGI-INF/Population.xml, OSGI-INF/Mutation.xml, OSGI-INF/Selector.xml, OSGI-INF/Replacer.xml, OSGI-INF/Mutator.xml, OSGI-INF/Recombinator.xml
 Export-Package: es.osgiliath.evolutionary.basicimplementations.combinators,
  es.osgiliath.evolutionary.basicimplementations.populations,
  es.osgiliath.evolutionary.basicimplementations.replacers,
  es.osgiliath.evolutionary.basicimplementations.selectors,
  es.osgiliath.evolutionary.basicimplementations.stopcriterions,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
- es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
- es.ugr.osgiliath.evolutionary.basiccomponents.simpleoperators
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals

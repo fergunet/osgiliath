@@ -1,4 +1,4 @@
-package es.ugr.osgiliath.evolutionary.basiccomponents.simpleoperators;
+package es.ugr.osgiliath.evolutionary.basiccomponents.operators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +8,20 @@ import es.ugr.osgiliath.evolutionary.elements.Crossover;
 import es.ugr.osgiliath.evolutionary.individual.Gene;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 
-public class BasicUPXList implements Crossover {
+public class UPXListCrossover implements Crossover {
 	
-	public BasicUPXList(){}
+	public UPXListCrossover(){}
 	
 	public ArrayList<Genome> cross(Genome father, Genome mother){ 
 		ArrayList<Genome> childs = new ArrayList<Genome>();
 		ListGenome a = new ListGenome();
 		ListGenome b = new ListGenome();
 		
-		int fatherSize = father.getGeneList().size();
-		int motherSize = mother.getGeneList().size();
+		ListGenome fatherL = (ListGenome) father;
+		ListGenome motherL = (ListGenome) mother;
+		
+		int fatherSize = fatherL.getGeneList().size();
+		int motherSize = motherL.getGeneList().size();
 		
 		int minimum = (fatherSize<motherSize)?fatherSize:motherSize;
 		
@@ -35,11 +38,11 @@ public class BasicUPXList implements Crossover {
 			}*/
 			//TODO changed by this (0.5)
 			if(prob<0.5){
-				aG = father.getGeneList().get(i);
-				bG = mother.getGeneList().get(i);
+				aG = fatherL.getGeneList().get(i);
+				bG = motherL.getGeneList().get(i);
 			}else{
-				bG = father.getGeneList().get(i);
-				aG = mother.getGeneList().get(i);
+				bG = fatherL.getGeneList().get(i);
+				aG = motherL.getGeneList().get(i);
 			}
 			a.getGeneList().add((Gene)aG.clone());
 			b.getGeneList().add((Gene)bG.clone());

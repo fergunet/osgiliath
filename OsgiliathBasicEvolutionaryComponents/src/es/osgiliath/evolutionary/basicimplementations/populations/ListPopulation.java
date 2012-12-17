@@ -87,6 +87,7 @@ public class ListPopulation extends OsgiliathService implements Population{
 	
 	//BIND/UNBIND FOR INITIALIZATION
 	public void setInitializer(Initializer init){
+		//System.out.println("CListPopulation coge el initializer");
 		this.initializer = init;
 	}
 	

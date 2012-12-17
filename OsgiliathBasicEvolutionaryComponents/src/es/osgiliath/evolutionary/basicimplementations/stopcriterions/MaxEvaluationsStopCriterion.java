@@ -20,7 +20,7 @@ public class MaxEvaluationsStopCriterion extends OsgiliathService implements Sto
 			return true;
 		
 		int maxEvaluations = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MAX_EVALUATIONS);
-		
+		//System.out.println("Has finished "+evaluations);
 		if(evaluations > maxEvaluations)
 			return true;
 		else
@@ -44,6 +44,7 @@ public class MaxEvaluationsStopCriterion extends OsgiliathService implements Sto
 	public void handleEvent(Event arg0) {
 		int newEv = (Integer) arg0.getProperty(EventCreator.PROP_EVALUATIONS_NUMBER);
 		this.evaluations+=newEv; 
+		//System.out.println("EVS RECV "+newEv);
 		
 	}
 

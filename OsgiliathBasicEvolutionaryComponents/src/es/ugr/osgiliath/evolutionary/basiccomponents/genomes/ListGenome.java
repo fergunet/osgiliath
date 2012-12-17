@@ -1,7 +1,6 @@
 package es.ugr.osgiliath.evolutionary.basiccomponents.genomes;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 import es.ugr.osgiliath.evolutionary.individual.Gene;
@@ -35,7 +34,7 @@ public class ListGenome implements Cloneable,Genome{
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		for(Gene g:genes)
-		sb.append("[").append(g).append("]");
+			sb.append("[").append(g).append("]");
 		return sb.toString();
 	}
 

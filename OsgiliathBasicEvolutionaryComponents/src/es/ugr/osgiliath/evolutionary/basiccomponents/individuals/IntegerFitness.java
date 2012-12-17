@@ -2,27 +2,25 @@ package es.ugr.osgiliath.evolutionary.basiccomponents.individuals;
 
 import java.text.DecimalFormat;
 
-import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 
-public class DoubleFitness implements Fitness{
-
-	private Double fitness;
+public class IntegerFitness implements Fitness {
+	private Integer fitness;
 	private boolean maximize;
 	public double distance;
 	
-	public DoubleFitness(Double d, boolean maximize) { 
-		this.fitness=d;
+	public IntegerFitness(Integer i, boolean maximize) { 
+		this.fitness=i;
 		this.maximize = maximize;
 	}
 	
-	public Double getDoubleValue(){
+	public Integer getIntegerValue(){
 		return this.fitness;
 	}
 	
 	@Override
 	public int compareTo(Object o) { 
-		DoubleFitness another = (DoubleFitness) o;
+		IntegerFitness another = (IntegerFitness) o;
 		int compared = fitness.compareTo(another.fitness);
 		
 		//negative if a<b
@@ -37,19 +35,19 @@ public class DoubleFitness implements Fitness{
 
 	@Override
 	public void setAsWorstValue() {
-		this.fitness = Double.MAX_VALUE;
+		this.fitness = Integer.MAX_VALUE;
 		
 	}
 
 	@Override
 	public void setAsBestValue() {
-		this.fitness = 0.0;
+		this.fitness = Integer.MIN_VALUE;
 		
 	}
 	
 	public String toString(){
-		DecimalFormat num = new DecimalFormat("####.00000000");
-		String theFit = num.format(fitness);
+		//DecimalFormat num = new DecimalFormat("####.00000000");
+		String theFit = this.fitness.toString();
 		return theFit;
 	}
 
@@ -74,18 +72,18 @@ public class DoubleFitness implements Fitness{
 
 	@Override
 	public Fitness add(Fitness other) {
-		double ov = ((DoubleFitness) other).getDoubleValue().doubleValue();
-		double tv = this.getDoubleValue().doubleValue() + ov;
+		int ov = ((IntegerFitness) other).getIntegerValue().intValue();
+		int tv = this.getIntegerValue().intValue() + ov;
 		
-		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		Fitness f = new IntegerFitness(new Integer(tv), this.maximize);
 		return f;
 		
 	}
 
 	@Override
 	public Fitness subtract(Fitness other) {
-		double ov = ((DoubleFitness) other).getDoubleValue().doubleValue();
-		double tv = this.getDoubleValue().doubleValue() - ov;
+		double ov = ((IntegerFitness) other).getIntegerValue().intValue();
+		double tv = this.getIntegerValue().doubleValue() - ov;
 		
 		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
 		return f;
@@ -93,14 +91,10 @@ public class DoubleFitness implements Fitness{
 
 	@Override
 	public Fitness divide(int denominator) {
-		double tv = this.getDoubleValue().doubleValue() / denominator;
-		
-		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		double tv = this.getIntegerValue().intValue() / denominator;
+		int ntv = (int)tv;
+		Fitness f = new IntegerFitness(new Integer(ntv), this.maximize);
 		return f;
 	}
-
-
-
-
 
 }

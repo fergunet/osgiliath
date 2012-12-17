@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" immediate="false" name="Recombinator">
+   <implementation class="es.osgiliath.evolutionary.basicimplementations.combinators.BasicOrderRecombinator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Recombinator"/>
+   </service>
+   <reference bind="setCrossover" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Crossover" name="Crossover" policy="static" unbind="unsetCrossover"/>
+   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static" unbind="unsetFitnessCalculator"/>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+</scr:component>

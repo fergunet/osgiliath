@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="TPXListCrossover">
+   <implementation class="es.ugr.osgiliath.evolutionary.basiccomponents.operators.TPXListCrossover"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Crossover"/>
+   </service>
+</scr:component>

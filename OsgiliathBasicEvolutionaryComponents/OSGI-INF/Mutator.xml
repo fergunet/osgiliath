@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" immediate="true" name="OsgiliathBasicEvolutionaryComponents">
+   <implementation class="es.osgiliath.evolutionary.basicimplementations.mutators.BasicOrderMutator"/>
+
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Mutator"/>
+   </service>
+   <reference bind="setMutation" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.Mutation" name="Mutation" policy="static" unbind="unsetMutation"/>
+   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static"/>
+</scr:component>

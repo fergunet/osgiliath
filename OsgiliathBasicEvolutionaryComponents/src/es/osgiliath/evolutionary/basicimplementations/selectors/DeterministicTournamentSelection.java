@@ -24,9 +24,9 @@ public class DeterministicTournamentSelection extends OsgiliathService implement
 				for(int i = 0; i<tournamentSize;i++){
 					Individual parent = pop.getRandomIndividual();
 					
-					while(parents.contains(parent)){
+					/*while(parents.contains(parent)){
 						parent = pop.getRandomIndividual();
-					}
+					}*/
 					
 					tournament.add(pop.getRandomIndividual());
 				}

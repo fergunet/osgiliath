@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" name="EventStopCriterionn">
+   <implementation class="es.osgiliath.evolutionary.basicimplementations.stopcriterions.EventStopCriterion"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.StopCriterion"/>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetalgorithmParameters"/>
+   <property name="event.topics" type="String" value="OSGILIATH/EVALUATION/MAX"/>
+</scr:component>

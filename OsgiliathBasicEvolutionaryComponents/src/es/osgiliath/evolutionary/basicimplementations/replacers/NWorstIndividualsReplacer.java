@@ -12,8 +12,8 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 public class NWorstIndividualsReplacer extends OsgiliathService implements Replacer {
 
 	/*
-	 * Adds the whole new offspring to the Population and removes the ReplacerSize worst individuals
-	 * (obtainted from AlgorithmParameters service) worst individuals
+	 * Adds the whole new offspring to the Population and removes worst individuals to keep the population size
+	 * (obtained from AlgorithmParameters service) worst individuals
 	 * @see es.ugr.osgiliath.evolutionary.components.selectors.Replacer#select(es.ugr.osgiliath.evolutionary.components.Population, java.util.List, java.util.List)
 	 */
 	
@@ -23,17 +23,19 @@ public class NWorstIndividualsReplacer extends OsgiliathService implements Repla
 		//System.out.println("SELECTOR PRE");
 		//System.out.println("POP "+pop);
 		//EvolutionaryBasicParameters evParams = (EvolutionaryBasicParameters) this.getAlgorithmParameters();
-		
+		int popSize = pop.getSize();
 		for(Individual i:offspring)
 			pop.addIndividual(i);
-		int replacerSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.REPLACER_SIZE);
-		int removed = (offspring.size() < replacerSize)?offspring.size():replacerSize;
+		//int replacerSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.REPLACER_SIZE);
+		//int removed = (offspring.size() < replacerSize)?offspring.size():replacerSize;
+		int removed = pop.getSize() - popSize;
 		List<Individual> worst = pop.getNWorstIndividuals(removed);
-		List<Individual> best = pop.getNBestIndividuals(1);
+		//List<Individual> best = pop.getNBestIndividuals(1);
 		
 		for(Individual i:worst)
 			pop.removeIndividual(i);
-		System.out.println(best);
+		//System.out.println(best);
+		//System.out.println("POP SIZE"+pop.getSize());
 		//System.out.println("SELECTOR POST");
 		//System.out.println("POP "+pop);
 		//System.out.println("====================================================");

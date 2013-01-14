@@ -5,6 +5,7 @@ import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BooleanGene;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
+import es.ugr.osgiliath.evolutionary.individual.Gene;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 
 
@@ -25,7 +26,9 @@ public class BooleanFlipListMutation extends OsgiliathService implements Mutatio
 		
 		
 		double rate = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_PROB);
-		int genesize = lg.getGeneList().size();
+		
+		//A number
+		/*int genesize = lg.getGeneList().size();
 		int genesToMutate = (int) (genesize*rate); 
 				
 		for(int i = 0; i<genesToMutate;i++){
@@ -34,8 +37,21 @@ public class BooleanFlipListMutation extends OsgiliathService implements Mutatio
 				BooleanGene newg = new BooleanGene(!g.getValue());
 				lg.getGeneList().set(gene, newg);
 			
-		}
+		}*/
+		
+		
+		//One to one
+		for(int i = 0; i<lg.getGeneList().size();i++){
+			if(Math.random()<rate){
+				BooleanGene bg = (BooleanGene) lg.getGeneList().get(i);
+				BooleanGene newg = new BooleanGene(!bg.getValue());
+				lg.getGeneList().set(i, newg);
 				
+			}
+			
+			
+		}
+		
 		return lg;
 	}
 

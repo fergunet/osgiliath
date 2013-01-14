@@ -25,28 +25,49 @@ public class MigrationRingBuffer extends OsgiliathService implements Migrator {
 		if(migrators.size() == 0)
 			return;
 		
-		int destination = migrators.get(0).getId();
-		int pos = 0;
-		int min = destination;
-		int max = destination;
+		int destinationId = Integer.MAX_VALUE;
+		int minId = Integer.MAX_VALUE;
 		
-		for(int i = 1; i<migrators.size();i++){
+		int destinationPos = -1;
+		int minPos = -1;
+		
+		for(int i = 0; i<migrators.size();i++){
 			Migrator m = migrators.get(i);
-			int actual = m.getId();
-			if(actual > this.id && actual<destination){
-				destination = actual;
-				pos = i;
+			int actualId = m.getId();
+			
+			//System.out.println("YO: "+this.id+" actual: "+actualId);
+			
+			if(actualId > this.id){
+				if(actualId < destinationId){
+					destinationId = actualId;
+					destinationPos = i;
+					//System.out.println("IF 1 DESTINATION "+destinationId);
+				}
+				
+			}
+			
+			if(actualId < minId){
+				minPos = i;
+				minId = actualId;
+				
 			}
 		}
 		
-		if(this.id == max)
-			destination = min;
+		if(destinationId == Integer.MAX_VALUE){
+			destinationId = minId;
+			destinationPos = minPos;
+			//System.out.println("IF 2 DESTINATION "+destinationId);
+		}
 	
 		
 		
 		//Send the individuals
-		migrators.get(pos).sendREMOTE(inds);
-		//System.out.println("ENVIADO "+inds.size()+" DESDE "+this.id+" A "+destination);
+		System.out.println("ENVIADO "+inds.size()+" DESDE "+this.id+" A "+destinationId);
+		migrators.get(destinationPos).sendREMOTE(inds);
+		for(Individual in:inds)
+			if(in==null)
+				System.out.println("ESTOY ENVIANDO UNO NULL!");
+		
 		
 		/*int numSent = inds.size();
 		if(this.getEventAdmin() != null)
@@ -56,7 +77,7 @@ public class MigrationRingBuffer extends OsgiliathService implements Migrator {
 	
 	public void activate(){
 		this.id = Integer.parseInt(this.getFrameworkId());
-		//System.out.println("MIGRATOR ACTIVATED: "+this.id);
+		System.out.println("MIGRATOR ACTIVATED: "+this.id);
 		this.buffer = new ArrayList<Individual>();
 		this.migrators = new ArrayList<Migrator>();
 	}
@@ -79,6 +100,7 @@ public class MigrationRingBuffer extends OsgiliathService implements Migrator {
 	}
 	
 	public void removeMigrator(Migrator mig){
+		System.out.println("--------------MIGRATOR -REMOVED- FROM "+mig.getId());
 		migrators.remove(mig);
 		
 	}
@@ -95,6 +117,7 @@ public class MigrationRingBuffer extends OsgiliathService implements Migrator {
 	@Override
 	public void sendREMOTE(ArrayList<Individual> inds) {
 		//System.out.println("RECIBI "+inds.size());
+		//THIS CODE IS EXECUTED LOCALLY, BUT CALLED REMOTELLY
 		this.buffer.addAll(inds);
 		
 		

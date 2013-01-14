@@ -5,6 +5,7 @@
       <provide interface="org.osgi.service.event.EventHandler"/>
       <provide interface="es.ugr.osgiliath.utils.Logger"/>
    </service>
-	<property name="event.topics" type="String" value="OSGILIATH/RESET"/>
+	<property name="event.topics" type="String" value="OSGILIATH/*"/>
  <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+ <reference bind="setACUBank" cardinality="1..1" interface="es.ugr.osgiliath.acu.ACUBank" name="ACUBank" policy="static" unbind="unsetACUBank"/>
 </scr:component>

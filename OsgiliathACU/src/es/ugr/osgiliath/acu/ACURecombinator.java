@@ -24,15 +24,18 @@ public class ACURecombinator extends OsgiliathService implements Recombinator{
 		//System.out.println("UPX");
 		ArrayList<Individual> offspring = new ArrayList<Individual>();
 		
+		int crossoverPrize = (Integer)this.getAlgorithmParameters().getParameter(ACUParameters.ACU_CROSSOVER_PRIZE);
 		for(int i=0;i<parents.size()-1;i=i+2){
 			MetaACUIndividual father = (MetaACUIndividual)parents.get(i);
 			MetaACUIndividual mother = (MetaACUIndividual)parents.get(i+1);
 			
-			father.decreaseACUs(acubank.getCrossoverPrize());
-			mother.decreaseACUs(acubank.getCrossoverPrize());
+			
+			this.acubank.decreaseACUs(crossoverPrize*2);
+			//father.decreaseACUs(acubank.getCrossoverPrize());
+			//mother.decreaseACUs(acubank.getCrossoverPrize());
 
 			ArrayList<Genome> childsgenomes = crossover.cross(father.getGenome(), mother.getGenome());
-			double newMigration = (father.getMigrationProb()+mother.getMigrationProb())/2;
+			//double newMigration = (father.getMigrationProb()+mother.getMigrationProb())/2;
 			
 			//Create new childs
 			//System.out.println("MOTHER "+mother.getGenome());
@@ -41,13 +44,13 @@ public class ACURecombinator extends OsgiliathService implements Recombinator{
 				//System.out.println("CHILD  "+g);
 				MetaACUIndividual mchild = new MetaACUIndividual();
 				mchild.setGenome(g);
-				mchild.setMigrationProb(newMigration);
-				ArrayList<MetaACUIndividual> fathers = new ArrayList<MetaACUIndividual>();
-				fathers.add(father);
-				fathers.add(mother);
-				mchild.setFathers(fathers);
+				//mchild.setMigrationProb(newMigration);
+				//ArrayList<MetaACUIndividual> fathers = new ArrayList<MetaACUIndividual>();
+				//fathers.add(father);
+				//fathers.add(mother);
+				//mchild.setFathers(fathers);
 				mchild.setIslandId(this.getFrameworkId());
-				mchild.increaseACUs(((Integer)this.getAlgorithmParameters().getParameter(ACUParameters.ACU_INITIAL_ACUS)).intValue());
+				//mchild.increaseACUs(((Integer)this.getAlgorithmParameters().getParameter(ACUParameters.ACU_INITIAL_ACUS)).intValue());
 				offspring.add(mchild);
 			}
 

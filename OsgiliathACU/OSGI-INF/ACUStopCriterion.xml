@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" name="ACUStopCriterion">
+   <implementation class="es.ugr.osgiliath.acu.ACUStopCriterion"/>
+   <reference bind="setBank" cardinality="1..1" interface="es.ugr.osgiliath.acu.ACUBank" name="ACUBank" policy="static" unbind="unsetBank"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.StopCriterion"/>
+   </service>
+</scr:component>

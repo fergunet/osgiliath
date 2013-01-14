@@ -3,6 +3,7 @@ package es.ugr.osgiliath.acu;
 import java.util.ArrayList;
 
 import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
 import es.ugr.osgiliath.evolutionary.elements.Mutator;
@@ -23,7 +24,7 @@ public class ACUMutator extends OsgiliathService implements Mutator{
 		
 		for(Individual ind: individuals){
 			MetaACUIndividual mind = (MetaACUIndividual) ind;
-			//double prob = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_PROB);
+			double prob = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_PROB);
 			double rand = Math.random();
 			//double stepSize = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_STEPSIZE);
 			//TODO ACUStepSize?
@@ -31,7 +32,7 @@ public class ACUMutator extends OsgiliathService implements Mutator{
 			
 			
 			//if(rand<prob){
-			if(mind.getACUs()>acuBank.getMutationPrize()){
+			//if(mind.getACUs()>acuBank.getMutationPrize()){
 				//System.out.println("MUT ANTES:"+ind);
 				/*int siz = gen.getGeneList().size();
 				double position = Math.random()*siz;
@@ -47,12 +48,14 @@ public class ACUMutator extends OsgiliathService implements Mutator{
 				Genome newGenome = this.mutation.mutate(genome);
 				mind.setGenome(newGenome);
 				
-				mind.decreaseACUs(acuBank.getMutationPrize());
+				//mind.decreaseACUs(acuBank.getMutationPrize());
 				
 				//System.out.println("DESPUES "+ind.getGenome());
 				mutated.add(mind);
 				
-			}
+				int mutationPrize = (Integer) this.getAlgorithmParameters().getParameter(ACUParameters.ACU_MUTATION_PRIZE);
+				this.acuBank.decreaseACUs(mutationPrize);
+			//}
 			
 			
 			

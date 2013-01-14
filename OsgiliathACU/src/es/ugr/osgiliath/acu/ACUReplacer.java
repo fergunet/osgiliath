@@ -25,6 +25,7 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 	Migrator migrator;
 	Logger log;
 	int bank;
+	int nGenCounter;
 	
 	@Override
 	public  void select(Population pop, ArrayList<Individual> parents,
@@ -34,7 +35,8 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 		
 		
 		////////////////////////// REWARDING
-		int reward = rewardingAverage(offspring, pop);
+		int reward = 0; //comment
+		//int reward = rewardingAverage(offspring, pop);
 		
 		///////////////////////// ADDING
 		pop.addIndividuals(offspring);
@@ -45,45 +47,24 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 		removeWorstIndividuals(removed, pop);
 		//System.out.println("REPLACER: DELETED INDIVIDUALS "+removed);
 
+		
 		/////////////////////MIGRATION
-
-
-		List<Individual> popinds = pop.getAllIndividuals(); //TODO decidir si esto es referencia o no (mejor sería no)
-
-		ArrayList<Individual> toSend = new ArrayList<Individual>();
-
-		String migrationType = (String) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_TYPE);
+		long sentTime = 0;
+		ArrayList<Individual> sents = new ArrayList<Individual>();
 		
-		if(migrationType.equals("ACU")){
-			for(Individual ind:popinds){
-				MetaACUIndividual mind = (MetaACUIndividual) ind;
-				int acusPerMigration = (Integer) this.getAlgorithmParameters().getParameter(ACUParameters.ACU_MIGRATION_PRIZE);
-				if((mind.getACUs()>acusPerMigration) ){// && mind.getMigrationProb()>0.5){
-					toSend.add(mind); //clone
-					mind.decreaseACUs(acusPerMigration);
-				}
-
-			}
-		}
+		int migrationGens = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_GENS);
+		if(nGenCounter == migrationGens){
+			sentTime = System.nanoTime();
+			sents = migrate(pop);
+			sentTime = System.nanoTime() - sentTime;
+			nGenCounter = 0;
+		}else
+			nGenCounter++;
 		
-		if(migrationType.equals(EvolutionaryBasicParameters.BEST)){
-			int indsToMigrate = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_SIZE);
-			toSend = pop.getNBestIndividuals(indsToMigrate);
-		}
 		
-		if(migrationType.equals(EvolutionaryBasicParameters.RANDOM)){
-			int indsToMigrate = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_SIZE);
-			for(int i = 0; i<indsToMigrate;i++)
-				toSend.add(pop.getRandomIndividual());
-		}
-		
-
-		//TODO RESETEAR ACUs o mantenerlos??
-		migrator.sendLOCAL(toSend); //POR AHORA CONSERVAN LOS ACUS
-
-
 		////////////////////// RECEPTION
-		ArrayList<Individual> received = migrator.readLOCAL();
+		ArrayList<Individual> received = this.migrator.readLOCAL();
+		//System.out.println("RECEIVED "+received.size());
 		int receivedSize = received.size();
 		if(receivedSize>0){
 			for(int z = 0; z<received.size(); z++){
@@ -100,14 +81,61 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 			removeWorstIndividuals(receivedSize, pop);	
 		}
 
-
+	
 		/////////////////////  ANALYSIS
-		this.analyzeInformation(pop, received, toSend,reward);
+		this.analyzeInformation(pop, received, sents,reward, sentTime);
 
 
 	}
 
-	private void analyzeInformation(Population pop, ArrayList<Individual> received, ArrayList<Individual> sent, int reward){
+	private ArrayList<Individual> migrate(Population pop){
+			ArrayList<Individual> toSend = new ArrayList<Individual>(); //comment
+			
+			
+			
+			
+
+			List<Individual> popinds = pop.getAllIndividuals(); //TODO decidir si esto es referencia o no (mejor sería no)
+
+			
+
+			String migrationType = (String) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_TYPE);
+			
+			if(migrationType.equals("ACU")){
+				for(Individual ind:popinds){
+					MetaACUIndividual mind = (MetaACUIndividual) ind;
+					int acusPerMigration = (Integer) this.getAlgorithmParameters().getParameter(ACUParameters.ACU_MIGRATION_PRIZE);
+					if((mind.getACUs()>acusPerMigration) ){// && mind.getMigrationProb()>0.5){
+						toSend.add(mind); //clone
+						mind.decreaseACUs(acusPerMigration);
+					}
+
+				}
+			}
+			
+			if(migrationType.equals(EvolutionaryBasicParameters.BEST)){
+				int indsToMigrate = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_SIZE);
+				toSend = pop.getNBestIndividuals(indsToMigrate);
+			}
+			
+			if(migrationType.equals(EvolutionaryBasicParameters.RANDOM)){
+				int indsToMigrate = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MIGRATION_SIZE);
+				for(int i = 0; i<indsToMigrate;i++)
+					toSend.add(pop.getRandomIndividual());
+			}
+			
+			
+			
+			
+
+			//TODO RESETEAR ACUs o mantenerlos??
+			
+			migrator.sendLOCAL(toSend); //POR AHORA CONSERVAN LOS ACUS
+			
+			return toSend;
+	}
+	
+	private void analyzeInformation(Population pop, ArrayList<Individual> received, ArrayList<Individual> sent, int reward, long sentTime){
 
 		List<Individual> all = pop.getAllIndividuals();
 
@@ -225,7 +253,8 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 				percForeignsStr+";"+
 				sent.size()+";"+
 				received.size()+";" +
-				reward+
+				reward+";"+
+				sentTime+
 				"\n");
 
 
@@ -233,6 +262,12 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 
 	}
 	
+	/**
+	 * Rewards the individuals of the list
+	 * @param offspring
+	 * @param pop
+	 * @return The number of ACUs rewarded to all the list
+	 */
 	private int rewardingAverage(List<Individual> offspring, Population pop){
 		
 		int totalAcus = 0;
@@ -320,6 +355,7 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 	public void reset() {
 		this.migrator.reset();
 		this.bank = (Integer)this.getAlgorithmParameters().getParameter(ACUParameters.ACU_BANK);
+		this.nGenCounter = 0;
 	}
 	
 	//TODO in OSGiliathService?

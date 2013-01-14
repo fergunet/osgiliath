@@ -13,6 +13,7 @@ public interface  Problem extends Serializable{
 	public void unsetProblemParameters(ProblemParameters problemParams);
 	public ProblemParameters getParameters();
 	public InputData getInputData();
+	
 	//public Logger getLogger();
 	//public void setLogger(Logger log); //ESTO MEJOR A EXPERIMENTO
 	//public SolutionValue evaluateSolution(Solution solution);

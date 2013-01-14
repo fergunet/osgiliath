@@ -8,6 +8,7 @@ public interface Logger {
 	public void error(String message);
 	public void debug(String message);
 	public void stats(String message);
+	public void statsX(String message, String appendix);
 	public void setup(Properties props);
 	
 	public static final String INFO_PROP = "osgiliath.log.info";

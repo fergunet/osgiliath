@@ -2,7 +2,7 @@ package es.ugr.osgiliath.problem;
 
 import java.io.Serializable;
 
-public interface Solution extends Serializable{
+public interface Solution extends Serializable, Comparable{
 	
 	public void setSolutionValue(SolutionValue sValue);
 	

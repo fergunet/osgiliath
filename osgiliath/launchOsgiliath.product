@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Osgiliath" uid="Osgiliath" application="org.eclipse.ui.ide.workbench" version="0.1" useFeatures="false" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -console -Dequinox.ds.print=true -clean</programArgs>
+      <vmArgs>-Declipse.ignoreApp=true -Dosgi.noShutdown=true -DosgiliathIP=pepe -DframeworkID=1 -DosgiliathPort=3781 -Decf.remotecall.timeout=60000 -Xbootclasspath/a:/home/pgarcia/profiler/lib/jfluid-server.jar -Dorg.osgi.framework.bootdelegation=org.netbeans.lib.profiler.*</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="OsgiliathACU"/>
+      <plugin id="OsgiliathBasicEvolutionaryComponents"/>
+      <plugin id="OsgiliathBinaryProblems"/>
+      <plugin id="OsgiliathDistributionUtils"/>
+      <plugin id="OsgiliathEvolutionaryAlgorithm"/>
+      <plugin id="OsgiliathExperimentLauncher"/>
+      <plugin id="OsgiliathFunctionsProblems"/>
+      <plugin id="es.ugr.osgiliath"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.ecf"/>
+      <plugin id="org.eclipse.ecf.discovery"/>
+      <plugin id="org.eclipse.ecf.identity"/>
+      <plugin id="org.eclipse.ecf.osgi.services.distribution"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin"/>
+      <plugin id="org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy"/>
+      <plugin id="org.eclipse.ecf.provider"/>
+      <plugin id="org.eclipse.ecf.provider.jmdns"/>
+      <plugin id="org.eclipse.ecf.provider.remoteservice"/>
+      <plugin id="org.eclipse.ecf.remoteservice"/>
+      <plugin id="org.eclipse.ecf.sharedobject"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.cm"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.concurrent"/>
+      <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.osgi.services.remoteserviceadmin"/>
+   </plugins>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.cm" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
+   </configurations>
+
+</product>

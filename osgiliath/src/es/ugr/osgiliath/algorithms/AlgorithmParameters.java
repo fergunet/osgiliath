@@ -9,6 +9,7 @@ public interface AlgorithmParameters extends Serializable {
 	public void setup(Properties props);
 	public Object getParameter(String key);
 	public ArrayList<String> getKeys();
+	public boolean updateParameter(String key, Object newValue);
 	
 
 

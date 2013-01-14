@@ -19,6 +19,7 @@ public class EventCreator{
 	public static final String TOPIC_FITNESS_AVERAGE = TOPIC_ROOT+"/FITNESS/AVERAGE";
 	public static final String TOPIC_FITNESS_MAX = TOPIC_ROOT+"/FITNESS/MAX";
 	public static final String TOPIC_RESET = TOPIC_ROOT+"/RESET";
+	public static final String TOPIC_GENERIC = TOPIC_ROOT+"/GENERIC";
 	
 	public static final String PROP_ID = "id";
 	public static final String PROP_EVALUATIONS_NUMBER = "evaluations_number";
@@ -27,6 +28,7 @@ public class EventCreator{
 	public static final String PROP_FITNESS_AVERAGE = "fitness_average";
 	public static final String PROP_FITNESS_MAX = "fitness_max";
 	public static final String PROP_LOCAL = "local";
+	public static final String PROP_INFO = "info";
 	
 	public static String IDFRAMEWORK = System.getProperty("frameworkID");
 	public static Event createEvaluationsEvent(int newEvaluations, boolean local){
@@ -110,6 +112,14 @@ public class EventCreator{
 		dict.put(PROP_LOCAL,new Boolean(true));
 		return new Event(TOPIC_RESET, dict);
 		
+	}
+	
+	public static Event createGenericEvent(String info, boolean local){
+		Dictionary dict = new Properties();
+		dict.put(PROP_ID, IDFRAMEWORK); //TODO ARREGLAR ESTO
+		dict.put(PROP_LOCAL,new Boolean(true));
+		dict.put(PROP_INFO, info);
+		return new Event(TOPIC_GENERIC, dict);		
 	}
 
 }

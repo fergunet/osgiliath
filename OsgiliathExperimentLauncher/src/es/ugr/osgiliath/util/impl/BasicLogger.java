@@ -46,4 +46,10 @@ public class BasicLogger implements Logger{
 		
 	}
 
+	@Override
+	public void statsX(String message, String appendix) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

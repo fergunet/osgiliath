@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="OsgiliathExperimentLauncher">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ExperimentLauncher">
    <implementation class="es.ugr.osgiliath.experimentlauncher.Launcher"/>
    <service>
       <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
    </service>
    <reference bind="addAlgorithm" cardinality="0..n" interface="es.ugr.osgiliath.algorithms.Algorithm" name="Algorithm" policy="dynamic" unbind="removeAlgorithm"/>
-   <reference bind="addParameters" cardinality="0..n" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="dynamic" unbind="removeParameters"/>
+   <reference bind="addParameters" cardinality="1..n" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="dynamic" unbind="removeParameters"/>
    <reference bind="addProblem" cardinality="0..n" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="removeProblem"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
 </scr:component>

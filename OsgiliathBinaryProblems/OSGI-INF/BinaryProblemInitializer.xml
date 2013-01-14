@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="BinaryProblemInitializer">
+   <implementation class="es.ugr.osgiliath.problem.binary.BinaryProblemRandomInitializer"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.individual.Initializer"/>
+   </service>
+   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static" unbind="unsetFitnessCalculator"/>
+   <property name="name" type="String" value="binaryinitializer"/>
+   <reference bind="setProblem" cardinality="1..1" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="unsetProblem"/>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+</scr:component>

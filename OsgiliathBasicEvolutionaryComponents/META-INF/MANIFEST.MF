@@ -17,6 +17,6 @@ Export-Package: es.osgiliath.evolutionary.basicimplementations.combinators,
  es.osgiliath.evolutionary.basicimplementations.populations,
  es.osgiliath.evolutionary.basicimplementations.replacers,
  es.osgiliath.evolutionary.basicimplementations.selectors,
- es.osgiliath.evolutionary.basicimplementations.stopcriterions,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
- es.ugr.osgiliath.evolutionary.basiccomponents.individuals
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions

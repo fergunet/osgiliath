@@ -13,5 +13,5 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.individual,
  es.ugr.osgiliath.problem,
  org.osgi.framework;version="1.3.0",
- org.osgi.service.event;version="1.3.0"
+ org.osgi.service.event
 Service-Component: OSGI-INF/FitnessCalculator.xml, OSGI-INF/BinaryProblemInitializer.xml, OSGI-INF/BinaryProblem.xml

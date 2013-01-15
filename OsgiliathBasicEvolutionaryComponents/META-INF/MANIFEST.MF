@@ -11,7 +11,7 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.elements,
  es.ugr.osgiliath.evolutionary.individual,
  es.ugr.osgiliath.problem,
- org.osgi.service.event;version="1.3.0"
+ org.osgi.service.event
 Service-Component: OSGI-INF/Crossover.xml, OSGI-INF/StopCriterion.xml, OSGI-INF/Population.xml, OSGI-INF/Mutation.xml, OSGI-INF/Selector.xml, OSGI-INF/Replacer.xml, OSGI-INF/Mutator.xml, OSGI-INF/Recombinator.xml
 Export-Package: es.osgiliath.evolutionary.basicimplementations.combinators,
  es.osgiliath.evolutionary.basicimplementations.populations,

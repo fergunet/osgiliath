@@ -38,7 +38,7 @@ public class ACUInitializer extends OsgiliathService implements Initializer{
 			this.initializer = init;
 		}
 
-		public void unsetInitializer(FitnessCalculator init){
+		public void unsetInitializer(Initializer init){
 			this.initializer = null;
 		}
 

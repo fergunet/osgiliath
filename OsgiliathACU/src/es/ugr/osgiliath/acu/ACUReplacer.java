@@ -363,7 +363,7 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 		this.log = log;
 	}
 	
-	public void unsetLoggeR(Logger log){
+	public void unsetLogger(Logger log){
 		this.log = null;
 	}
 

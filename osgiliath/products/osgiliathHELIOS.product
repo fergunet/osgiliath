@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Osgiliath" uid="osgiliath" application="org.eclipse.ui.ide.workbench" version="1" useFeatures="false" includeLaunchers="true">
+<product name="Osgiliath" application="org.eclipse.ui.ide.workbench" version="1" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -11,7 +11,6 @@
       <vmArgs>-Declipse.ignoreApp=true -Dosgi.noShutdown=true -DosgiliathIP=evorq.ugr.es -DframeworkID=1 -DosgiliathPort=3783 -Decf.remotecall.timeout=60000 -DparameterFile=/home/pgarcia/Escritorio/pruebas/parameter.properties</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
-
 
    <launcher>
       <solaris/>

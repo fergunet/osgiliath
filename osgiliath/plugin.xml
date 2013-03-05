@@ -6,11 +6,47 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="org.eclipse.ant.core.antRunner"
-            name="Evolutionary Algorithm">
+            application="org.eclipse.ui.ide.workbench"
+            name="Osgiliath">
          <property
                name="appName"
-               value="Evolutionary Algorithm">
+               value="Osgiliath">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product1"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ant.core.antRunner"
+            name="Osgiliath">
+         <property
+               name="appName"
+               value="Osgiliath">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product2"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ant.core.antRunner"
+            name="Osgiliath">
+         <property
+               name="appName"
+               value="Osgiliath">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product3"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            name="Osgiliath">
+         <property
+               name="appName"
+               value="Osgiliath">
          </property>
       </product>
    </extension>

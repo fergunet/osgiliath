@@ -13,6 +13,10 @@ Import-Package: es.ugr.osgiliath.algorithms,
  es.ugr.osgiliath.evolutionary.individual,
  es.ugr.osgiliath.evolutionary.individual.comparators,
  es.ugr.osgiliath.problem,
- org.osgi.framework;version="1.7.0"
+ org.osgi.framework;version="1.7.0",
+ processing.core,
+ processing.data,
+ processing.event,
+ processing.opengl
 Bundle-Activator: es.ugr.osgiliart.ArtisticActivator
 Export-Package: es.ugr.osgiliart

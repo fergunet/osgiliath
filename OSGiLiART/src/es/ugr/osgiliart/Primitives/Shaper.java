@@ -6,8 +6,10 @@ import java.awt.Point;
 
 //Clase padre de donde derivan todas las demas primitivas
 public class Shaper {
+	
 	private
 		Point p; //Coordenadas de posicion
+	
     public
     	void setLocation(int x, int y) // Asignar  la posicion de la figura
     	{

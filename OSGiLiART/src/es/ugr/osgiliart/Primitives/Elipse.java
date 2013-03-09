@@ -1,8 +1,11 @@
 package es.ugr.osgiliart.Primitives;
 
+// La elipse.
 public class Elipse extends Figura {
+	
 private
-	double height, width;
+	double height, width; // Alto y ancho
+
 public
 void setHeight(int h)
 {

@@ -1,9 +1,9 @@
 package es.ugr.osgiliart.Primitives;
 
-
+// El rect‡ngulo.
 public class Rectangle extends Shaper {
 	private
-		double height, width;
+		double height, width; // El alto y ancho.
 	public
 		
 		double GetAncho()

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OsgiliathHumanGuidance
+Bundle-SymbolicName: OsgiliathHumanGuidance
+Bundle-Version: 0.1
+Bundle-Activator: osgiliathhumanguidance.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.osgi.framework;version="1.3.0"

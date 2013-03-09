@@ -6,23 +6,23 @@ public class Rectangle extends Shaper {
 		double height, width; // El alto y ancho.
 	public
 		
-		double GetAncho()
+		double getAncho()
 		{
 			return width;
 		}
 	
-		double GetAlto()
+		double getAlto()
 		{
 			return height;
 		}
 		
 
-		void SetAlto( int h)
+		void setAlto( int h)
 		{
 			 height = h;
 		}
 		
-		void SetAncho(int w)
+		void setAncho(int w)
 		{
 			width = w;
 		}

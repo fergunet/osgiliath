@@ -1,11 +1,11 @@
 package es.ugr.osgiliart.Primitives;
 
-
+// El tri‡ngulo.
 public class Triangle extends Shaper {
 	
 	private
 	
-	double height, width;
+	double height, width; //El alto y el ancho.
 	
 	public
 	

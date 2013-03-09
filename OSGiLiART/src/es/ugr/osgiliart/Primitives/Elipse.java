@@ -7,21 +7,22 @@ private
 	double height, width; // Alto y ancho
 
 public
-void setHeight(int h)
-{
-	height = h;
-}
-void setWidth(int w)
-{
-	width = w;
-}
-double GetWidth()
-{
-	return width;
-}
-double GetHeight()
-{
-	return height;
-}
+	void setHeight(int h)
+	{
+		height = h;
+	}
+	void setWidth(int w)
+	{
+		width = w;
+	}
+	double GetWidth()
+	{
+		return width;
+	}
+	double GetHeight()
+	{
+		return height;
+	}
+
 }
 

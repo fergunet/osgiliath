@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ProcessingBundle
+Bundle-SymbolicName: ProcessingBundle
+Bundle-Version: 1.0.0
+Bundle-ClassPath: core.jar
+Export-Package: japplemenubar,
+ processing.core,
+ processing.data,
+ processing.event,
+ processing.opengl
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

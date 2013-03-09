@@ -8,5 +8,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/OsgiliathFunctionsProblems"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/OsgiliathIntelligentManager"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/OsgiliathNSGA2"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OSGiLiART"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ProcessingBundle"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OsgiliathExperimentLauncher"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

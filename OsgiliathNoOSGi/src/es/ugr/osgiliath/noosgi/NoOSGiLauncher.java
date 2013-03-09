@@ -9,7 +9,7 @@ public class NoOSGiLauncher {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		AlgorithmLauncher launcher = new AlgorithmLauncher();
+		ArtisticAlgorithmLauncher launcher = new ArtisticAlgorithmLauncher();
 		Stopwatch sw = new Stopwatch();
 		
 		launcher.launchAlgorithm();

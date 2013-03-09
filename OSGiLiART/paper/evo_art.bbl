@@ -1,9 +1,17 @@
 \begin{thebibliography}{1}
 
-\bibitem{den2010comparing}
-E~Den~Heijer and A~Eiben.
-\newblock Comparing aesthetic measures for evolutionary art.
-\newblock {\em Applications of Evolutionary Computation}, pages 311--320, 2010.
+\bibitem{den2012evolving}
+E~den Heijer and A~Eiben.
+\newblock Evolving pop art using scalable vector graphics.
+\newblock {\em Evolutionary and Biologically Inspired Music, Sound, Art and
+  Design}, pages 48--59, 2012.
+
+\bibitem{dipaola2009incorporating}
+Steve DiPaola and Liane Gabora.
+\newblock Incorporating characteristics of human creativity into an
+  evolutionary art algorithm.
+\newblock {\em Genetic Programming and Evolvable Machines}, 10(2):97--110,
+  2009.
 
 \bibitem{galanter2012computational}
 Philip Galanter.

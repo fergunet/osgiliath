@@ -27,6 +27,10 @@
 
 \section{State of the art}
 
+Creative evolutionary systems are used to evolve aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}.
+
+MAIN CHALLENGE -> HOW TO MEASURE AESTHETIC.
+
 \subsection{Aesthetic measures for evolutive art}
 
 {\bf Definition} Two modes of aesthetics measures can be defined \cite{galanter2012computational}: 
@@ -38,7 +42,7 @@
 
 According to Galanter \cite{galanter2012computational}, computational aesthetics measures can be classified in the following categories:
 \begin{itemize}
-	\item Based on Formulaic and Geometric Theories. The aesthetics of a piece of art are evaluated using a formula o principle (e.g., pythagorean proportions).
+	%\item Based on Formulaic and Geometric Theories. The aesthetics of a piece of art are evaluated using a formula o principle (e.g., pythagorean proportions).
 	\item Based in Design Principles. Like the rule of thirds or theory of color (e.g., opposite colors) \cite{den2012evolving}.
 	\item Based in Neural Networks and Connective Models. 
 	\item Based in Evolutionary Systems:
@@ -51,6 +55,49 @@ According to Galanter \cite{galanter2012computational}, computational aesthetics
 			\item Extensions to EA (such as, coevolution, agent swarm behavior, etc.).
 		\end{itemize}
 	\item Complexity Based Models
+\end{itemize}
+
+%PAPERS LEÍDOS
+En \cite{li2012investigating}, Li et al. proponen las siguiente métricas para el aprendizaje estético:
+\begin{itemize}
+	\item Color ingredient.
+	\item Image complexity.
+	\item Image order.
+	\item MC metric.
+	\item BL Metric.
+\end{itemize}
+
+En \cite{den2010using}, presenta una comparación de tres métricas estéticas:
+\begin{itemize}
+	\item Benford Law.
+	\item Global Contrast Factor.
+	\item Information Theory.
+\end{itemize}
+
+En \cite{den2010comparing}, presenta una comparación de cuatro métricas estéticas:
+\begin{itemize}
+	\item Machado and Cardoso.
+	\item Ross and Ralph.
+	\item Fractal Dimension.
+	\item A weighted Sum of the above mentioned metrics.
+\end{itemize}
+
+En \cite{den2011evolving} se presenta una aproximación multi-objetivo para arte evolutivo. Las tres funciones de fitness utilizadas son:
+\begin{itemize}
+	\item Benford Law.
+	\item Global Contrast Factor.
+	\item Ross and Ralph (bell curve).
+\end{itemize}
+
+
+En \cite{den2012evolving} se presenta un AE para crear arte evolutiva a partir de imágenes vectorizadas. La función de fitness utilizada es la diferencia de tono entre  distintas regiones de la imagen a distintas resoluciones.
+
+En \cite{dipaola2009incorporating} they present an automatic fitness function specific to portrait painting based in four scores:
+\begin{itemize}
+	\item Resemblance.
+	\item Composition (face vs background).
+	\item Tonality.
+	\item Color.
 \end{itemize}
 
 %\subsection{}

@@ -29,6 +29,7 @@
       <plugin id="OsgiliathBasicEvolutionaryComponents"/>
       <plugin id="OsgiliathEvolutionaryAlgorithm"/>
       <plugin id="OsgiliathExperimentLauncher"/>
+      <plugin id="ProcessingBundle"/>
       <plugin id="es.ugr.osgiliath"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
@@ -56,6 +57,7 @@
       <plugin id="OsgiliathBasicEvolutionaryComponents" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathEvolutionaryAlgorithm" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathExperimentLauncher" autoStart="true" startLevel="0" />
+      <plugin id="ProcessingBundle" autoStart="true" startLevel="0" />
       <plugin id="es.ugr.osgiliath" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />

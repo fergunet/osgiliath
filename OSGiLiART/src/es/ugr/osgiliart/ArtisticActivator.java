@@ -1,5 +1,7 @@
 package es.ugr.osgiliart;
 
+import javax.swing.JOptionPane;
+
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -18,6 +20,7 @@ public class ArtisticActivator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		ArtisticActivator.context = bundleContext;
 		System.out.println("ART START");
+		Histogram.Test();
 	}
 
 	/*

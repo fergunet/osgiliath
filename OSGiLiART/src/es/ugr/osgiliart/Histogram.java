@@ -1,9 +1,10 @@
 package es.ugr.osgiliart;
 
 import processing.core.*;
+import processing.opengl.PGraphics2D;
 
 @SuppressWarnings("serial")
-public class Histogram extends PApplet{
+public class Histogram{
 	
 	public static final int HUE = 1;
 	public static final int SATURATION = 2;
@@ -11,10 +12,17 @@ public class Histogram extends PApplet{
 	public static final int RED = 4;
 	public static final int GREEN = 5;
 	public static final int BLUE = 6;
+	static PApplet app;
+	static{
+ app = new PApplet();
+		
+		app.init();
+		app.setup();
+	}
 	
 	public static void Test(String filename){
 		Histogram h = new Histogram();
-		h.init();
+		//h.init();
 		h.setup();
 		
 		
@@ -78,9 +86,14 @@ public class Histogram extends PApplet{
 
 		// Load an image from the data directory
 		// Load a different image by modifying the comments
-		PImage img = loadImage(filename);
-		size(img.width,img.height);
-		image(img, 0, 0);
+		
+		PImage img = app.loadImage(filename);
+		app.image(img, 0, 0);
+		app.size(img.width,img.height);
+		
+		
+		//size(img.width,img.height);
+		//image(img, 0, 0);
 		int[] hist = new int[256];
 		for(int i=0; i<hist.length; i++){
 			hist[i] = 0;
@@ -94,25 +107,25 @@ public class Histogram extends PApplet{
 			int value;
 			switch(type){
 			case HUE:
-				value = (int) hue(get(i, j));
+				value = (int) app.hue(img.get(i, j));
 				break;
 			case SATURATION:
-				value = (int) saturation(get(i, j));
+				value = (int) app.saturation(img.get(i, j));
 				break;
 			case BRIGHTNESS:
-				value = (int) brightness(get(i, j));
+				value = (int) app.brightness(img.get(i, j));
 				break;
 			case RED:
-				value = (int) red(get(i, j));
+				value = (int) app.red(img.get(i, j));
 				break;
 			case GREEN:
-				value = (int) green(get(i, j));
+				value = (int) app.green(img.get(i, j));
 				break;
 			case BLUE:
-				value = (int) blue(get(i, j));
+				value = (int) app.blue(img.get(i, j));
 				break;
 			default:
-				value = (int) hue(get(i, j));
+				value = (int) app.hue(img.get(i, j));
 				break;
 			}
 			
@@ -123,6 +136,8 @@ public class Histogram extends PApplet{
 		  }
 		}
 		
+		img = null;
+		//System.gc();
 		// Find the largest value in the histogram
 		//double histMax = max(hist);
 		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import es.ugr.osgiliart.ArtisticIndividual;
 import es.ugr.osgiliart.Histogram;
+import es.ugr.osgiliart.primitives.Drawer;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -13,30 +14,55 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 public class ArtisticHistogramFitnessCalculator extends OsgiliathService implements FitnessCalculator {
 
 	private static String imagePath;
+	private static int type = Histogram.HUE;
+	static double[] histogramBase;
+	
+	static{
+		Histogram h = new Histogram();
+		//h.init();
+		h.setup();
+		histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/circulos.png",type);
+		
+	}
+	public void setDrawer ( Drawer drawer ) {
+		this.drawer = drawer;
+	}
+	
+	public Drawer getDrawer () {
+		return this.drawer;
+	}
+	
+	Drawer drawer;
 
 	// Devuelve un valor entre 0 y 1
 	@Override
 	public Fitness calculateFitness(Individual ind) {
 		// TODO Auto-generated method stub
 		
-		ArtisticIndividual indi = (ArtisticIndividual) ind;
+		if ( ((ArtisticIndividual) ind).getGeneration() < 0) { 
+			return null;			
+		}
 		
+		ArtisticIndividual indi = (ArtisticIndividual) ind;
+		if(indi.getFitness()!=null)
+			return indi.getFitness();
+		System.out.println("llamamos a Drawer");
+		drawer.draw((ArtisticIndividual) ind);
 		//0. recuperar la imagen de ejemplo
 		Histogram h = new Histogram();
-		h.init();
+		//h.init();
 		h.setup();
 		
-		int type = Histogram.HUE;
 		
-		double[] histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/skyrim.jpg",type);
 		
 		
 		//1. generar la imagen en Processing
-		String dir = "/Users/fergunet/Desktop/fotos/alsa.png";
+		//String dir = "/Users/fergunet/Desktop/fotos/alsa.png";
 		// String dir = indi.generateImage();
 		
 		//2. calcular el histograma de la imagen
-		double[] histogramIndi =  h.getHistogram(dir, type);
+		String individualImage = indi.getImagePath();
+		double[] histogramIndi =  h.getHistogram(individualImage, type);
 		
 		//3. comparar el histograma con el 
 		return computeFitness(histogramBase, histogramIndi);

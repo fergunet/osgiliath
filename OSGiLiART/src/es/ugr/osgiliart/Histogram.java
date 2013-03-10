@@ -56,8 +56,13 @@ public class Histogram extends PApplet{
 		//VALUE
 		System.out.print("\nB: ");
 		histogram = h.getBlueHistogram(filename);
-		for(int i=0; i<histogram.length; ++i)
+		double total = 0;
+		for(int i=0; i<histogram.length; ++i) {
 			System.out.print(" "+histogram[i]+",");
+			total += histogram[i];
+		}
+		
+		System.out.println("\nTOTAL=" + total);
 		
 	}
 	
@@ -105,14 +110,14 @@ public class Histogram extends PApplet{
 				value = (int) hue(get(i, j));
 				break;
 			}
-			if (value > 0){
-				 hist[value]++;
-			}
+			
+			hist[value]++;
+			total++;
 		  }
 		}
 		
 		// Find the largest value in the histogram
-		double histMax = max(hist);
+		//double histMax = max(hist);
 		
 		/*if (total == histMax)
 			System.out.println("coinciden");*/
@@ -122,7 +127,7 @@ public class Histogram extends PApplet{
 		double[] histD = new double[256];
 		
 		for (int i=0; i<hist.length; ++i)
-			histD[i] = (double)hist[i] / ((double)img.height*img.width) ;
+			histD[i] = (double)hist[i] / ((double)total) ;
 		
 		return histD;
 	}

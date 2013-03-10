@@ -20,7 +20,8 @@ public class ArtisticActivator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		ArtisticActivator.context = bundleContext;
 		System.out.println("ART START");
-		Histogram.Test();
+		String filename = "/Users/anabpel/Documents/workspace/osgilath/osgiliath/OSGiLiART/scripts/collage-2.png";
+		Histogram.Test(filename);
 	}
 
 	/*

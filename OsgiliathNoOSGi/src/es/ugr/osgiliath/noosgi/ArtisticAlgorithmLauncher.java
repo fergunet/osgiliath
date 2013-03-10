@@ -10,9 +10,14 @@ import es.osgiliath.evolutionary.basicimplementations.populations.ListPopulation
 import es.osgiliath.evolutionary.basicimplementations.replacers.NWorstIndividualsReplacer;
 import es.osgiliath.evolutionary.basicimplementations.selectors.DeterministicTournamentSelection;
 import es.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
+import es.ugr.osgiliart.ArtisticCrossover;
 import es.ugr.osgiliart.ArtisticFitnessCalculator;
 import es.ugr.osgiliart.ArtisticInitializer;
+import es.ugr.osgiliart.ArtisticMutation;
 import es.ugr.osgiliart.ArtisticProblem;
+import es.ugr.osgiliart.ArtisticRecombinator;
+import es.ugr.osgiliart.ArtisticReplacer;
+import es.ugr.osgiliart.drawer.ProcessingDrawer;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.evolutionary.EvolutionaryAlgorithm;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -27,6 +32,7 @@ import es.ugr.osgiliath.evolutionary.individual.Initializer;
 import es.ugr.osgiliath.problem.Problem;
 import es.ugr.osgiliath.problem.ProblemParameters;
 
+import es.ugr.osgiliath.util.impl.BasicLogger;
 import es.ugr.osgiliath.util.impl.HashMapParameters;
 import es.ugr.osgiliath.utils.Stopwatch;
 
@@ -42,7 +48,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/Users/fergunet/Documents/workspace/osgiliath/parameterfiles/parameter.properties");
+						"/home/dcalandria/5hackathon/parameterfiles/parameter.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -57,7 +63,14 @@ public class ArtisticAlgorithmLauncher {
 			ProblemParameters problemParams = new HashMapParameters();
 			problem.setProblemParameters(problemParams);
 			
+			
+			//DRAWER
+			ProcessingDrawer drawer = new ProcessingDrawer();
+			drawer.setAlgorithmParameters(params);
+			
+			//FITNESS CALCULATOR
 			FitnessCalculator fitnessCalculator = new ArtisticFitnessCalculator();
+			((ArtisticFitnessCalculator) fitnessCalculator).setDrawer( drawer );
 			
 			//Population and Initializer
 			Population pop = new ListPopulation();		
@@ -78,17 +91,28 @@ public class ArtisticAlgorithmLauncher {
 			((DeterministicTournamentSelection)parentSelector).setProblem(problem);
 			algo.setParentSelector(parentSelector);
 			
+			//CROSSOVER
+			ArtisticCrossover crossover = new ArtisticCrossover();
+			
+	
 			//RECOMBINATOR
-			Recombinator recombinator = new BasicOrderRecombinator();
-			((BasicOrderRecombinator) recombinator).setFitnessCalculator(fitnessCalculator);
-			((BasicOrderRecombinator) recombinator).setProblem(problem);
-			((BasicOrderRecombinator) recombinator).setAlgorithmParameters(params);
+			Recombinator recombinator = new ArtisticRecombinator();
+			((ArtisticRecombinator) recombinator).setFitnessCalculator(fitnessCalculator);
+			((ArtisticRecombinator) recombinator).setProblem(problem);
+			((ArtisticRecombinator) recombinator).setAlgorithmParameters(params);
+			((ArtisticRecombinator) recombinator).setCrossover(crossover);
 			algo.setRecombinator(recombinator);
+			
+			
+			//MUTATION
+			ArtisticMutation mutation = new ArtisticMutation();
+			mutation.setAlgorithmParameters(params);
 			
 			//MUTATOR
 			Mutator mutator = new BasicOrderMutator();
 			((BasicOrderMutator) mutator).setFitnessCalculator(fitnessCalculator);
 			((BasicOrderMutator) mutator).setAlgorithmParameters(params);
+			((BasicOrderMutator) mutator).setMutation(mutation);
 			algo.setMutator(mutator);
 			
 			//STOP CRITERION
@@ -98,9 +122,11 @@ public class ArtisticAlgorithmLauncher {
 			algo.setStopCriterion(stopCriterion);
 			
 			//REPLACER
-			Replacer replacer = new NWorstIndividualsReplacer();
+			Replacer replacer = new ArtisticReplacer();
+			((ArtisticReplacer) replacer).setFitnessCalculator(fitnessCalculator);
 			algo.setReplacer(replacer);
 			
+			algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();
 			String time = sw.toString();

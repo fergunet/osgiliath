@@ -1,3 +1,4 @@
+<%@page import="java.util.HashSet"%>
 <%@page import="org.osgiliath.humanguidance.Helper"%>
 <%@page import="java.util.Enumeration"%>
 <html lang="en">
@@ -23,20 +24,23 @@
             <%
                 Enumeration paramNames = request.getParameterNames();
 
+                HashSet<String> ignoreList = new HashSet<String>();
+
                 while (paramNames.hasMoreElements()) {
                     String paramName = (String) paramNames.nextElement();
-                    if (paramName.equals("selected")){
+                    if (paramName.equals("selected")) {
                         String paramValue = request.getParameter(paramName);
-                        Helper.getInstance().increaseVotes(paramValue);
+                        Helper.getInstance().vote(paramValue, 1);
+                        ignoreList.add(paramValue);
                     }
                 }
 
                 String[] ret = org.osgiliath.humanguidance.Helper.
-                        getInstance().getRandomFileNames(4);
+                        getInstance().getRandomFileNames(4, ignoreList);
             %>
 
             <h2>Please, choose the image you like the most</h2>
-            <div class="row">
+            <div class="row" id="imagediv">
                 <div class="span3">
                     <img src="<%=ret[0]%>" class="clickable_image" />
                 </div>
@@ -58,10 +62,43 @@
 
     <script>
         $(".clickable_image").click(function () {
+            var index = $(".clickable_image").index(this)
             var url = this.getAttribute("src");
             var filename = url.substring(url.lastIndexOf('/')+1);
-            window.location = "index.jsp?selected="+filename
+            var t_url = "vote.jsp?name="+filename+"&value=1"
+            $.ajax({
+                url: t_url,
+                context: document.body
+            }).done(function() {
+                
+                //$(this).addClass("done");
+                var t_url2 = "images.jsp?number=3&ignored="+filename
+                $.ajax({
+                    url: t_url2,
+                    context: document.body
+                }).done(function(data) {
+                    //$(this).addClass("done");
+                    //alert("data: "+data)
+                    var obj = jQuery.parseJSON(data);
+                    
+                    var children = $("#imagediv").children();
+                    for (var i = 0, ind=0; i<children.length; i++){
+                        if (index != i){
+                            var element = children.eq(i).children().eq(0)
+                            element.attr("src_alt", obj.urls[ind])
+                            element.fadeOut(200, function(){
+                                var src = $(this).attr("src_alt")
+                                $(this).attr("src", src)
+                                $(this).fadeIn(500)
+                            })
+                            ind++
+                        }
+                    }
+                });
+                
+            });
         });
+        
     </script>
 
 </html>

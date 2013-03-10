@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This code is licensed under GPL v3
+ * autor raiben <raiben@gmail.com>
  */
 package org.osgiliath.humanguidance;
 
@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Class to help the human guidance html view
  *
  * @author rhgarcia
  */
@@ -46,36 +47,49 @@ public class Helper {
         random = new Random();
     }
 
-    public String[] getRandomFileNames(int number) {
+    /**
+     * Retrieves a number of image names from the data directory
+     *
+     * @param number number of images
+     * @param ignoreSet a set of images that must be ignored
+     * @return an array of string with the name of the images (including the
+     * base url)
+     */
+    public String[] getRandomFileNames(int number, HashSet<String> ignoreSet) {
         File dir = new File(props.getProperty("data.url"));
         File[] files = dir.listFiles();
 
         ArrayList<String> imageNames = new ArrayList<String>();
 
+        // filter: only images
         for (File f : files) {
             if (f.getName().toLowerCase().matches(".*(\\.png|\\.jpg|\\.gif)")) {
                 imageNames.add(f.getName());
             }
         }
-
+        
+        // filter: remove images in ignoreSet
+        Iterator<String> it = ignoreSet.iterator();
+        while (it.hasNext()){
+            String n = it.next();
+            if (imageNames.contains(n)){
+                imageNames.remove(n);
+            }
+        }
+        
+        // filter: retrieve random images from the list
+        String[] ret = new String[number];
         HashSet<Integer> numset = new HashSet<Integer>();
         for (int i = 0; i < number; i++) {
-            int v = 0;
-            do {
-                v = random.nextInt(imageNames.size());
-            } while (numset.contains(v));
-            numset.add(v);
-
+            if (imageNames.size()>0){
+                int v = random.nextInt(imageNames.size());
+                ret[i] = getImageBaseURL()+imageNames.get(v);
+                imageNames.remove(v);
+            }else{
+                ret[i]="noimage";
+            }
         }
-        String[] ret = new String[number];
-
-        int i = 0;
-        Iterator<Integer> it = numset.iterator();
-        while (it.hasNext()) {
-            ret[i] = getImageBaseURL() + imageNames.get(it.next());
-            i++;
-        }
-
+        
         return ret;
     }
 
@@ -83,9 +97,15 @@ public class Helper {
         return props.getProperty("data.baseURL");
     }
 
-    public void increaseVotes(String name) {
+    /**
+     * Votes an image
+     *
+     * @param name the name of the image (not the full path)
+     * @param value the value to add (can also be negative)
+     */
+    public void vote(String name, float value) {
         File f = new File(props.getProperty("data.url") + name);
-        //if (f.exists()) {
+        if (f.exists()) {
             Properties fProp = new Properties();
             try {
                 fProp.load(new FileInputStream(props.getProperty("data.url")
@@ -99,7 +119,7 @@ public class Helper {
             int votes = Integer.parseInt(fProp.getProperty("votes"));
             votes++;
             fProp.setProperty("votes", Integer.toString(votes));
-            
+
             try {
                 fProp.store(new FileOutputStream(props.getProperty("data.url")
                         + name + ".properties"), "");
@@ -107,6 +127,6 @@ public class Helper {
                 Logger.getLogger(Helper.class.getName()).log(Level.SEVERE, null,
                         ex);
             }
-        //}
+        }
     }
 }

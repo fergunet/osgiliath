@@ -67,23 +67,28 @@ public class Histogram extends PApplet{
 	}
 	
 	public void setup() {
-		    size(400, 400);
-		    background(0);
+		    //size(400, 400);
+		    //background(0);
 	}
 	
 	
-	protected double[]  getHistogram(String filename, int type){
+	public double[]  getHistogram(String filename, int type){
 		// The next line is needed if running in JavaScript Mode with Processing.js
 		/* @pjs preload="frontier.jpg"; */ 
 
 		// Load an image from the data directory
 		// Load a different image by modifying the comments
 		PImage img = loadImage(filename);
+		size(img.width,img.height);
 		image(img, 0, 0);
 		int[] hist = new int[256];
+		for(int i=0; i<hist.length; i++){
+			hist[i] = 0;
+		}
 
 		int total = 0;
 		// Calculate the histogram
+		//System.out.println("TAMA„O DE IMAGEN" + img.width + " x  "+img.height+ " = "+ img.width*img.height);
 		for (int i = 0; i < img.width; i++) {
 		  for (int j = 0; j < img.height; j++) {
 			int value;
@@ -111,8 +116,10 @@ public class Histogram extends PApplet{
 				break;
 			}
 			
-			hist[value]++;
-			total++;
+			//if(value != 0){
+				hist[value]++;
+				total++;
+			//}
 		  }
 		}
 		
@@ -126,9 +133,15 @@ public class Histogram extends PApplet{
 		
 		double[] histD = new double[256];
 		
-		for (int i=0; i<hist.length; ++i)
+		int totalPixeles = 0;
+		for (int i=0; i<hist.length; ++i){
 			histD[i] = (double)hist[i] / ((double)total) ;
+			
+			totalPixeles += hist[i];
 		
+			//System.out.println(hist[i]);
+		}
+		//System.out.println("TotalPixeles "+totalPixeles+" = "+total);
 		return histD;
 	}
 	

@@ -25,15 +25,18 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		Histogram h = new Histogram();
 		h.init();
 		h.setup();
-		double[] histogramBase = h.getRedHistogram("/Users/anabpel/Documents/workspace/osgilath/osgiliath/OSGiLiART/scripts/collage-0.png");
+		
+		int type = Histogram.HUE;
+		
+		double[] histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/skyrim.jpg",type);
 		
 		
 		//1. generar la imagen en Processing
-		String dir = "/Users/anabpel/Documents/workspace/osgilath/osgiliath/OSGiLiART/scripts/collage-1.png";
+		String dir = "/Users/fergunet/Desktop/fotos/alsa.png";
 		// String dir = indi.generateImage();
 		
 		//2. calcular el histograma de la imagen
-		double[] histogramIndi =  h.getRedHistogram(dir);
+		double[] histogramIndi =  h.getHistogram(dir, type);
 		
 		//3. comparar el histograma con el 
 		return computeFitness(histogramBase, histogramIndi);
@@ -44,8 +47,10 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		
 		double dif = 0;
 		
-		for (int i=0; i<256; i++)
+		for (int i=0; i<256; i++){
+			//System.out.println(h1[i]+" "+h2[i]);
 			dif += Math.abs(h1[i] - h2[i]);
+		}
 		
 		// Fitness
 		// 0 -> completamente diferentes

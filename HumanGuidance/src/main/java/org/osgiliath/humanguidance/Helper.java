@@ -28,6 +28,10 @@ public class Helper {
     private Properties props = null;
     private Random random = null;
 
+    /**
+     * Singleton instance getter
+     * @return the instance
+     */
     public static Helper getInstance() {
         if (instance == null) {
             instance = new Helper();
@@ -35,6 +39,9 @@ public class Helper {
         return instance;
     }
 
+    /**
+     * private constructor
+     */
     private Helper() {
         props = new Properties();
         try {
@@ -93,6 +100,10 @@ public class Helper {
         return ret;
     }
 
+    /**
+     * returns the external base image url (for internal usage mainly)
+     * @return the external base image url
+     */
     public String getImageBaseURL() {
         return props.getProperty("data.baseURL");
     }

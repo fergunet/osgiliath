@@ -11,13 +11,12 @@ import es.ugr.osgiliart.core.rand.Randomizer;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.generators.CircleGenerator;
 import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
 
 public class ArtisticInitializer extends OsgiliathService implements Initializer {
-
-	protected static final int N = 200;
 	
 	private FitnessCalculator fitnessCalculator;
 	
@@ -31,7 +30,12 @@ public class ArtisticInitializer extends OsgiliathService implements Initializer
 		/*
 		 * Calculate fitness for all 
 		 */
-		fitnessCalculator.calculateFitnessForAll(individuals);		
+		int id = 0;
+		for ( Individual individual: individuals ) {		
+			((ArtisticIndividual) individual).setGeneration(0);
+			((ArtisticIndividual) individual).setUniqId(id++);
+			individual.setFitness( fitnessCalculator.calculateFitness(individual) );
+		}
 		return individuals;
 	}
 	
@@ -62,14 +66,14 @@ public class ArtisticInitializer extends OsgiliathService implements Initializer
 		
 		CircleGenerator circleGenerator = new CircleGenerator(radiusGenerator, pointGenerator, colorGenerator);
 		
-		/*FIXME: read property from AlgorithmParameters */
+
+		int N = (Integer) this.getAlgorithmParameters().getParameter(ArtisticParameters.GENOME_SIZE);
 		for ( int i = 0; i < N; ++i ) {
 			primitives.add( circleGenerator.generate() );
 		}
 		
 		genome.setPrimitives(primitives);
-		individual.setGenome(genome);
-				
+		individual.setGenome(genome);		
 		return individual;
 		
 	}

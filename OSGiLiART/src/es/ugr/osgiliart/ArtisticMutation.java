@@ -9,10 +9,12 @@ import es.ugr.osgiliart.core.generators.point.RandomPointGenerator;
 import es.ugr.osgiliart.core.rand.RandU;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.Circle;
+import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 
-public class ArtisticMutation implements Mutation{
+public class ArtisticMutation extends OsgiliathService implements Mutation{
 	
 	private ColorGenerator   colorGenerator = new RandomColorGenerator(
 			new RandU(),
@@ -21,34 +23,27 @@ public class ArtisticMutation implements Mutation{
 			);
 	
 	@Override
-	public Genome mutate(Genome genome) {
-
-		ArtisticGenome curGenome = (ArtisticGenome) genome;
-		ArtisticGenome newGenome = new ArtisticGenome();
-		ArrayList<Primitive> curPrimitives = curGenome.getPrimitives();
-		ArrayList<Primitive> newPrimitives = new ArrayList<Primitive>();
-
-		for ( Primitive primitive: curPrimitives ) {
-			if ( Math.random() > 0.95 ) {
-				newPrimitives.add ( mutate (primitive) );
-			} else {
-				newPrimitives.add ( (Primitive) primitive.clone() );
-			}
-		}				
-		newGenome.setPrimitives(newPrimitives);
-		return newGenome;
+	public Genome mutate(Genome genome) {		
+		double prob = (Double) this.getAlgorithmParameters().getParameter(ArtisticParameters.IMAGE_MUTATION_PROB);		
+		ArtisticGenome artisticGenome = (ArtisticGenome) genome;
+		ArrayList<Primitive> primitives = artisticGenome.getPrimitives();		
+		for ( Primitive primitive: primitives ) {
+			if ( Math.random() <= prob ) {
+				mutate(primitive);
+			} 
+		}						
+		return genome;
 	}
 
 	/**
 	 * Simple mutation 
 	 */	
 	protected Primitive mutate (Primitive primitive ) {
-		Primitive newPrimitive = (Primitive) primitive.clone();		
-		if ( newPrimitive instanceof Circle ) {			
-			Circle circle = (Circle) newPrimitive;			
+		if ( primitive instanceof Circle ) {			
+			Circle circle = (Circle) primitive;			
 			/*TODO: we only change the color */
 			circle.setColor( colorGenerator.generate() );			
 		}
-		return newPrimitive;
+		return primitive;
 	}
 }

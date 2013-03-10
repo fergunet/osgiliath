@@ -5,12 +5,21 @@ public class ArtisticParameters {
 
 	
 	/* list of supported primitives. Example: "circle,triangle,quad" */
-	public static final String SUPPORTED_PRIMITIVES_PROP =	"parameters.osgiliart.primitives";
+	public static final String SUPPORTED_PRIMITIVES =	"parameters.osgiliart.primitives";
 	
 	/* size of genome ( primitives )*/
-	public static final String GENOME_SIZE_PROP = 			"parameters.osgiliart.genome.size";
+	public static final String GENOME_SIZE = 			"parameters.osgiliart.genome.size";
+	
+	public static final String IMAGE_MUTATION_PROB =    "parameters.osgiliart.mutation.prob";
 	
 	/* fitness: match with real image, histogram matching, probabilistic classifier, .... */
-	public static final String FITNESS_PROP     = 			"parameters.osgiliart.fitness";
+	public static final String FITNESS     = 			"parameters.osgiliart.fitness";
+
 	
+	public static final String IMAGE_WIDTH = 			"parameters.osgiliart.image.width";	
+	public static final String IMAGE_HEIGHT =   		"parameters.osgiliart.image.height";	
+	public static final String IMAGE_TYPE  = 			"parameters.osgiliart.image.type";
+	public static final String DATA_FOLDER  = 			"parameters.osgiliart.data.folder";
+	public static final String MAX_RADIUS  =            "parameters.osgiliart.primitive.maxRadius";
+			
 }

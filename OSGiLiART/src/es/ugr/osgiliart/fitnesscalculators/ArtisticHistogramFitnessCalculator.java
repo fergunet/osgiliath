@@ -21,7 +21,7 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		Histogram h = new Histogram();
 		//h.init();
 		h.setup();
-		histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/circulos.png",type);
+		histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/black.jpg",type);
 		
 	}
 	public void setDrawer ( Drawer drawer ) {
@@ -98,6 +98,8 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 	public static void Test(){
 		ArtisticHistogramFitnessCalculator ahfc = new ArtisticHistogramFitnessCalculator();
 		DoubleFitness fitness = (DoubleFitness)ahfc.calculateFitness(new ArtisticIndividual());
+		ArtisticIndividual ind = new ArtisticIndividual();
+		ind.setImagePath("/Users/fergunet/Desktop/fotos/white.png");
 		System.out.println("\nFitness value= "+fitness.getDoubleValue());
 		
 	}

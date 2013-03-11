@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OpenCVBundle
+Bundle-SymbolicName: FeaturesOpenCV
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: opencv-244.jar
+Export-Package: es.ugr.osgiliart.features.opencv

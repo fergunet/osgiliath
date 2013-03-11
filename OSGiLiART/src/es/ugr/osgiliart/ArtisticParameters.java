@@ -22,4 +22,5 @@ public class ArtisticParameters {
 	public static final String DATA_FOLDER  = 			"parameters.osgiliart.data.folder";
 	public static final String MAX_RADIUS  =            "parameters.osgiliart.primitive.maxRadius";
 			
+	public static final String MATCHING_TAMPLATE  =       "parameters.osgiliart.features.matching.template";
 }

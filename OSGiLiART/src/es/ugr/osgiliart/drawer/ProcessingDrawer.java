@@ -10,7 +10,7 @@ import processing.opengl.PGraphics2D;
 import es.ugr.osgiliart.ArtisticGenome;
 import es.ugr.osgiliart.ArtisticIndividual;
 import es.ugr.osgiliart.ArtisticParameters;
-import es.ugr.osgiliart.core.ColorRGB;
+import es.ugr.osgiliart.core.Color;
 import es.ugr.osgiliart.core.Point;
 import es.ugr.osgiliart.primitives.Drawer;
 import es.ugr.osgiliart.primitives.Primitive;
@@ -58,12 +58,12 @@ public class ProcessingDrawer extends OsgiliathService implements Drawer {
 			if ( primitive instanceof Circle ) {
 				Circle circle = (Circle) primitive;
 				Point center = circle.getCenter();
-				ColorRGB rgb = circle.getColor().toRGB();
+				Color color = circle.getColor();
 				Float radius = circle.getRadius();
 				
-				graphics.fill(  graphics.color( rgb.r*COLOR_SCALE,  
-							 rgb.g*COLOR_SCALE,
-							 rgb.b*COLOR_SCALE )  );
+				graphics.fill(  graphics.color( color.r*COLOR_SCALE,  
+						color.g*COLOR_SCALE,
+						color.b*COLOR_SCALE )  );
 				graphics.ellipseMode(PGraphics.CENTER);
 				graphics.ellipse (center.x*imageWidth, 
 						  center.y*imageHeight, 

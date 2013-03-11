@@ -2,15 +2,12 @@ package es.ugr.osgiliart;
 
 import java.util.ArrayList;
 
-import es.ugr.osgiliart.core.generators.RandomFloatGenerator;
 import es.ugr.osgiliart.core.generators.color.ColorGenerator;
 import es.ugr.osgiliart.core.generators.color.RandomColorGenerator;
-import es.ugr.osgiliart.core.generators.point.RandomPointGenerator;
 import es.ugr.osgiliart.core.rand.RandU;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.Circle;
 import es.ugr.osgiliath.OsgiliathService;
-import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 
@@ -18,8 +15,8 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 	
 	private ColorGenerator   colorGenerator = new RandomColorGenerator(
 			new RandU(),
-			new RandU(0.5f, 1.0f),
-			new RandU(0.3f, 1.0f)
+			new RandU(),
+			new RandU()
 			);
 	
 	@Override
@@ -42,7 +39,7 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 		if ( primitive instanceof Circle ) {			
 			Circle circle = (Circle) primitive;			
 			/*TODO: we only change the color */
-			circle.setColor( colorGenerator.generate() );			
+			circle.setColor( colorGenerator.generate() );				
 		}
 		return primitive;
 	}

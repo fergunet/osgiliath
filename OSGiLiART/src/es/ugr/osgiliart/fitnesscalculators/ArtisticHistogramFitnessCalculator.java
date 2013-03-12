@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import es.ugr.osgiliart.ArtisticIndividual;
-import es.ugr.osgiliart.Histogram;
+import es.ugr.osgiliart.HistogramExtractor;
 import es.ugr.osgiliart.drawer.ProcessingDrawer;
+import es.ugr.osgiliart.histogram.Histogram;
 import es.ugr.osgiliart.primitives.Drawer;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
@@ -19,26 +20,28 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 
 	private static String imagePath;
 	//private static int type = Histogram.;
-	static double[] histogramRed;
-	static double[] histogramGreen;
-	static double[] histogramBlue;
-	static double[] histogramSaturation;
-	static double[] histogramHue;
-	static double[] histogramBrightness;
+	static Histogram histogramRed;
+	static Histogram histogramGreen;
+	static Histogram histogramBlue;
+	static Histogram histogramSaturation;
+	static Histogram histogramHue;
+	static Histogram histogramBrightness;
 	
 	static{
-		Histogram h = new Histogram();
+		
 		//h.init();
-		h.setup();
-		String filename = "/home/pgarcia/Escritorio/pruebas/black.png";
 		
-		histogramRed = h.getHistogram(filename,Histogram.RED);
-		histogramGreen = h.getHistogram(filename,Histogram.GREEN);
-		histogramBlue = h.getHistogram(filename,Histogram.BLUE);
+		String filename = "/Users/fergunet/Desktop/fotos/paisajito.jpg";
 		
-		histogramSaturation = h.getHistogram(filename,Histogram.SATURATION);
-		histogramHue = h.getHistogram(filename,Histogram.HUE);
-		histogramBrightness = h.getHistogram(filename,Histogram.BRIGHTNESS);
+		HashMap<String,Histogram> hm = HistogramExtractor.getHistograms(filename);
+		
+		histogramRed = hm.get(Histogram.RED);
+		histogramGreen = hm.get(Histogram.GREEN);
+		histogramBlue = hm.get(Histogram.BLUE);
+		
+		histogramSaturation = hm.get(Histogram.SATURATION);
+		histogramHue = hm.get(Histogram.HUE);
+		histogramBrightness = hm.get(Histogram.BRIGHTNESS);
 		
 	}
 	public void setDrawer ( Drawer drawer ) {
@@ -63,45 +66,35 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		ArtisticIndividual indi = (ArtisticIndividual) ind;
 		if(indi.getFitness()!=null)
 			return indi.getFitness();
-		System.out.println("llamamos a Drawer");
-		//drawer.draw((ArtisticIndividual) ind);
+		//System.out.println("llamamos a Drawer");
+		drawer.draw((ArtisticIndividual) ind);
 		//0. recuperar la imagen de ejemplo
-		Histogram h = new Histogram();
-		//h.init();
-		h.setup();
+
+
 		
-		
-		
-		
-		//1. generar la imagen en Processing
-		//String dir = "/Users/fergunet/Desktop/fotos/alsa.png";
-		// String dir = indi.generateImage();
-		
+		//1.
 		//2. calcular el histograma de la imagen
-		String individualImage = indi.getImagePath();
-		double[] histogramIndi =  h.getHistogram(individualImage, type);
+		HashMap<String,Histogram> hm = HistogramExtractor.getHistograms(indi.getImagePath());
 		
-		//3. comparar el histograma con el 
-		return computeFitness(histogramBase, histogramIndi);
+		
+		
+		//3. comparar histogramas
+		
+		double hr = hm.get(Histogram.RED).getDifference(histogramRed);
+		double hg = hm.get(Histogram.GREEN).getDifference(histogramGreen);
+		double hb = hm.get(Histogram.BLUE).getDifference(histogramBlue);
+		
+		double h = hm.get(Histogram.RED).getDifference(histogramHue);
+		double s = hm.get(Histogram.GREEN).getDifference(histogramSaturation);
+		double v = hm.get(Histogram.BLUE).getDifference(histogramBrightness);
+		//double fitness =  (hr+hg+hb)/3.0;
+		//double fitness = hr;
+		double fitness = (h+s+v)/3.0;
+		return new DoubleFitness(1-fitness, true);
 	}
 	
 	
-	private DoubleFitness computeFitness(double[] h1, double[] h2){
-		
-		double dif = 0;
-		
-		for (int i=0; i<256; i++){
-			System.out.println(h1[i]+" "+h2[i]);
-			dif += Math.abs(h1[i] - h2[i]);
-		}
-		
-		// Fitness
-		// 0 -> completamente diferentes
-		// 1 -> iguales
-		double fitness = 1 - dif/256;
-		
-		return new DoubleFitness(fitness, true); 
-	}
+	
 
 	@Override
 	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {

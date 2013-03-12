@@ -8,17 +8,18 @@ public class Histogram {
 	public static final String GREEN = "GREEN";
 	public static final String BLUE = "BLUE";
 
-	private int type;
+	private String type;
 	
 	private double[] values;
 	
-	public int getType(){
+	public String getType(){
 		return type;
 	}
 	
 	
-	public Histogram(int type){
+	public Histogram(String type){
 		this.values = new double[256];
+		this.type = type;
 
 	}
 	
@@ -27,6 +28,15 @@ public class Histogram {
 	}
 	
 	public double getDifference(Histogram another){
-		return 0;
+
+		
+		double dif = 0;
+		
+		for (int i=0; i<256; i++){
+			//System.out.println(h1[i]+" "+h2[i]);
+			dif += Math.abs(this.values[i] - another.getValues()[i]);
+		}
+		
+		return  dif/256;
 	}
 }

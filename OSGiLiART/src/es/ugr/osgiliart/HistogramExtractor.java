@@ -2,15 +2,12 @@ package es.ugr.osgiliart;
 
 
 
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
 
 import es.ugr.osgiliart.histogram.Histogram;
 
 import processing.core.*;
-import processing.opengl.PGraphics2D;
 
 @SuppressWarnings("serial")
 public class HistogramExtractor{
@@ -24,15 +21,24 @@ public class HistogramExtractor{
 		app.setup();
 	}
 	
-	public static void Test(String filename){
-		HistogramExtractor h = new HistogramExtractor();
-		//h.init();
-
+	public static void main(String[] args){
 		
 		
+		HashMap<String,Histogram> hm = getHistograms("/Users/fergunet/Desktop/fotos/paisaje/.jpg");
 		
-		System.out.println("HSV:");
-		double[] histogram;
+		DecimalFormat num = new DecimalFormat("####.00000000");
+		
+		for(int i = 0; i < 256; i++){
+			System.out.print(i+" ");
+			System.out.print(num.format(hm.get(Histogram.HUE).getValues()[i])+" ");
+			System.out.print(num.format(hm.get(Histogram.SATURATION).getValues()[i])+" ");
+			System.out.print(num.format(hm.get(Histogram.BRIGHTNESS).getValues()[i])+" ");
+			System.out.print(num.format(hm.get(Histogram.RED).getValues()[i])+" ");
+			System.out.print(num.format(hm.get(Histogram.GREEN).getValues()[i])+" ");
+			System.out.print(num.format(hm.get(Histogram.BLUE).getValues()[i])+" ");
+			System.out.println();
+		}
+		
 		/*/ HUE
 		System.out.print("H: ");
 		double[] histogram = h.getHueHistogram(filename);
@@ -66,7 +72,7 @@ public class HistogramExtractor{
 			System.out.print(" "+histogram[i]+",");*/
 		
 		//VALUE
-		System.out.print("\nB: ");
+		/*System.out.print("\nB: ");
 		histogram = h.getBlueHistogram(filename);
 		double total = 0;
 		for(int i=0; i<histogram.length; ++i) {
@@ -74,14 +80,14 @@ public class HistogramExtractor{
 			total += histogram[i];
 		}
 		
-		System.out.println("\nTOTAL=" + total);
+		System.out.println("\nTOTAL=" + total);*/
 		
 	}
 	
 
 	
 	
-	public HashMap<Histogram,int>  getHistograms(String filename){
+	public static HashMap<String,Histogram>  getHistograms(String filename){
 		// The next line is needed if running in JavaScript Mode with Processing.js
 		/* @pjs preload="frontier.jpg"; */ 
 
@@ -160,65 +166,28 @@ public class HistogramExtractor{
 			//System.out.println(hist[i]);
 		}*/
 		
-		for(int i = 0; i<){}
+		//Normalizing
+		for(int i = 0; i<256;i++){
+			h.getValues()[i] = (double) h.getValues()[i]/(double)total;
+			s.getValues()[i] = (double) s.getValues()[i]/(double)total;
+			v.getValues()[i] = (double) v.getValues()[i]/(double)total;
+			
+			r.getValues()[i] = (double) r.getValues()[i]/(double)total;
+			g.getValues()[i] = (double) g.getValues()[i]/(double)total;
+			b.getValues()[i] = (double) b.getValues()[i]/(double)total;
+		}
 		//System.out.println("TotalPixeles "+totalPixeles+" = "+total);
-		HashMap<Histogram,String> hmap = new TreeMap<Histogram, Double>();
+		HashMap<String,Histogram> hmap = new HashMap<String, Histogram>();
+		hmap.put(Histogram.HUE, h);
+		hmap.put(Histogram.SATURATION, s);
+		hmap.put(Histogram.BRIGHTNESS, v);
+		
+		hmap.put(Histogram.RED, r);
+		hmap.put(Histogram.GREEN, g);
+		hmap.put(Histogram.BLUE, b);
 		return hmap;
 	}
 	
 	
-	/**
-	 * Get the HUE histogram for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getHueHistogram(String filename){
-		return getHistogram(filename, HUE);
-	}
-	
-	
-	/**
-	 * Get the SATURATION histogram for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getSaturationHistogram(String filename){
-		return getHistogram(filename, SATURATION);
-	}
-	
-	/**
-	 * Get the BRIGHTNESS histogram for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getBrightnessHistogram(String filename){
-		return getHistogram(filename, BRIGHTNESS);
-	}
-	
-	/**
-	 * Get the histogram for the color RED for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getRedHistogram(String filename){
-		return getHistogram(filename, RED);
-	}
-	
-	/**
-	 * Get the histogram for the color BLUE for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getBlueHistogram(String filename){
-		return getHistogram(filename, BLUE);
-	}
-	
-	/**
-	 * Get the histogram for the color GREEN for an image
-	 * @param filename name of the file
-	 * @return 
-	 */
-	public double[]  getGreenHistogram(String filename){
-		return getHistogram(filename, GREEN);
-	}
+
 }

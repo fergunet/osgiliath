@@ -1,17 +1,21 @@
 package es.ugr.osgiliart;
 
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
+
+import es.ugr.osgiliart.histogram.Histogram;
+
 import processing.core.*;
 import processing.opengl.PGraphics2D;
 
 @SuppressWarnings("serial")
-public class Histogram{
+public class HistogramExtractor{
 	
-	public static final int HUE = 1;
-	public static final int SATURATION = 2;
-	public static final int BRIGHTNESS = 3;
-	public static final int RED = 4;
-	public static final int GREEN = 5;
-	public static final int BLUE = 6;
+	
 	static PApplet app;
 	static{
  app = new PApplet();
@@ -21,9 +25,9 @@ public class Histogram{
 	}
 	
 	public static void Test(String filename){
-		Histogram h = new Histogram();
+		HistogramExtractor h = new HistogramExtractor();
 		//h.init();
-		h.setup();
+
 		
 		
 		
@@ -74,18 +78,23 @@ public class Histogram{
 		
 	}
 	
-	public void setup() {
-		    //size(400, 400);
-		    //background(0);
-	}
+
 	
 	
-	public double[]  getHistogram(String filename, int type){
+	public HashMap<Histogram,int>  getHistograms(String filename){
 		// The next line is needed if running in JavaScript Mode with Processing.js
 		/* @pjs preload="frontier.jpg"; */ 
 
 		// Load an image from the data directory
 		// Load a different image by modifying the comments
+		
+		Histogram h = new Histogram(Histogram.HUE);
+		Histogram s = new Histogram(Histogram.SATURATION);
+		Histogram v = new Histogram(Histogram.BRIGHTNESS);
+		
+		Histogram r = new Histogram(Histogram.RED);
+		Histogram g = new Histogram(Histogram.GREEN);
+		Histogram b = new Histogram(Histogram.BLUE);
 		
 		PImage img = app.loadImage(filename);
 		app.image(img, 0, 0);
@@ -101,36 +110,30 @@ public class Histogram{
 
 		int total = 0;
 		// Calculate the histogram
-		//System.out.println("TAMA„O DE IMAGEN" + img.width + " x  "+img.height+ " = "+ img.width*img.height);
+		//System.out.println("TAMANO DE IMAGEN" + img.width + " x  "+img.height+ " = "+ img.width*img.height);
 		for (int i = 0; i < img.width; i++) {
 		  for (int j = 0; j < img.height; j++) {
 			int value;
-			switch(type){
-			case HUE:
+			
+		
 				value = (int) app.hue(img.get(i, j));
-				break;
-			case SATURATION:
+				h.getValues()[value]++;
 				value = (int) app.saturation(img.get(i, j));
-				break;
-			case BRIGHTNESS:
+				s.getValues()[value]++;
 				value = (int) app.brightness(img.get(i, j));
-				break;
-			case RED:
+				v.getValues()[value]++;
+				
 				value = (int) app.red(img.get(i, j));
-				break;
-			case GREEN:
+				r.getValues()[value]++;
 				value = (int) app.green(img.get(i, j));
-				break;
-			case BLUE:
+				g.getValues()[value]++;
 				value = (int) app.blue(img.get(i, j));
-				break;
-			default:
-				value = (int) app.hue(img.get(i, j));
-				break;
-			}
+				b.getValues()[value]++;
+
+
 			
 			//if(value != 0){
-				hist[value]++;
+				//hist[value]++;
 				total++;
 			//}
 		  }
@@ -146,7 +149,7 @@ public class Histogram{
 		
 		//System.out.println("MAX: " + histMax);
 		
-		double[] histD = new double[256];
+		/*double[] histD = new double[256];
 		
 		int totalPixeles = 0;
 		for (int i=0; i<hist.length; ++i){
@@ -155,9 +158,12 @@ public class Histogram{
 			totalPixeles += hist[i];
 		
 			//System.out.println(hist[i]);
-		}
+		}*/
+		
+		for(int i = 0; i<){}
 		//System.out.println("TotalPixeles "+totalPixeles+" = "+total);
-		return histD;
+		HashMap<Histogram,String> hmap = new TreeMap<Histogram, Double>();
+		return hmap;
 	}
 	
 	

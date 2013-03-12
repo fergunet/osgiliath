@@ -1,9 +1,13 @@
 package es.ugr.osgiliart.fitnesscalculators;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
 
 import es.ugr.osgiliart.ArtisticIndividual;
 import es.ugr.osgiliart.Histogram;
+import es.ugr.osgiliart.drawer.ProcessingDrawer;
 import es.ugr.osgiliart.primitives.Drawer;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
@@ -14,14 +18,27 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 public class ArtisticHistogramFitnessCalculator extends OsgiliathService implements FitnessCalculator {
 
 	private static String imagePath;
-	private static int type = Histogram.HUE;
-	static double[] histogramBase;
+	//private static int type = Histogram.;
+	static double[] histogramRed;
+	static double[] histogramGreen;
+	static double[] histogramBlue;
+	static double[] histogramSaturation;
+	static double[] histogramHue;
+	static double[] histogramBrightness;
 	
 	static{
 		Histogram h = new Histogram();
 		//h.init();
 		h.setup();
-		histogramBase = h.getHistogram("/Users/fergunet/Desktop/fotos/black.jpg",type);
+		String filename = "/home/pgarcia/Escritorio/pruebas/black.png";
+		
+		histogramRed = h.getHistogram(filename,Histogram.RED);
+		histogramGreen = h.getHistogram(filename,Histogram.GREEN);
+		histogramBlue = h.getHistogram(filename,Histogram.BLUE);
+		
+		histogramSaturation = h.getHistogram(filename,Histogram.SATURATION);
+		histogramHue = h.getHistogram(filename,Histogram.HUE);
+		histogramBrightness = h.getHistogram(filename,Histogram.BRIGHTNESS);
 		
 	}
 	public void setDrawer ( Drawer drawer ) {
@@ -47,7 +64,7 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		if(indi.getFitness()!=null)
 			return indi.getFitness();
 		System.out.println("llamamos a Drawer");
-		drawer.draw((ArtisticIndividual) ind);
+		//drawer.draw((ArtisticIndividual) ind);
 		//0. recuperar la imagen de ejemplo
 		Histogram h = new Histogram();
 		//h.init();
@@ -74,7 +91,7 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		double dif = 0;
 		
 		for (int i=0; i<256; i++){
-			//System.out.println(h1[i]+" "+h2[i]);
+			System.out.println(h1[i]+" "+h2[i]);
 			dif += Math.abs(h1[i] - h2[i]);
 		}
 		
@@ -95,11 +112,21 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		return fitnessArray;
 	}
 	
-	public static void Test(){
+	public static void main(String[] args){
+		
+		
+		
+		
 		ArtisticHistogramFitnessCalculator ahfc = new ArtisticHistogramFitnessCalculator();
-		DoubleFitness fitness = (DoubleFitness)ahfc.calculateFitness(new ArtisticIndividual());
+		ProcessingDrawer d = new ProcessingDrawer();
+		ahfc.setDrawer(new ProcessingDrawer());
 		ArtisticIndividual ind = new ArtisticIndividual();
-		ind.setImagePath("/Users/fergunet/Desktop/fotos/white.png");
+		ind.setGeneration(1);
+		ind.setImagePath("/home/pgarcia/Escritorio/pruebas/white.png");
+		
+		DoubleFitness fitness = (DoubleFitness)ahfc.calculateFitness(ind);
+		
+		
 		System.out.println("\nFitness value= "+fitness.getDoubleValue());
 		
 	}

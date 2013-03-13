@@ -1,5 +1,6 @@
 % !TEX encoding = UTF-8 Unicode
 \documentclass[conference]{IEEEtran}
+\usepackage{amsmath} 
 \hyphenation{op-tical net-works semi-conduc-tor}
 
                                          % Activate to display a given date or no date
@@ -45,7 +46,10 @@ Computational Aesthetics ``is the research of computational methods that can mak
 
 \subsection{Art Representation for Evolutive Art} \label{evo_art:repr}
 \begin{itemize}
-	\item 
+	\item Symbolic expression. The genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree.
+	\item Grammars. A shape grammar is used as a formal description of the image.
+	\item Using existing images as a source. 
+	\item Others, such as fractals or cellular automata.
 \end{itemize}
 %\subsection{}
 
@@ -140,13 +144,37 @@ Complexity measures & Image complexity \cite{li2012investigating}, Machado and C
 \section{Genetic Operators}\label{go}
 In this section we will describe the genetic operators ...
 \subsection{Representation}\label{go:repre}
+Genotype -> list of shapes
 \subsection{Initialization}\label{go:init}
+??
 \subsection{Mutation}\label{go:mutation}
+??
 \subsection{Crossover}\label{go:crossover}
+??
 \subsection{Fitness Functions}\label{go:fitness} 
 For this piece of research, we focused on two measures of aesthetics: basic histogram comparison and image matching. The fitness functions are included in the ``Error relative to Exemplars'' category, using Galanter \cite{galanter2012computational} classification.
 \subsubsection{Histogram comparision}\label{go:fitness:hist}
-An histogram is a graphical representation of the tonal distribution in an image. 
+An histogram is a graphical representation of the tonal distribution in an image. The histogram for the property $i$ is computed following (\ref{eq:histogram}).
+
+
+\begin{eqnarray}
+	\label{eq:fitness}
+	H(c, prop) = \frac{1}{N}\sum_{j=0}^N \left\{\begin{matrix}
+1 & prop(j) = c\\ 
+0 & otherwise
+\end{matrix}\right. \\
+	diff(h_1, h_2) = \sum_{j=0}^{255} |h_1(j) - h_2(j)| \\
+	d_R(i) = diff(H(i, RED), H(target, RED))\\
+	d_G(i) = diff(H(i, GREEN), H(target, GREEN))\\
+	d_B(i) =  diff(H(i, BLUE), H(target, BLUE))\\
+	fitness_{RGB}(i) = 1 - 128\frac{d_R(i) + d_G(i) + d_B(i)}{3} \\
+	d_H(i) = diff(H(i, HUE), H(target, HUE))\\
+	d_S(i) = diff(H(i, SAT), H(target, SAT))\\
+	d_V(i) =  diff(H(i, VAL), H(target, VAL))\\
+	fitness_{HSV}(i) = 1 - 128\frac{d_H(i) + d_S(i) + d_V(i)}{3}\\	
+	fitness_{AVERAGE}(i) = \frac{fitness_{RGB}+fitness_{HSV}}{2}
+\end{eqnarray}
+
 \subsubsection{Image Matching}\label{go:fitness:image_match}
 
 \section{Experimental Results} \label{exper}

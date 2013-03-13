@@ -31,7 +31,7 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		
 		//h.init();
 		
-		String filename = "/Users/fergunet/Desktop/fotos/paisajito.jpg";
+		String filename = "/home/pgarcia/Escritorio/pruebas/flevopark.jpg";
 		
 		HashMap<String,Histogram> hm = HistogramExtractor.getHistograms(filename);
 		
@@ -87,10 +87,19 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		double h = hm.get(Histogram.RED).getDifference(histogramHue);
 		double s = hm.get(Histogram.GREEN).getDifference(histogramSaturation);
 		double v = hm.get(Histogram.BLUE).getDifference(histogramBrightness);
-		//double fitness =  (hr+hg+hb)/3.0;
-		//double fitness = hr;
-		double fitness = (h+s+v)/3.0;
-		return new DoubleFitness(1-fitness, true);
+		double fitnessRGB =  (hr+hg+hb)/3.0;
+		
+		double fitnessHSV = (h+s+v)/3.0;
+		fitnessHSV = fitnessHSV / 0.0078125;  //1 = the most different, 0 the most equal
+		fitnessRGB = fitnessRGB / 0.0078125;  //1 = the most different, 0 the most equal
+		
+		DoubleFitness df = new DoubleFitness(1 -fitnessRGB, true); //1 the most equal, 0 the most different
+		//df.theOther = 1-fitnessHSV;
+		
+		//DoubleFitness df = new DoubleFitness(1- fitnessHSV,true);
+		//df.theOther = 1-fitnessRGB;
+		return df;
+		
 	}
 	
 	

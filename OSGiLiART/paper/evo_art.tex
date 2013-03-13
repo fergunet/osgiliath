@@ -47,74 +47,92 @@ Creative evolutionary systems are used to evolve aesthetically pleasing or innov
 %\subsection{}
 
 \subsection{Aesthetic measures for evolutive art}\label{evo_art:aesth}
-MAIN CHALLENGE -> HOW TO MEASURE AESTHETICS.
+One of the main challenges in Evolutionary Art is how to measure aesthetic value of an piece of evolutive art.
 
 {\bf Definition} Two modes of aesthetics measures can be defined \cite{galanter2012computational}: 
-
 \begin{enumerate}
-\item {\em Aesthetics evaluations are expected to simulate, predict or cater to humans notions of beauty and taste.} 
-\item {\em Is an aspect of meta-aesthetic exploration and usually involves aesthetic standards created by software agents in artificial worlds.}
+\item ``{\em Aesthetics evaluations are expected to simulate, predict or cater to humans notions of beauty and taste.}'' This will be the definition used in this paper. 
+\item ``{\em Is an aspect of meta-aesthetic exploration and usually involves aesthetic standards created by software agents in artificial worlds.}''
 \end{enumerate}
 
 According to Galanter \cite{galanter2012computational}, computational aesthetics measures can be classified in the following categories:
 \begin{itemize}
-	%\item Based on Formulaic and Geometric Theories. The aesthetics of a piece of art are evaluated using a formula o principle (e.g., pythagorean proportions).
-	\item Based in Design Principles. Like the rule of thirds or theory of color (e.g., opposite colors) \cite{den2012evolving}.
+	\item Based on Formulaic and Geometric Theories. The aesthetics of a piece of art are evaluated using a formula o principle (e.g., pythagorean proportions).
+	\item Based in Design Principles. Like the rule of thirds or theory of color (e.g., using opposite colors).
 	\item Based in Neural Networks and Connective Models. 
+	\item Complexity Based Models. 
 	\item Based in Evolutionary Systems:
 		\begin{itemize}
 			\item Interactive Evolutionary Computation. The fitness of the individuals is determined by human agents.
-			\item Performance based goals. Certain properties of the art piece are evaluated and optimized based in performance measures (e.g., usable surface in furniture design generator). %An example of this approach is presented in  
-			\item Error relative to Exemplars. The individual fitness is measured using a real-world example (e.g., a photography or painting) \cite{dipaola2009incorporating}.
-			\item Complexity measures. This type of measures is based in the idea the complexity is directly related to aesthetics, following the path firstly stablished by Birkhoff \cite{birkhoff2003aesthetic}.
+			\item Performance based goals. Certain properties of the art piece are evaluated and optimized based in performance measures (e.g., usable surface in a furniture design generator).  
+			\item Error relative to Exemplars. The individual fitness is measured using a real-world example (e.g., a photography).
+			\item Complexity measures. This type of measures is based in the idea the complexity is directly related to aesthetics and follows the path firstly stablished by Birkhoff \cite{birkhoff2003aesthetic}.
 			\item Multi-objective. Given the multidimensional nature of aesthetics judgement, multi-objective EAs are a clear option in order to deal with this multidimensionality.
 			\item Extensions to EA (such as, coevolution, agent swarm behavior, etc.).
 		\end{itemize}
-	\item Complexity Based Models
 \end{itemize}
+
+A brief classification of the aesthetic measures found in a short review can be fount in Table~\ref{table_class}.
 
 %PAPERS LEÍDOS
-En \cite{li2012investigating}, Li et al. proponen las siguiente métricas para el aprendizaje estético:
-\begin{itemize}
-	\item Color ingredient.
-	\item Image complexity.
-	\item Image order.
-	\item MC metric.
-	\item BL Metric.
-\end{itemize}
+%En \cite{li2012investigating}, Li et al. proponen las siguiente métricas para el aprendizaje estético:
+%\begin{itemize}
+%	\item Color ingredient.
+%	\item Image complexity.
+%	\item Image order.
+%	\item MC metric.
+%	\item BL Metric.
+%\end{itemize}
+%
+%En \cite{den2010using}, presenta una comparación de tres métricas estéticas:
+%\begin{itemize}
+%	\item Benford Law.
+%	\item Global Contrast Factor.
+%	\item Information Theory.
+%\end{itemize}
+%
+%En \cite{den2010comparing}, presenta una comparación de cuatro métricas estéticas:
+%\begin{itemize}
+%	\item Machado and Cardoso.
+%	\item Ross and Ralph.
+%	\item Fractal Dimension.
+%	\item A weighted sum of the above mentioned metrics.
+%\end{itemize}
+%
+%En \cite{den2011evolving} se presenta una aproximación multi-objetivo para arte evolutivo. Las tres funciones de fitness utilizadas son:
+%\begin{itemize}
+%	\item Benford Law.
+%	\item Global Contrast Factor.
+%	\item Ross and Ralph (bell curve).
+%\end{itemize}
+%
+%En \cite{den2012evolving} se presenta un AE para crear arte evolutiva a partir de imágenes vectorizadas. La función de fitness utilizada es la diferencia de tono entre  distintas regiones de la imagen a distintas resoluciones.
+%
+%En \cite{dipaola2009incorporating} they present an automatic fitness function specific to portrait painting based in four scores:
+%\begin{itemize}
+%	\item Resemblance.
+%	\item Composition (face vs background).
+%	\item Tonality.
+%	\item Color.
+%\end{itemize}
 
-En \cite{den2010using}, presenta una comparación de tres métricas estéticas:
-\begin{itemize}
-	\item Benford Law.
-	\item Global Contrast Factor.
-	\item Information Theory.
-\end{itemize}
-
-En \cite{den2010comparing}, presenta una comparación de cuatro métricas estéticas:
-\begin{itemize}
-	\item Machado and Cardoso.
-	\item Ross and Ralph.
-	\item Fractal Dimension.
-	\item A weighted sum of the above mentioned metrics.
-\end{itemize}
-
-En \cite{den2011evolving} se presenta una aproximación multi-objetivo para arte evolutivo. Las tres funciones de fitness utilizadas son:
-\begin{itemize}
-	\item Benford Law.
-	\item Global Contrast Factor.
-	\item Ross and Ralph (bell curve).
-\end{itemize}
-
-En \cite{den2012evolving} se presenta un AE para crear arte evolutiva a partir de imágenes vectorizadas. La función de fitness utilizada es la diferencia de tono entre  distintas regiones de la imagen a distintas resoluciones.
-
-En \cite{dipaola2009incorporating} they present an automatic fitness function specific to portrait painting based in four scores:
-\begin{itemize}
-	\item Resemblance.
-	\item Composition (face vs background).
-	\item Tonality.
-	\item Color.
-\end{itemize}
-
+%\rowcolors{2}{gray!25}{white}
+\begin{table*}[!t] 
+\renewcommand{\arraystretch}{1.3} 
+\caption{Classification of the aesthetic measures used in a brief review of the literature on evolutive art.} 
+\label{table_class} 
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Type & Aesthetic Measure \\ \hline
+Formulaic and Geometric Theories & Fractal dimension \cite{den2010comparing}, Image order \cite{li2012investigating}, Benford Law \cite{del2005benford}\\ \hline
+Based in Design Principles &  Color contrast (hue) \cite{den2012evolving},  Color ingredient \cite{li2012investigating}, Composition, tonality and color \cite{dipaola2009incorporating}.\\ \hline
+Interactive Evolutionary Computation & The electric sheep project \cite{draves2006electric} \\ \hline
+Error relative to Exemplars &  Resemblance score \cite{dipaola2009incorporating}, pixel comparation \cite{aguilar2008robotic}\\ \hline
+Performance based goals & Evolving virtual creatures \cite{sims1994evolving} \\\hline
+Complexity measures & Image complexity \cite{li2012investigating}, Machado and Cardoso aesthetic measure \cite{machado1998computing}\\ \hline
+\end{tabular}
+\end{table*}
 
 \section{Genetic Operators}\label{go}
 \subsection{Representation}\label{go:repre}
@@ -133,6 +151,6 @@ HISTOGRAMA DEF: a graphical representation of the tonal distribution in an image
 \subsubsection*{Aknowledments.} 
 
 \bibliographystyle{IEEEtran}
-\bibliography{IEEEabrv,evo_art}
+\bibliography{evo_art}
 
 \end{document}  

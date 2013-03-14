@@ -1,13 +1,16 @@
 % !TEX encoding = UTF-8 Unicode
 \documentclass[conference]{IEEEtran}
 \usepackage{amsmath} 
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{graphicx,epsfig}
 \hyphenation{op-tical net-works semi-conduc-tor}
 
                                          % Activate to display a given date or no date
 
 \begin{document}
 
-\title{Bare Demo of IEEEtran.cls for Conferences}
+\title{Evolutionary Art using Processing}
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
@@ -30,7 +33,7 @@ Email:}
 \maketitle
 
 \begin{abstract}
-<Text of the summary of your article>
+This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a BLABLABLA. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average. Results shows that...
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -40,23 +43,23 @@ The main goal of this paper is ... We show ...
 
 This paper is organized as follows: in Section \ref{evo_art}, a brief review on Evolutionary Art is presented. The methodology and experiments are presented in Sections \ref{go} and \ref{exper}, respectively. Finally, the conclusions and future work can be found in Section \ref{conclusions}.
 
-\section{Evolutionary Art}\label{evo_art}
+\section{State of the art}
+\label{sec:soa}
 
-Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH05:13-18:2005}. In the field of computational aesthetics, evolutionary systems can play an important role, enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}.
+Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH}. In the field of computational aesthetics, evolutionary systems can play an important role, enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}.
 
-\subsection{Art Representation for Evolutive Art} \label{evo_art:repr}
+
+Representation of the art in Evolutionary Art can be one of the methods in the following classification:
 \begin{itemize}
 	\item Symbolic expression. The genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree.
 	\item Grammars. A shape grammar is used as a formal description of the image.
 	\item Using existing images as a source. 
 	\item Others, such as fractals or cellular automata.
 \end{itemize}
-%\subsection{}
 
-\subsection{Aesthetic measures for evolutive art}\label{evo_art:aesth}
 One of the main challenges in Evolutionary Art is how to measure aesthetic value of an piece of evolutive art.
 
-{\bf Definition} Two modes of aesthetics measures can be defined \cite{galanter2012computational}: 
+Two modes of aesthetics measures are defined by \cite{galanter2012computational}: 
 \begin{enumerate}
 \item ``{\em Aesthetics evaluations are expected to simulate, predict or cater to humans notions of beauty and taste.}'' This will be the definition used in this paper. 
 \item ``{\em Is an aspect of meta-aesthetic exploration and usually involves aesthetic standards created by software agents in artificial worlds.}''
@@ -141,19 +144,81 @@ Complexity measures & Image complexity \cite{li2012investigating}, Machado and C
 \end{tabular}
 \end{table*}
 
-\section{Genetic Operators}\label{go}
-In this section we will describe the genetic operators ...
-\subsection{Representation}\label{go:repre}
-Genotype -> list of shapes
-\subsection{Initialization}\label{go:init}
-??
-\subsection{Mutation}\label{go:mutation}
-??
-\subsection{Crossover}\label{go:crossover}
-??
-\subsection{Fitness Functions}\label{go:fitness} 
+\section{Processing and image measurements.}
+\label{sec:processing}
+In this section we will describe Processing. Processing \cite{PROCESSING} is a framework formed by a simple programming language and an integrated development environment (IDE) mainly focused to electronic and visual artists, designers, musicians, etc.
+
+Processing has the next advantages:
+\begin{itemize}
+\item Processing was created for artists, rather than programmers. So, it allows very complex drawings and interactive applications with few lines of code. For example, Figure \ref{fig:subide} shows the sketch (in the IDE) necessary to create the Figure \ref{fig:subsketch}.
+\item It is an Open Source software, and can work with the community in its development.
+\item It is based in OpenGL, obtaining a good 3D acceleration.
+\item Includes more than 100 libraries for video, sound, phisycs, computer vision, networking, etc.
+\item Easy integration with Java, HTML5 and Android.
+\item Finally, it is fairly light when installed.
+\end{itemize}
+
+\begin{figure*}[ht]
+\centering
+
+\subfigure[Processing IDE]{
+   \includegraphics[scale =0.6] {images/Processing.eps}
+   \label{fig:subide}
+ }
+\subfigure[Runtime of the code.]{
+   \includegraphics[scale =0.4] {images/run.eps}
+   \label{fig:subsketch}
+ }
+
+\label{fig:ide}
+\caption{Processing IDE and sketch execution. }
+\end{figure*}
+
+However, being a light framework, there exist some disadvantages:
+\begin{itemize}
+\item More complex applications require more programming skills.
+\item The textures are difficult to manage because we have advanced knowledge of image processing. ESTO NO ME CONVENCE
+\item The calculations of large computer images are a bit inefficient (although expert programmers can manage OpenGL at low level to fix this).
+\end{itemize}
+
+There exist a lot of interactive artistic projects made with Processing, examples are: BLABLABLABLA
+
+Processing is composed by several modules that include data managament for BLABLABLAB:
+\begin{itemize}
+\item Structure: Includes typical programming functions as is the case of return, draw (), void, and everything related to the structure of the program.
+\item Environment: Formed by the functions that handle the modeling of the window: cursor, width, height, background, for example.
+\item Data: formed by the data types that make up the different program variables (int, char, float).
+\item Control: Consisting in relations operators.
+\item Shape: it is formed by all functions of the treatment of figures 3D and 2D.
+\item Input: input interactivity features such as functions for the mouse, keyboard or files.
+\item Output: output interactivity features such as write on the screen, save the image or serial control.
+\item Transform: transformations such as rotations or translations.
+\item Lights and Cameras: Functions for the treatment of the lights and cameras.
+\item Color: Functions to handle color of the figures.
+\item Image: Functions for loading images or textures.
+\item Rendary: Functions for rendering images.
+\item Typography: Functions for dealing with text.
+\item Math: Functions for dealing with all mathematical functionality.
+\end{itemize}
+
+The Color module can be used to analyze images taking into account their histogram. The color histogram represents the frequency of occurrence of each color intensities present in the image, by accounting for such sharing pixels color intensity values.
+
+The histogram is composed of different ranges or bins that represent a value or set of values ​​of color intensity. The color space is defined as a model representation with respect to color intensity values: RGB (Red, Green, Blue) and HSV (Hue, Saturation and Value).
+
+
+\section{Experimental setup}
+
+\subsection{Integrating Processing in Java}
+Processing can be integrated with Java just adding a {\em jar} (a Java library) to existing software. The simplified code of the sketch (for example, the one shown in Figure \ref{sketch} is accessed extending the {\em PApplet} class. In this work, Processing has been integrated to an existent EA framework, OSGiLiath \cite{OSGILIATH}, a service-oriented framework based in Java that includes a lot of primitives and services for Evolutionary Computation. A new module called OSGiLiART has been added to the publicly-available source code of OSGiLiath (available in \url{http://www.osgiliath.org}) under a GPL License.
+
+\subsection{Individual representation}
+
+To test the Processing advantages and perform the experiments, the individual is a list of Processing Circles.
+
+\subsection{Fitness used}
 For this piece of research, we focused on two measures of aesthetics: basic histogram comparison and image matching. The fitness functions are included in the ``Error relative to Exemplars'' category, using Galanter \cite{galanter2012computational} classification.
-\subsubsection{Histogram comparision}\label{go:fitness:hist}
+
+%\subsubsection{Histogram comparision}\label{go:fitness:hist}
 An histogram is a graphical representation of the tonal distribution in an image. The histogram for the property $i$ is computed following (\ref{eq:histogram}).
 
 
@@ -175,15 +240,64 @@ An histogram is a graphical representation of the tonal distribution in an image
 	fitness_{AVERAGE}(i) = \frac{fitness_{RGB}+fitness_{HSV}}{2}
 \end{eqnarray}
 
-\subsubsection{Image Matching}\label{go:fitness:image_match}
+\subsection{Parameters used}
 
-\section{Experimental Results} \label{exper}
 
-\section{Conclusions and Future Work}\label{conclusions}
-This paper introduces a ...
+\section{Results} 
+\label{sec:results}
 
-The future work for this research work includes ...
-\subsubsection*{Aknowledments.} 
+Table \ref{tab:results} show the differences attained with each fitness used. As can be see... An example of evolution can be see in Figure \ref{fig:rgbgens}, \ref{fig:hsvgens} and \ref{fig:averagegens}. 
+
+\begin{figure}
+   \includegraphics[scale =0.4] {images/rgbgens.eps}
+\label{fig:gensrgb}
+\caption{Evolution of the difference in RGB histogram of the best individual compared with the test image. }
+\end{figure}
+
+\begin{figure}
+   \includegraphics[scale =0.4] {images/hsvgens.eps}
+\label{fig:gensrgb}
+\caption{Evolution of the difference in HSV histogram of the best individual compared with the test image. }
+\end{figure}
+
+\begin{figure}
+   \includegraphics[scale =0.4] {images/rgbgens.eps}
+\label{fig:gensrgb}
+\caption{Evolution of the difference of average of RGB and HSV histogram of the best individual compared with the test image. }
+\end{figure}
+
+The best individuals attained are shown in Figure \ref{fig:bestinds}.
+
+\begin{figure*}[ht]
+\centering
+
+\subfigure[Best individual using HSV]{
+   \includegraphics[scale =0.4] {images/HSV.eps}
+   \label{fig:subfig1}
+ }
+\subfigure[Best individual using RGB]{
+   \includegraphics[scale =0.4] {images/RGB.eps}
+   \label{fig:subfig2}
+ }
+\subfigure[Best individual using AVERAGE]{
+   \includegraphics[scale =0.4] {images/AVERAGE.eps}
+   \label{fig:subfig2}
+ }
+\label{fig:bestinds}
+\caption{Best individuals obtained with the three fitness used (HSV, RGB and AVERAGE). }
+\end{figure*}
+
+
+\section{Conclusions and Future Work}
+\label{sec:conclusions}
+This paper introduces an Evolutionary Algorithm that uses Processing to generate images and to extract image information. Individuals are represented as a list of Processing primitives and the fitness functions used are based in the similarity with an existent aesthetic image. Three different fitness function using histogram have been tested: difference with the HSV and RGB histograms, and an average difference of the two histograms at the same time.
+
+The future work for this research work includes more experiment with other kind of individuals, appart from circles: using other primitives, such as rectangles or triangles, for example. With the use of textures and gradients would include a larger histogram EXTENDIDO. Finally, our intention is not create only static images, but use the Processing libraries to create evolutionary interactive art combining sounds and motion. A human guidance tool is also being developed to obtain human feedback to create a knowledge base for future experimentation.
+
+The used software is Open Source and can be obtained in \url{http://www.osgiliath.org}.
+
+\section*{Acknowledgements.} 
+This paper has been 
 
 \bibliographystyle{IEEEtran}
 \bibliography{evo_art}

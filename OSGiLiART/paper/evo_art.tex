@@ -33,7 +33,7 @@ Email:}
 \maketitle
 
 \begin{abstract}
-This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a BLABLABLA. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average. Results shows that...
+This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a framework designed for visual designers and artists that is starting to have great pressence in the interactive and visual art field. It includes several modules for image creation, manipulation and analysis. This framework has been used to create an Evolutionary Algorithm that generates images comparing the histograms of a test image. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average of both. Results shows that the latter increases the similirities of the RGB and HSV with respecting to using them separately.
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -41,7 +41,7 @@ Evolutionary art blah, blah, blah, ...
 
 The main goal of this paper is ... We show ...
 
-This paper is organized as follows: in Section \ref{evo_art}, a brief review on Evolutionary Art is presented. The methodology and experiments are presented in Sections \ref{go} and \ref{exper}, respectively. Finally, the conclusions and future work can be found in Section \ref{conclusions}.
+This paper is organized as follows: in Section \ref{sec:soa}, a brief review on Evolutionary Art is presented. Processing and image information are described next (Section \ref{sec:processing}). The experimental setup and results are presented in Sections \ref{sec:setup} and \ref{sec:results}, respectively. Finally, the conclusions and future work can be found in Section \ref{conclusions}.
 
 \section{State of the art}
 \label{sec:soa}
@@ -128,7 +128,7 @@ A brief classification of the aesthetic measures found in a short review can be 
 
 %\rowcolors{2}{gray!25}{white}
 \begin{table*}[!t] 
-\renewcommand{\arraystretch}{1.3} 
+%\renewcommand{\arraystretch}{1.3} 
 \caption{Classification of the aesthetic measures used in a brief review of the literature on evolutive art.} 
 \label{table_class} 
 \centering
@@ -144,11 +144,12 @@ Complexity measures & Image complexity \cite{li2012investigating}, Machado and C
 \end{tabular}
 \end{table*}
 
-\section{Processing and image measurements.}
+\section{Processing and image metrics}
 \label{sec:processing}
-In this section we will describe Processing. Processing \cite{PROCESSING} is a framework formed by a simple programming language and an integrated development environment (IDE) mainly focused to electronic and visual artists, designers, musicians, etc.
+In this section we will describe Processing \footnote{\url{http://www.processing.org/}}. Processing \cite{PROCESSING} is a framework formed by a simple programming language and an integrated development environment (IDE) mainly focused to electronic and visual artists, designers, musicians, etc.
 
 Processing has the next advantages:
+
 \begin{itemize}
 \item Processing was created for artists, rather than programmers. So, it allows very complex drawings and interactive applications with few lines of code. For example, Figure \ref{fig:subide} shows the sketch (in the IDE) necessary to create the Figure \ref{fig:subsketch}.
 \item It is an Open Source software, and can work with the community in its development.
@@ -162,11 +163,11 @@ Processing has the next advantages:
 \centering
 
 \subfigure[Processing IDE]{
-   \includegraphics[scale =0.6] {images/Processing.eps}
+   \includegraphics[scale =0.55] {images/Processing.eps}
    \label{fig:subide}
  }
 \subfigure[Runtime of the code.]{
-   \includegraphics[scale =0.4] {images/run.eps}
+   \includegraphics[scale =0.45] {images/run.eps}
    \label{fig:subsketch}
  }
 
@@ -177,13 +178,13 @@ Processing has the next advantages:
 However, being a light framework, there exist some disadvantages:
 \begin{itemize}
 \item More complex applications require more programming skills.
-\item The textures are difficult to manage because we have advanced knowledge of image processing. ESTO NO ME CONVENCE
 \item The calculations of large computer images are a bit inefficient (although expert programmers can manage OpenGL at low level to fix this).
 \end{itemize}
 
 There exist a lot of interactive artistic projects made with Processing, examples are: BLABLABLABLA
 
-Processing is composed by several modules that include data managament for BLABLABLAB:
+Processing is composed by several modules:
+
 \begin{itemize}
 \item Structure: Includes typical programming functions as is the case of return, draw (), void, and everything related to the structure of the program.
 \item Environment: Formed by the functions that handle the modeling of the window: cursor, width, height, background, for example.
@@ -203,8 +204,21 @@ Processing is composed by several modules that include data managament for BLABL
 
 The Color module can be used to analyze images taking into account their histogram. The color histogram represents the frequency of occurrence of each color intensities present in the image, by accounting for such sharing pixels color intensity values.
 
-The histogram is composed of different ranges or bins that represent a value or set of values ​​of color intensity. The color space is defined as a model representation with respect to color intensity values: RGB (Red, Green, Blue) and HSV (Hue, Saturation and Value).
+The histogram is composed of different ranges or bins that represent a value or set of values ​​of color intensity. The color space is defined as a model representation with respect to color intensity values: RGB (Red, Green, Blue) and HSV (Hue, Saturation and Value).  The resolution of the various components is not uniform but used an increased number of bits for representing the hue component, which for the two remaining two bits being sufficient in the case of Value. Figure \ref{fig:histogram} shows the RGB histogram of the image in the Figure \ref{fig:flevopark}.
 
+\begin{figure}
+\centering
+   \includegraphics[scale =0.6] {images/histogram.eps}
+\label{fig:histogram}
+\caption{RGB histogram of the Figure \ref{fig:flevopark}. }
+\end{figure}
+
+\begin{figure}
+\centering
+   \includegraphics[scale =3] {images/flevopark.eps}
+\label{fig:flevopark}
+\caption{Test image to compare with the Fitness functions of our algorithm.}
+\end{figure}
 
 \section{Experimental setup}
 
@@ -240,29 +254,48 @@ An histogram is a graphical representation of the tonal distribution in an image
 	fitness_{AVERAGE}(i) = \frac{fitness_{RGB}+fitness_{HSV}}{2}
 \end{eqnarray}
 
+
+
+
+
 \subsection{Parameters used}
 
+A steady-state evolutionary algorithm has been used. Each individual is randomly generated at the initialization of the EA. The genome size is 50 elements (circles of maximum radium of 128 pixels). Population size has been set to 32 individuals. Crossover rate is 0.5, and a binary tournament has been selected for selection (that is, a pool of 16 parents is selected). Mutation probability is 0.04 (1/genomesize). Finally, the image size for eac individual is 256x256 pixels. The invidivuals have been compared with the histograms obtained from the image of Figure \ref{fig:flevopark}.
 
 \section{Results} 
 \label{sec:results}
 
-Table \ref{tab:results} show the differences attained with each fitness used. As can be see... An example of evolution can be see in Figure \ref{fig:rgbgens}, \ref{fig:hsvgens} and \ref{fig:averagegens}. 
+Table \ref{tab:results} show the differences attained with each fitness used. As can be see... An example of evolution for each fitness can be see in Figure \ref{fig:rgbgens}, \ref{fig:hsvgens} and \ref{fig:averagegens}. 
+
+\begin{table*}
+\centering
+\caption{Results for the different fitness. Only one histogram type is used, but the other values obtained are also added.}
+\begin{tabular}{|c|c|c|c|} \hline
+Differences used & Obtained RGB      		& Obtained HSV  & Obtained Average \\ \hline
+RGB Histogram    & {\em 0.267 $\pm$ 0.012}	& 0.170 $\pm$ 0.010 	& 0.218 $\pm$ 0.009	\\ \hline
+HSV Histogram    & 0.227 $\pm$ 0.017	& {\em 0.265 $\pm$ 0.021}	& 0.246 $\pm$ 0.010 \\ \hline
+Average Histogram& 0.173 $\pm$ 0.012	& 0.294 $\pm$ 0.013	& {\em 0.234 $\pm$ 0.010} \\ \hline
+
+
+\end{tabular}
+\label{tab:results}
+\end{table*}
 
 \begin{figure}
-   \includegraphics[scale =0.4] {images/rgbgens.eps}
-\label{fig:gensrgb}
+   \includegraphics[angle=-90,scale =0.35] {images/rgbgens.eps}
+\label{fig:rgbgens}
 \caption{Evolution of the difference in RGB histogram of the best individual compared with the test image. }
 \end{figure}
 
 \begin{figure}
-   \includegraphics[scale =0.4] {images/hsvgens.eps}
-\label{fig:gensrgb}
+   \includegraphics[angle=-90,scale =0.35] {images/hsvgens.eps}
+\label{fig:hsvgens}
 \caption{Evolution of the difference in HSV histogram of the best individual compared with the test image. }
 \end{figure}
 
 \begin{figure}
-   \includegraphics[scale =0.4] {images/rgbgens.eps}
-\label{fig:gensrgb}
+   \includegraphics[angle=-90,scale =0.35] {images/averagegens.eps}
+\label{fig:averagegens}
 \caption{Evolution of the difference of average of RGB and HSV histogram of the best individual compared with the test image. }
 \end{figure}
 
@@ -270,17 +303,16 @@ The best individuals attained are shown in Figure \ref{fig:bestinds}.
 
 \begin{figure*}[ht]
 \centering
-
-\subfigure[Best individual using HSV]{
-   \includegraphics[scale =0.4] {images/HSV.eps}
-   \label{fig:subfig1}
- }
 \subfigure[Best individual using RGB]{
-   \includegraphics[scale =0.4] {images/RGB.eps}
+   \includegraphics[scale =0.5] {images/RGB.eps}
    \label{fig:subfig2}
  }
+\subfigure[Best individual using HSV]{
+   \includegraphics[scale =0.5] {images/HSV.eps}
+   \label{fig:subfig1}
+ }
 \subfigure[Best individual using AVERAGE]{
-   \includegraphics[scale =0.4] {images/AVERAGE.eps}
+   \includegraphics[scale =0.5] {images/AVERAGE.eps}
    \label{fig:subfig2}
  }
 \label{fig:bestinds}
@@ -296,8 +328,8 @@ The future work for this research work includes more experiment with other kind 
 
 The used software is Open Source and can be obtained in \url{http://www.osgiliath.org}.
 
-\section*{Acknowledgements.} 
-This paper has been 
+\section*{acknowledgements}
+This work has been supported in part by FPU research grant AP2009-2942 and projects EvOrq (TIC-3903), SINECA (0100DGT21285, Spanish Direccion General de Trafico) and TIN2011-28627-C04-02.
 
 \bibliographystyle{IEEEtran}
 \bibliography{evo_art}

@@ -43,11 +43,11 @@ Email: ruben@fidesol.org}
 \maketitle
 
 \begin{abstract}
-This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a framework designed for visual designers and artists that is starting to have great presence in the interactive and visual art field. It includes several modules for image creation, manipulation and analysis. This framework has been used to create an Evolutionary Algorithm that generates abstract images comparing the histograms of a test image. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average of both. Results shows that the HSV also increases the similarities of the RGB (and therefore, the average) than the other two measures.
+This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a framework designed for visual designers and artists that is starting to have great presence in the interactive and visual art field. It includes several modules for image creation, manipulation and analysis. This framework has been used to create an Evolutionary Algorithm that generates abstract images comparing the histograms of a test image. Three different fitness functions have been used: the differences between of the RGB histogram, the HSV histogram and an average of both. Results shows that the HSV also increases the similarities of the RGB (and therefore, the average) more than the other two measures.
 \end{abstract}
 
 \section{Introduction}\label{intro}
-Evolutionary Art \cite{EART} is a type of generative art created by a computer following the principle of the survival of the fittest, using the methods from Evolutionary Computation \cite{INTROEIBEN}. A population of artistic works (individuals) are evaluated with an aesthetic measure to give a score (fitness). These individuals are combined and mutated to generate an offspring with inherited properties of the parents, during a certain number of times.
+Evolutionary Art \cite{EART} is a type of generative art created by a computer, following the principle of the survival of the fittest, using Evolutionary Computation methods \cite{INTROEIBEN}. A population of artistic works (individuals) are evaluated with an aesthetic measure to give a score (fitness). These individuals are combined and mutated to generate an offspring with inherited properties of the parents, during a certain number of times.
 
 The main goal of this paper is to test the advantages of using Processing, a programming framework designed for visual artists, in Evolutionary Art. In this work Processing is used inside an Evolutionary Algorithm (EA) to model the individuals, generate their associate images and extract information of them (HSV, RGB and Average histograms) to fit with the histograms of a test image.
 
@@ -55,88 +55,14 @@ The rest of the work is organized as follows: in Section \ref{sec:soa}, a brief 
 
 \section{State of the art}
 \label{sec:soa}
+Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH}. In the field of computational aesthetics, evolutionary systems can play an important role, by enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}. Evolutionary art is characterized by the use of evolutionary principles and natural selection as a generative process. One of the earliest applications of evolutionary systems to generate art is the proposal of Sims to use GA to create complex structures \cite{sims1991artificial} or virtual creatures  \cite{sims1994evolving}. In evolutionary art systems, the evaluation of the aesthetics can be done using human feedback, with some interactive evaluation of the population, such as, \cite{ashlock2006evolutionary,draves2006electric,moroni2000vox,sims1991artificial} and \cite{ takagi2001interactive}. It also can be achieved by using an automatic evaluation of fitness, as presented in \cite{aguilar2008robotic,del2005benford,den2010comparing,dipaola2009incorporating,li2012investigating,machado1998computing}, and \cite{sims1994evolving}.
 
-Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH}. In the field of computational aesthetics, evolutionary systems can play an important role, enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}.
+One of the main challenges in Evolutionary Art is how to measure aesthetic value of a piece of evolutive art. The source of this difficulty lays in the inherent complexity, subjectivity and dynamism of aesthetics. Nevertheless, a wide number of metrics has been presented. According to Galanter \cite{galanter2012computational}, these measures can be classified in the several categories in several pieces of research. The first category involves the evaluation of the aesthetics of a piece of art by a formula o principle (e.g., pythagorean proportions). Other measures apply certain principles of design, such as the rule of thirds or color theory (e.g., using complimentary colors), neural networks or complexity measures. 
 
+This classification also provides a sub-classification for evolutionary systems. First, it identifies interactive evolutionary systems, where the fitness of the individuals is determined by human agents. Another category is performance based goals: certain properties of the art piece are evaluated and optimized based in performance measures (e.g., usable surface in a furniture design generator). Other systems use an exemplar (i.e., real world example) as a way to measure the fitness of the individuals. Finally, some models use the idea that the complexity is directly related to aesthetics and follow the path firstly stablished by Birkhoff \cite{birkhoff2003aesthetic}.  Given the multidimensional nature of aesthetics judgement, multi-objective EAs are a straightforward option to deal with this multidimensionality. Other extensions to EA, like coevolution or agent swarm behavior, can be used to in evolutionary art systems.
 
-Representation of the art in Evolutionary Art can be one of the methods in the following classification:
-\begin{itemize}
-	\item Symbolic expression. The genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree.
-	\item Grammars. A shape grammar is used as a formal description of the image.
-	\item Using existing images as a source. 
-	\item Others, such as fractals or cellular automata.
-\end{itemize}
+A brief classification of the aesthetic measures found in a the evolutionary art systems mentioned in the previous paragraph is shown in Table~\ref{table_class}.
 
-One of the main challenges in Evolutionary Art is how to measure aesthetic value of an piece of evolutive art.
-
-Two modes of aesthetics measures are defined by \cite{galanter2012computational}: 
-\begin{enumerate}
-\item ``{\em Aesthetics evaluations are expected to simulate, predict or cater to humans notions of beauty and taste.}'' This will be the definition used in this paper. 
-\item ``{\em Is an aspect of meta-aesthetic exploration and usually involves aesthetic standards created by software agents in artificial worlds.}''
-\end{enumerate}
-
-According to Galanter \cite{galanter2012computational}, computational aesthetics measures can be classified in the following categories:
-\begin{itemize}
-	\item Based on Formulaic and Geometric Theories. The aesthetics of a piece of art are evaluated using a formula o principle (e.g., pythagorean proportions).
-	\item Based in Design Principles. Like the rule of thirds or theory of color (e.g., using opposite colors).
-	\item Based in Neural Networks and Connective Models. 
-	\item Complexity Based Models. 
-	\item Based in Evolutionary Systems:
-		\begin{itemize}
-			\item Interactive Evolutionary Computation. The fitness of the individuals is determined by human agents.
-			\item Performance based goals. Certain properties of the art piece are evaluated and optimized based in performance measures (e.g., usable surface in a furniture design generator).  
-			\item Error relative to Exemplars. The individual fitness is measured using a real-world example (e.g., a photography).
-			\item Complexity measures. This type of measures is based in the idea the complexity is directly related to aesthetics and follows the path firstly stablished by Birkhoff \cite{birkhoff2003aesthetic}.
-			\item Multi-objective. Given the multidimensional nature of aesthetics judgement, multi-objective EAs are a clear option in order to deal with this multidimensionality.
-			\item Extensions to EA (such as, coevolution, agent swarm behavior, etc.).
-		\end{itemize}
-\end{itemize}
-
-A brief classification of the aesthetic measures found in a short review can be found in Table~\ref{table_class}.
-
-%PAPERS LEÍDOS
-%En \cite{li2012investigating}, Li et al. proponen las siguiente métricas para el aprendizaje estético:
-%\begin{itemize}
-%	\item Color ingredient.
-%	\item Image complexity.
-%	\item Image order.
-%	\item MC metric.
-%	\item BL Metric.
-%\end{itemize}
-%
-%En \cite{den2010using}, presenta una comparación de tres métricas estéticas:
-%\begin{itemize}
-%	\item Benford Law.
-%	\item Global Contrast Factor.
-%	\item Information Theory.
-%\end{itemize}
-%
-%En \cite{den2010comparing}, presenta una comparación de cuatro métricas estéticas:
-%\begin{itemize}
-%	\item Machado and Cardoso.
-%	\item Ross and Ralph.
-%	\item Fractal Dimension.
-%	\item A weighted sum of the above mentioned metrics.
-%\end{itemize}
-%
-%En \cite{den2011evolving} se presenta una aproximación multi-objetivo para arte evolutivo. Las tres funciones de fitness utilizadas son:
-%\begin{itemize}
-%	\item Benford Law.
-%	\item Global Contrast Factor.
-%	\item Ross and Ralph (bell curve).
-%\end{itemize}
-%
-%En \cite{den2012evolving} se presenta un AE para crear arte evolutiva a partir de imágenes vectorizadas. La función de fitness utilizada es la diferencia de tono entre  distintas regiones de la imagen a distintas resoluciones.
-%
-%En \cite{dipaola2009incorporating} they present an automatic fitness function specific to portrait painting based in four scores:
-%\begin{itemize}
-%	\item Resemblance.
-%	\item Composition (face vs background).
-%	\item Tonality.
-%	\item Color.
-%\end{itemize}
-
-%\rowcolors{2}{gray!25}{white}
 \begin{table*}[!t] 
 \renewcommand{\arraystretch}{1.3} 
 \caption{Classification of the aesthetic measures used in a brief review of the literature on evolutive art.} 
@@ -147,24 +73,28 @@ A brief classification of the aesthetic measures found in a short review can be 
 Type & Aesthetic Measure \\ \hline
 Formulaic and Geometric Theories & Fractal dimension \cite{den2010comparing}, Image order \cite{li2012investigating}, Benford Law \cite{del2005benford}\\ \hline
 Based in Design Principles &  Color contrast (hue) \cite{den2012evolving},  Color ingredient \cite{li2012investigating}, Composition, tonality and color \cite{dipaola2009incorporating}.\\ \hline
-Interactive Evolutionary Computation & The electric sheep project \cite{draves2006electric} \\ \hline
+Interactive Evolutionary Computation & The electric sheep project \cite{draves2006electric} \cite{ashlock2006evolutionary,moroni2000vox}\\ \hline
 Error relative to Exemplars &  Resemblance score \cite{dipaola2009incorporating}, pixel comparation \cite{aguilar2008robotic}\\ \hline
 Performance based goals & Evolving virtual creatures \cite{sims1994evolving} \\\hline
 Complexity measures & Image complexity \cite{li2012investigating}, Machado and Cardoso aesthetic measure \cite{machado1998computing}\\ \hline
 \end{tabular}
 \end{table*}
 
+Several methods for the representation of the art in evolutionary art have been proposed: Symbolic expression, where the genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree. Shape grammars can also be used as a formal description of the image. Previously existing images can be used as a basis for the evolution process. Finally, other representations can be based on mathematical models, like fractals or cellular automata.
+
+
+%\rowcolors{2}{gray!25}{white}
+
+
 \section{Processing and Histograms}
 \label{sec:processing}
-In this section we will describe Processing \footnote{\url{http://www.processing.org/}}. Processing \cite{PROCESSING} is a framework formed by a simple programming language and an integrated development environment (IDE) mainly focused to electronic and visual artists, designers, musicians, etc.
-
-Processing has the next advantages:
+In this section we will describe Processing \footnote{\url{http://www.processing.org/}}. Processing \cite{PROCESSING} is a framework formed by a simple programming language and an integrated development environment (IDE) mainly focused to electronic and visual artists, designers, musicians, etc. Processing offers the following advantages:
 
 \begin{itemize}
 \item Processing was created for artists, rather than programmers. So, it allows very complex drawings and interactive applications with few lines of code. For example, Figure \ref{fig:subide} shows the sketch (in the IDE) necessary to create the Figure \ref{fig:subsketch}.
 \item It is an Open Source software ( licensed under the GNU Lesser General Public License), and counts with a large development community.
-\item It is based in OpenGL, obtaining a good 3D acceleration.
-\item Includes more than 100 libraries for video, sound, physics, computer vision, networking, etc.
+\item It is based in OpenGL, thus providing 3D acceleration.
+\item It also includes more than 100 libraries for video, sound, physics, computer vision, networking, etc.
 \item Easy integration with Java, HTML5 and Android.
 \item Finally, it is fairly light when installed.
 \end{itemize}
@@ -234,10 +164,10 @@ Figure \ref{fig:histogram} shows the RGB histogram of the image in the Figure \r
 \section{Experimental setup}
 \label{sec:setup}
 
-This section show how Processing have been used in the EA, the individual representation, the fitness used, and the parameters of the experiments.
+This section shows how Processing have been used in the EA, the individual representation, the fitness functions, and the parameters of the experiments.
 
 \subsection{Integrating Processing in Java}
-Processing can be integrated with Java just adding a {\em jar} (a Java library) to existing software. The simplified code of the sketch (for example, the one shown in Figure \ref{fig:subsketch}) is accessed extending the {\em PApplet} class. In this work, Processing has been integrated to an existent EA framework, OSGiLiath \cite{OSGILIATH}, a service-oriented framework based in Java that includes a lot of primitives and services for Evolutionary Computation. A new module called OSGiLiART has been added to the publicly-available source code of OSGiLiath (available in \url{http://www.osgiliath.org}) under a GPL License. Then, using the packages available in the Processing library the EA can generate individuals, manipulate images or extract information.
+Processing can be integrated with Java just by adding a {\em jar} (a Java library) to existing software. The simplified code of the sketch (for example, the one shown in Figure \ref{fig:subsketch}) is accessed extending the {\em PApplet} class. In this work, Processing has been integrated to an existent EA framework, OSGiLiath \cite{OSGILIATH}, a service-oriented framework based in Java that includes a lot of primitives and services for Evolutionary Computation. A new module called OSGiLiART has been added to the publicly-available source code of OSGiLiath (available in \url{http://www.osgiliath.org}) under a GPL License. Then, using the packages available in the Processing library the EA can generate individuals, manipulate images or extract information.
 
 \subsection{Individual representation}
 

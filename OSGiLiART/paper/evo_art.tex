@@ -43,7 +43,7 @@ Email: ruben@fidesol.org}
 \maketitle
 
 \begin{abstract}
-This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a framework designed for visual designers and artists that is starting to have great pressence in the interactive and visual art field. It includes several modules for image creation, manipulation and analysis. This framework has been used to create an Evolutionary Algorithm that generates abstract images comparing the histograms of a test image. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average of both. Results shows that the HSV also increases the similirities of the RGB (and therefore, the average) than the other two measures.
+This paper shows how the Processing framework can be used to generate Evolutionary Art. Processing is a framework designed for visual designers and artists that is starting to have great presence in the interactive and visual art field. It includes several modules for image creation, manipulation and analysis. This framework has been used to create an Evolutionary Algorithm that generates abstract images comparing the histograms of a test image. Three different fitness functions have been used: the differences of the RGB histogram, the HSV histogram and an average of both. Results shows that the HSV also increases the similarities of the RGB (and therefore, the average) than the other two measures.
 \end{abstract}
 
 \section{Introduction}\label{intro}
@@ -164,7 +164,7 @@ Processing has the next advantages:
 \item Processing was created for artists, rather than programmers. So, it allows very complex drawings and interactive applications with few lines of code. For example, Figure \ref{fig:subide} shows the sketch (in the IDE) necessary to create the Figure \ref{fig:subsketch}.
 \item It is an Open Source software ( licensed under the GNU Lesser General Public License), and counts with a large development community.
 \item It is based in OpenGL, obtaining a good 3D acceleration.
-\item Includes more than 100 libraries for video, sound, phisycs, computer vision, networking, etc.
+\item Includes more than 100 libraries for video, sound, physics, computer vision, networking, etc.
 \item Easy integration with Java, HTML5 and Android.
 \item Finally, it is fairly light when installed.
 \end{itemize}
@@ -236,7 +236,7 @@ The histogram is composed of different ranges or bins that represent a value or 
 This section show how Processing have been used in the EA, the individual representation, the fitness used, and the parameters of the experiments.
 
 \subsection{Integrating Processing in Java}
-Processing can be integrated with Java just adding a {\em jar} (a Java library) to existing software. The simplified code of the sketch (for example, the one shown in Figure \ref{fig:subsketch}) is accessed extending the {\em PApplet} class. In this work, Processing has been integrated to an existent EA framework, OSGiLiath \cite{OSGILIATH}, a service-oriented framework based in Java that includes a lot of primitives and services for Evolutionary Computation. A new module called OSGiLiART has been added to the publicly-available source code of OSGiLiath (available in \url{http://www.osgiliath.org}) under a GPL License. Then, using the packages availables in the Processing library the EA can generate individuals, manipulate images or extract information.
+Processing can be integrated with Java just adding a {\em jar} (a Java library) to existing software. The simplified code of the sketch (for example, the one shown in Figure \ref{fig:subsketch}) is accessed extending the {\em PApplet} class. In this work, Processing has been integrated to an existent EA framework, OSGiLiath \cite{OSGILIATH}, a service-oriented framework based in Java that includes a lot of primitives and services for Evolutionary Computation. A new module called OSGiLiART has been added to the publicly-available source code of OSGiLiath (available in \url{http://www.osgiliath.org}) under a GPL License. Then, using the packages available in the Processing library the EA can generate individuals, manipulate images or extract information.
 
 \subsection{Individual representation}
 
@@ -255,34 +255,40 @@ Three different fitness function has been tested:
 The range of the previous fitness have been normalized to vary from 0 (totally different histograms) to 1 (the same histogram).
 
 %\subsubsection{Histogram comparision}\label{go:fitness:hist}
-An histogram is a graphical representation of the tonal distribution in an image. The histogram for the property $i$ is computed following (\ref{eq:histogram}).
-
+For every color property (i.e., RED, GREEN, BLUE, HUE, SATURATION and VALUE), the histogram is computed using the expression (\ref{eq:histogram}) for each possible value (0-255). Then, again for every property, the difference between the target image and the individual histograms is obtained using (\ref{eq:diff}). Finally, the three fitness are calculated: RGB fitness (\ref{eq:RGB}), HSV fitness (\ref{eq:HSV}) and AVERAGE fitness (\ref{eq:AVERAGE}).
 
 \begin{eqnarray}
-	\label{eq:fitness}
+	\label{eq:histogram}
 	H(c, prop) = \frac{1}{N}\sum_{j=0}^N \left\{\begin{matrix}
 1 & prop(j) = c\\ 
 0 & otherwise
 \end{matrix}\right. \\
-	diff(h_1, h_2) = \sum_{j=0}^{255} |h_1(j) - h_2(j)| \\
+\label{eq:diff}
+diff(h_1, h_2) = \sum_{j=0}^{255} |h_1(j) - h_2(j)|
+\end{eqnarray}
+\begin{eqnarray}
 	d_R(i) = diff(H(i, RED), H(target, RED))\\
 	d_G(i) = diff(H(i, GREEN), H(target, GREEN))\\
 	d_B(i) =  diff(H(i, BLUE), H(target, BLUE))\\
-	fitness_{RGB}(i) = 1 - 128\frac{d_R(i) + d_G(i) + d_B(i)}{3} \\
+	\label{eq:RGB}
+	fitness_{RGB}(i) = 1 - 128\frac{d_R(i) + d_G(i) + d_B(i)}{3}
+\end{eqnarray}
+\begin{eqnarray}
 	d_H(i) = diff(H(i, HUE), H(target, HUE))\\
 	d_S(i) = diff(H(i, SAT), H(target, SAT))\\
 	d_V(i) =  diff(H(i, VAL), H(target, VAL))\\
-	fitness_{HSV}(i) = 1 - 128\frac{d_H(i) + d_S(i) + d_V(i)}{3}\\	
+	\label{eq:HSV}
+	fitness_{HSV}(i) = 1 - 128\frac{d_H(i) + d_S(i) + d_V(i)}{3}
+\end{eqnarray}
+\begin{eqnarray}
+	\label{eq:AVERAGE}
 	fitness_{AVERAGE}(i) = \frac{fitness_{RGB}+fitness_{HSV}}{2}
 \end{eqnarray}
 
 
-
-
-
 \subsection{Parameters used}
 
-A steady-state evolutionary algorithm has been used. Each individual is randomly generated at the initialization of the EA. The genome size is 50 elements (circles of maximum radium of 128 pixels). Population size has been set to 32 individuals. Uniform crossover rate is 0.5, and a binary tournament has been selected for selection (that is, a pool of 16 parents is selected and crossed). Mutation probability is 0.04 (the usual value of {\em 1/genomesize}). Finally, the image size for each individual is 256x256 pixels. The invidivuals have been compared with the histograms obtained from the image of Figure \ref{fig:flevopark} to guide the evolution.
+A steady-state evolutionary algorithm has been used. Each individual is randomly generated at the initialization of the EA. The genome size is 50 elements (circles of maximum radium of 128 pixels). Population size has been set to 32 individuals. Uniform crossover rate is 0.5, and a binary tournament has been selected for selection (that is, a pool of 16 parents is selected and crossed). Mutation probability is 0.04 (the usual value of {\em 1/genomesize}). Finally, the image size for each individual is 256x256 pixels. The individuals have been compared with the histograms obtained from the image of Figure \ref{fig:flevopark} to guide the evolution.
 
 \section{Results} 
 \label{sec:results}
@@ -326,7 +332,7 @@ Average Histogram& 0.173 $\pm$ 0.012	& 0.294 $\pm$ 0.013	& {\em 0.234 $\pm$ 0.01
 \label{fig:averagegens}
 \end{figure}
 
-The best individuals attained are shown in Figure \ref{fig:bestinds}. Note than, although the fitness is simillar, they produce different color tones. This can be explained for the limitation of colors used in the individual. Figure \ref{fig:collage} shows one evolution of the best individual using the HSV fitness in the first 64 generations.
+The best individuals attained are shown in Figure \ref{fig:bestinds}. Note than, although the fitness is similar, they produce different color tones. This can be explained for the limitation of colors used in the individual. Figure \ref{fig:collage} shows one evolution of the best individual using the HSV fitness in the first 64 generations.
 
 \begin{figure*}[ht]
 \centering
@@ -351,9 +357,9 @@ The best individuals attained are shown in Figure \ref{fig:bestinds}. Note than,
 
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
-This paper introduces an Evolutionary Algorithm that uses the Processing framework to generate images and to extract image information. The advantages of this framework have been presented and we think that Evolutionary Art area can take advantage of them. In this work individuals are represented as a list of Processing primitives (circles) and the fitness functions used are based in the similarity with an existent aesthetic image (the comparison is performed using the libraries available in Processing). Three different fitness function using color histogram have been tested: difference with the HSV and RGB histograms, and an average difference of the two histograms at the same time. Experiments show that better results in terms of similiraty are obtained using the HSV comparison. This is a basic image metric, only used by purposes of proof-of-concept and more complex measurements will be studied in next works.
+This paper introduces an Evolutionary Algorithm that uses the Processing framework to generate images and to extract image information. The advantages of this framework have been presented and we think that Evolutionary Art area can take advantage of them. In this work individuals are represented as a list of Processing primitives (circles) and the fitness functions used are based in the similarity with an existent aesthetic image (the comparison is performed using the libraries available in Processing). Three different fitness function using color histogram have been tested: difference with the HSV and RGB histograms, and an average difference of the two histograms at the same time. Experiments show that better results in terms of similarity are obtained using the HSV comparison. This is a basic image metric, only used by purposes of proof-of-concept and more complex measurements will be studied in next works.
 
-The future work for this research also includes more experiment with other kind of individuals, appart from circles: using other primitives, such as rectangles or triangles, for example. The use of textures and gradients will generate images with higher number of colors, obtaining more fidelity (more than 25\%) with the test image. Other metrics explained in previous sections will be also implemented. Finally, our intention is not create only static images, but use the Processing libraries to create evolutionary interactive art combining sounds and motion. A human guidance tool is also being developed to obtain human feedback to create a knowledge base for future experimentation (available in \url{http://evorq.ugr.es:8080/HumanGuidance}).
+The future work for this research also includes more experiment with other kind of individuals, apart from circles: using other primitives, such as rectangles or triangles, for example. The use of textures and gradients will generate images with higher number of colors, obtaining more fidelity (more than 25\%) with the test image. Other metrics explained in previous sections will be also implemented. Finally, our intention is not create only static images, but use the Processing libraries to create evolutionary interactive art combining sounds and motion. A human guidance tool is also being developed to obtain human feedback to create a knowledge base for future experimentation (available in \url{http://evorq.ugr.es:8080/HumanGuidance}).
 
 The used software and algorithms presented are Open Source under a GPL license, and can be obtained from \url{http://www.osgiliath.org}.
 

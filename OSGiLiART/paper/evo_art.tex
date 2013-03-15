@@ -20,7 +20,7 @@ Computer Technology\\
 University of Granada\\
 Email: pgarcia@atc.ugr.es}
 \and
-\IEEEauthorblockN{D. Calabria}
+\IEEEauthorblockN{D. Calandria}
 \IEEEauthorblockA{Proenium\\
 Email: dcalandria@proenium.com}
 \and
@@ -37,7 +37,7 @@ Email:robermorji@gmail.com, fruela@correo.ugr.es}
 \IEEEauthorblockN{R. H. Garc{\'i}a-Ortega}
 \IEEEauthorblockA{Fundaci{\'o}n I+D del \\
 Software Libre, Granada\\
-Email: ruben@fidesol.org}
+Email: rhgarcia@ugr.es}
 }
 
 \maketitle
@@ -80,7 +80,7 @@ Complexity measures & Image complexity \cite{li2012investigating}, Machado and C
 \end{tabular}
 \end{table*}
 
-Several methods for the representation of the art in evolutionary art have been proposed: Symbolic expression, where the genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree. Shape grammars can also be used as a formal description of the image. Previously existing images can be used as a basis for the evolution process. Finally, other representations can be based on mathematical models, like fractals or cellular automata.
+Several methods for the representation of the art in evolutionary art have been proposed. In symbolic expression the genotype is a tree of expressions and the phenotype consists in the image produced  by the evaluation of the tree. Shape grammars can also be used as a formal description of the image. Previously existing images can be used as a basis for the evolution process. Finally, other representations can be based on mathematical models, like fractals or cellular automata.
 
 
 %\rowcolors{2}{gray!25}{white}
@@ -224,7 +224,7 @@ A steady-state evolutionary algorithm has been used. Each individual is randomly
 \section{Results} 
 \label{sec:results}
 
-Each algorithm has been executed 30 times for each different fitness. Table \ref{tab:results} show the differences (and standard deviation) attained with each fitness used. As can be seen, using the HSV histogram differences as fitness produces a higher RGB similarity (and therefore, average) than using the RGB or Average fitness. However, using the average between the two histogram differences produces higher similiraty in HSV (0.294) that only taking into account the HSV. This can be explained because the HSV has QUE TIENE EL HSV QUE MOLE MAS. The maximum fitness is around 25\% of similarity with the original image because, being a list of 50 circles, only a maximum of 50 different colours are used (while in the original jpg image can be more than millions). See the histogram of a generated best individual by the algorithm in Figure \ref{fig:histoind}. An example of evolution for each fitness can be see in Figure \ref{fig:rgbgens}, \ref{fig:hsvgens} and \ref{fig:averagegens}. Comparing with the RGB histogram as fitness, a more fluctuation in the HSV is produced (Figure \ref{fig:rgbgens}). Although there are the same information in both histograms, the transformation from one to another is not linear, so there is no relation with the histograms of individuals generated during the evolution.
+Each algorithm has been executed 30 times for each different fitness. Table \ref{tab:results} show the differences (and standard deviation) attained with each fitness used. As can be seen, using the HSV histogram differences as fitness produces a higher RGB similarity (and therefore, average) than using the RGB or Average fitness. However, using the average between the two histogram differences produces higher similiraty in HSV (0.294) that only taking into account the HSV. The maximum fitness is around 25\% of similarity with the original image because, being a list of 50 circles, only a maximum of 50 different colours are used (while in the original jpg image can be more than millions). See the histogram of a generated best individual by the algorithm in Figure \ref{fig:histoind}. An example of evolution for each fitness can be see in Figure \ref{fig:rgbgens}, \ref{fig:hsvgens} and \ref{fig:averagegens}. Comparing with the RGB histogram as fitness, a more fluctuation in the HSV is produced (Figure \ref{fig:rgbgens}). Although there are the same information in both histograms, the transformation from one to another is not linear, so there is no relation with the histograms of individuals generated during the evolution.
 
 \begin{table*}
 \centering

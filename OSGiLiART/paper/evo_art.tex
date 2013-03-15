@@ -214,7 +214,8 @@ Processing is composed by several modules:
 
 The Color module can be used to analyze images taking into account their histogram. The color histogram represents the frequency of occurrence of each color intensities present in the image, by accounting for such sharing pixels color intensity values.
 
-The histogram is composed of different ranges or bins that represent a value or set of values ​​of color intensity. The color space is defined as a model representation with respect to color intensity values: RGB (Red, Green, Blue) and HSV (Hue, Saturation and Value). HABLAR AQUI DE LA DIFERENCIA ENTRE HSV Y RGB. Figure \ref{fig:histogram} shows the RGB histogram of the image in the Figure \ref{fig:flevopark}.
+The histogram is composed of different ranges or bins that represent a value or set of values ​​of color intensity. The color space is defined as a model representation with respect to color intensity values. Two color models are used in this paper: RGB (Red, Green, Blue) and HSV (Hue, Saturation and Value). The RGB model is an additive color model in which red, green and blue are added together in different proportions to reproduce a wide range of colors, while the HSV is based on hue or tone, saturation and brightness. While the RGB model is the most closest to the way color is processed in some machines, the HSV representation provides a more accurate way to model how humans perceive colors.
+Figure \ref{fig:histogram} shows the RGB histogram of the image in the Figure \ref{fig:flevopark}.
 
 \begin{figure}
 \centering

@@ -52,18 +52,42 @@ designers and artists that is starting to have great presence in the
 interactive and visual art field. It includes several modules for
 image creation, manipulation and analysis. This framework has been
 used to create an Evolutionary Algorithm that generates abstract
-images comparing the histograms of a test image. Three different
+images that try to match the histograms of a target image. Three different
 fitness functions have been used to test Processing: the differences
 between the individual with the RGB histogram of the test image, the
-HSV histogram, and an average of both histograms at the same
-time. Results show that the HSV also increases the similarities of the
+HSV histogram, and an average of the two histograms at the same
+time. Results show that the HSV fitness also increases the similarities of the
 RGB (and therefore, the average) more than the other two measures.  
+% Mejora las similaridades del RGB? Será que es más similar que el RGB
+% - JJ
 \end{abstract}
 
 \section{Introduction}\label{intro}
-Evolutionary Art \cite{EART} is a type of generative art created by a computer, following the principle of the survival of the fittest, using Evolutionary Computation methods \cite{INTROEIBEN}. A population of artistic works (individuals) are evaluated with an aesthetic measure to give a score (fitness). These individuals are combined and mutated to generate an offspring with inherited properties of the parents, during a certain number of times.
+Evolutionary Art \cite{EART} is a type of generative art created by a
+computer, following the principle of the survival of the fittest, % pero qué es "fittest" en este contexto? - JJ
+using Evolutionary Computation methods \cite{INTROEIBEN}. A population
+of artistic works (individuals) are evaluated with an aesthetic
+measure to yield a score (fitness). These individuals are combined and
+mutated to generate an offspring with inherited properties of the
+parents, during a certain number of times. 
 
-One of the goals of this work is to test the advantages of using Processing, a programming framework designed for visual artists, in Evolutionary Art. The second goal is to study the differences of using the information of the HSV (Hue, Saturation, Value) and RGB (Red, Green, Blue) histograms during the evolution. In this work Processing is used inside an Evolutionary Algorithm (EA) to model the individuals, generate their associate images and extract information of them (HSV, RGB and Average histograms) to fit with the histograms of a test image.
+One of the goals of this work is to test the advantages of using
+% Ese no es el objetivo del trabajo, a menos que realmente pruebes que
+% Processing es mejor que alguna otra alternativa - JJ
+Processing, a programming framework designed for visual artists, in
+Evolutionary Art. The second goal is to study the differences of using
+the information of the HSV (Hue, Saturation, Value) and RGB (Red,
+Green, Blue) histograms during the evolution. In this work Processing
+is used inside an Evolutionary Algorithm (EA) to model the
+individuals, generate their associate images and extract information
+of them (HSV, RGB and Average histograms) to fit with the histograms
+of a test image. 
+% Este sí podría ser el objetivo del trabajo - JJ
+
+% Deberíais incluir un apartado un poco más extenso de
+% motivación. ¿Qué interés tiene hacer esto? ¿Qué contexto? ¿Es para
+% probar que es muy fácil añadir cosas a Osgiliath? Habla de Osgiliath
+% también y lo que significa - JJ
 
 The rest of the work is organized as follows: in Section \ref{sec:soa}, a brief review on Evolutionary Art is presented. Processing framework and image information are described next (Section \ref{sec:processing}). The experimental setup and results are presented in Sections \ref{sec:setup} and \ref{sec:results}, respectively. Finally, the conclusions and future work can be found in Section \ref{sec:conclusions}.
 
@@ -309,7 +333,14 @@ The future work for this research also includes more experiment with other kind 
 The used software and algorithms presented are Open Source under a GPL license, and can be obtained from \url{http://www.osgiliath.org}.
 
 \section*{acknowledgements}
-This work has been supported in part by FPU research grant AP2009-2942 and projects EvOrq (TIC-3903), SINECA (0100DGT21285, Spanish Direccion General de Trafico), TIN2011-28627-C04-02 and FFI2011-22397 (funded by Spanish Ministry for Economy and Productivity). This work was developed during the 5 Hackathon of the Office of Open Software of the University of Granada (\url{http://sl.ugr.es/hackathon}), where several members of different disciplines collaborated during its creation.
+This work has been supported in part by FPU research grant AP2009-2942
+and projects EvOrq (TIC-3903), SINECA (0100DGT21285, Spanish Direccion
+General de Trafico), TIN2011-28627-C04-02 and FFI2011-22397 (funded by
+Spanish Ministry for Economy and Productivity). This work was
+developed during the 5 Hackathon of the Office of Open Software of the
+University of Granada (\url{http://sl.ugr.es/5hackathon}), where
+several members of different disciplines collaborated during its
+creation. 
 
 \bibliographystyle{IEEEtran}
 \bibliography{evo_art}

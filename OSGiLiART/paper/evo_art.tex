@@ -44,10 +44,10 @@ Email: rhgarcia@ugr.es}
 
 \begin{abstract}
 This paper shows how the Processing framework can be used to generate
-Evolutionary Art. Processing is a framework created for visual
+Evolutionary Art comparing HSV and RGB histograms of a test image. Processing is a framework created for visual
 %insisto, ese no debería ser el objetivo del artículo. Seguro que hay
 %cientos de papers que hacen ya eso. Hay que insistir en lo nuevo del
-%artículo - JJ
+%artículo - JJ - FERGU: Le meto lo de los histogramas para que sean 2 cosas lo que vendemos
 designers and artists that is starting to have great presence in the
 interactive and visual art field. It includes several modules for
 image creation, manipulation and analysis. This framework has been
@@ -59,41 +59,44 @@ HSV histogram, and an average of the two histograms at the same
 time. Results show that the HSV fitness also increases the similarities of the
 RGB (and therefore, the average) more than the other two measures.  
 % Mejora las similaridades del RGB? Será que es más similar que el RGB
-% - JJ
+% - JJ FERGU: El RGB y HSV representan lo mismo, pero no están relacionados linealmente (lo explico en el paper), pero usar HSV también hace que se parezca más el RGB
 \end{abstract}
 
 \section{Introduction}\label{intro}
-Evolutionary Art \cite{EART} is a type of generative art created by a
-computer, following the principle of the survival of the fittest, % pero qué es "fittest" en este contexto? - JJ
+Evolutionary Art \cite{EART} is a type of generative art \cite{PHEROGRAPHY} created by a
+computer, following the principle of the survival of the fittest, % pero qué es "fittest" en este contexto? - JJ FERGU: Explicado a continuación
 using Evolutionary Computation methods \cite{INTROEIBEN}. A population
 of artistic works (individuals) are evaluated with an aesthetic
 measure to yield a score (fitness). These individuals are combined and
 mutated to generate an offspring with inherited properties of the
 parents, during a certain number of times. 
 
-One of the goals of this work is to test the advantages of using
-% Ese no es el objetivo del trabajo, a menos que realmente pruebes que
-% Processing es mejor que alguna otra alternativa - JJ
-Processing, a programming framework designed for visual artists, in
-Evolutionary Art. The second goal is to study the differences of using
+The main goal of this paper is to study the differences of using
 the information of the HSV (Hue, Saturation, Value) and RGB (Red,
-Green, Blue) histograms during the evolution. In this work Processing
-is used inside an Evolutionary Algorithm (EA) to model the
+Green, Blue) histograms during the evolution.
+The secondary goals is to test the advantages of using
+% Ese no es el objetivo del trabajo, a menos que realmente pruebes que
+% Processing es mejor que alguna otra alternativa - JJ - Fergu: por eso es uno de los goals, pero he cambiado el orden, ahora esto es lo importante
+Processing \cite{PROCESSING}, a programming framework designed for visual artists, in
+Evolutionary Art. 
+ In this work Processing is used inside an Evolutionary Algorithm (EA) to model the
 individuals, generate their associate images and extract information
 of them (HSV, RGB and Average histograms) to fit with the histograms
-of a test image. 
-% Este sí podría ser el objetivo del trabajo - JJ
+of a test image. Processing has been integrated in the OSGiLiath \cite{OSGILIATH} 
+evolutionary framework to take advantage of the capabilities offered in image manipulation and analysis.
+% Este sí podría ser el objetivo del trabajo - JJ FERGU: Cambiado arriba el orden
+
 
 % Deberíais incluir un apartado un poco más extenso de
 % motivación. ¿Qué interés tiene hacer esto? ¿Qué contexto? ¿Es para
 % probar que es muy fácil añadir cosas a Osgiliath? Habla de Osgiliath
-% también y lo que significa - JJ
+% también y lo que significa - JJ FERGU: Añadido. Eso lo explico también en la sección Setup
 
 The rest of the work is organized as follows: in Section \ref{sec:soa}, a brief review on Evolutionary Art is presented. Processing framework and image information are described next (Section \ref{sec:processing}). The experimental setup and results are presented in Sections \ref{sec:setup} and \ref{sec:results}, respectively. Finally, the conclusions and future work can be found in Section \ref{sec:conclusions}.
 
 \section{State of the art}
 \label{sec:soa}
-Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH}. In the field of computational aesthetics, evolutionary systems can play an important role, by enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}. Evolutionary art is characterized by the use of evolutionary principles and natural selection as a generative process. One of the earliest applications of evolutionary systems to generate art is the proposal of Sims to use GA to create complex structures \cite{sims1991artificial} or virtual creatures  \cite{sims1994evolving}. In evolutionary art systems, the evaluation of the aesthetics can be done using human feedback, with some interactive evaluation of the population, such as, \cite{ashlock2006evolutionary,draves2006electric,moroni2000vox,sims1991artificial} and \cite{ takagi2001interactive}. It also can be achieved by using an automatic evaluation of fitness, as presented in \cite{aguilar2008robotic,del2005benford,den2010comparing,dipaola2009incorporating,li2012investigating,machado1998computing}, and \cite{sims1994evolving}.
+Computational Aesthetics ``is the research of computational methods that can make applicable aesthetics decisions in a similar fashion as humans can'' \cite{COMPAESTH}. In the field of computational aesthetics, evolutionary systems can play an important role, by enabling the evolution of aesthetically pleasing or innovative structures \cite{dipaola2009incorporating}. Evolutionary art is characterized by the use of evolutionary principles and natural selection as a generative process. One of the earliest applications of evolutionary systems to generate art is the proposal of Sims to use a Genetic Algorithm (GA) to create complex structures \cite{sims1991artificial} or virtual creatures  \cite{sims1994evolving}. In evolutionary art systems, the evaluation of the aesthetics can be done using human feedback, with some interactive evaluation of the population, such as, \cite{ashlock2006evolutionary,draves2006electric,moroni2000vox,sims1991artificial} and \cite{ takagi2001interactive}. It also can be achieved by using an automatic evaluation of fitness, as presented in \cite{aguilar2008robotic,del2005benford,den2010comparing,dipaola2009incorporating,li2012investigating,machado1998computing}, and \cite{sims1994evolving}.
 
 One of the main challenges in Evolutionary Art is how to measure aesthetic value of a piece of evolutive art. The source of this difficulty lays in the inherent complexity, subjectivity and dynamism of aesthetics. Nevertheless, a wide number of metrics has been presented. According to Galanter \cite{galanter2012computational}, these measures can be classified in the several categories in several pieces of research. The first category involves the evaluation of the aesthetics of a piece of art by a formula o principle (e.g., pythagorean proportions). Other measures apply certain principles of design, such as the rule of thirds or color theory (e.g., using complimentary colors in Pop Art \cite{den2012evolving}), neural networks or complexity measures. 
 

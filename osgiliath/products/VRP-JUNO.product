@@ -30,14 +30,12 @@
    <vm>
    </vm>
 
-
    <plugins>
-      <plugin id="OsgiliathACU"/>
       <plugin id="OsgiliathBasicEvolutionaryComponents"/>
-      <plugin id="OsgiliathBinaryProblems"/>
       <plugin id="OsgiliathDistributionUtils"/>
       <plugin id="OsgiliathEvolutionaryAlgorithm"/>
       <plugin id="OsgiliathExperimentLauncher"/>
+      <plugin id="VRP"/>
       <plugin id="es.ugr.osgiliath"/>
       <plugin id="org.apache.felix.gogo.command"/>
       <plugin id="org.apache.felix.gogo.runtime"/>
@@ -72,12 +70,11 @@
    </plugins>
 
    <configurations>
-      <plugin id="OsgiliathACU" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathBasicEvolutionaryComponents" autoStart="true" startLevel="0" />
-      <plugin id="OsgiliathBinaryProblems" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathDistributionUtils" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathEvolutionaryAlgorithm" autoStart="true" startLevel="0" />
       <plugin id="OsgiliathExperimentLauncher" autoStart="true" startLevel="0" />
+      <plugin id="VRP" autoStart="true" startLevel="0" />
       <plugin id="es.ugr.osgiliath" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.contenttype" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.core.jobs" autoStart="true" startLevel="0" />

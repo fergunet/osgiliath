@@ -33,6 +33,8 @@ public class ArtisticReplacer  extends OsgiliathService implements Replacer {
 				
 		for(Individual i:worst)
 			pop.removeIndividual(i);
+		ArtisticIndividual ind = (ArtisticIndividual) pop.getNBestIndividuals(1).get(0);
+		System.out.println(ind.getFitness()+" "+ind.getImagePath());
 	}
 
 	

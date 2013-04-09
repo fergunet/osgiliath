@@ -21,7 +21,7 @@ public class ArtisticActivator implements BundleActivator {
 		ArtisticActivator.context = bundleContext;
 		System.out.println("ART START");
 		String filename = "/Users/anabpel/Documents/workspace/osgilath/osgiliath/OSGiLiART/scripts/collage-2.png";
-		Histogram.Test(filename);
+		//Histogram.Test(filename);
 	}
 
 	/*

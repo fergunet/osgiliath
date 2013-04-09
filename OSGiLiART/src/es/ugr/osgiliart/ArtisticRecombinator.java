@@ -2,16 +2,12 @@ package es.ugr.osgiliart;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
-import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
-import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
 import es.ugr.osgiliath.evolutionary.elements.Crossover;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Recombinator;
-import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 

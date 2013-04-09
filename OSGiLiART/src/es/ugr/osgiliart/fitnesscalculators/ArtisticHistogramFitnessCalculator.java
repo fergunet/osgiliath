@@ -93,11 +93,16 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 		fitnessHSV = fitnessHSV / 0.0078125;  //1 = the most different, 0 the most equal
 		fitnessRGB = fitnessRGB / 0.0078125;  //1 = the most different, 0 the most equal
 		
-		DoubleFitness df = new DoubleFitness(1 -fitnessRGB, true); //1 the most equal, 0 the most different
+		//DoubleFitness df = new DoubleFitness(1 -fitnessRGB, true); //1 the most equal, 0 the most different
 		//df.theOther = 1-fitnessHSV;
 		
-		//DoubleFitness df = new DoubleFitness(1- fitnessHSV,true);
-		//df.theOther = 1-fitnessRGB;
+		DoubleFitness df = new DoubleFitness(1- fitnessHSV,true);
+		df.theOther = 1-fitnessRGB;
+		
+		//double average = (1-fitnessHSV + 1-fitnessRGB)/2.0;
+		//DoubleFitness df = new DoubleFitness(average,true);
+		//df.theOther = 1-fitnessHSV;
+		
 		return df;
 		
 	}

@@ -84,7 +84,7 @@ public class ProcessingDrawer extends OsgiliathService implements Drawer {
 		
 		if ( imageExtension != null ) {
 			String imagePath = String.format("%s/%s.%s", folderPath, artistic.getId(), imageExtension);			
-			System.out.println("Saving... " + imagePath + " primitives: " + primitives.size());
+			//System.out.println("Saving... " + imagePath + " primitives: " + primitives.size());
 			graphics.save(imagePath);
 			//applet.save(imagePath);
 			

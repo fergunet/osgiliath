@@ -7,14 +7,15 @@ import java.util.Properties;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.problem.ProblemParameters;
 
-public class NdimFunctionProblemParameters extends OsgiliathService implements ProblemParameters {
+public interface NdimFunctionProblemParameters {
 
 	public static final String DIMENSIONS_PROP = "parameters.ndimfunction.dimensions";
 	public static final String NUM_RANGES_PROP = "parameters.ndimfunction.ranges";
 	public static final String RANGE_ID_PROP = "parameters.ndimfunction.ranges.id";
 	public static final String TOMAXIMIZE_PROP = "parameters.ndimfunction.ranges.id";
+	public static final String STEPSIZE_PROP = "parameters.ndimfunction.stepsize";
 	
-	private int dimensions;
+	/*private int dimensions;
 	private List<Double> ranges;
 	private boolean toMaximize;
 	
@@ -22,7 +23,7 @@ public class NdimFunctionProblemParameters extends OsgiliathService implements P
 		//this.setup(null);
 	}
 	
-	@Override
+	/*@Override
 	public void setup(Properties props) {
 		//TODO ARREGLAR ESTO
 	
@@ -79,7 +80,7 @@ public class NdimFunctionProblemParameters extends OsgiliathService implements P
 	public boolean toMaximize() {
 		// TODO Auto-generated method stub
 		return toMaximize;
-	}
+	}*/
 }
 
 

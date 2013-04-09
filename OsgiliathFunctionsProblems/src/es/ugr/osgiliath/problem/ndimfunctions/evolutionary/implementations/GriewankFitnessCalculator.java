@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleGene;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
@@ -21,42 +22,54 @@ public class GriewankFitnessCalculator extends OsgiliathService implements Fitne
 	@Override
 	public Fitness calculateFitness(Individual ind) {
 		
-		boolean toMaximize = this.getProblem().getParameters().toMaximize();
+		//boolean toMaximize = this.getProblem().getParameters().toMaximize();
+		boolean toMaximize = false; //TODO CHECK
 		Genome gen =  ind.getGenome();
 		
-		//There is a separation between an Individual Representation and a Solution representation
-		//Maybe the fitness is not the same that the function evaluation, for example
 		
-		NdimFunctionSolution sol = new NdimFunctionSolution();
-		List<Gene> gens =  gen.getGeneList();
-		
-		List<Double> points = new ArrayList<Double>();
-		for(Gene g:gens){
-			DoubleGene dg = (DoubleGene) g;
-			points.add(new Double(dg.getValue()));
-		}
+		List<Gene> gens =  ((ListGenome) gen).getGeneList();
+		double fv = this.evaluate(gens);
 			
-		sol.setPoints(points);
-		GriewankFunction gf = new GriewankFunction();
-		NdimFunctionValue value = gf.evaluate(sol);
 		
-		Fitness f = new DoubleFitness(value.getValues().get(0),toMaximize);
+		
+		
+		Fitness f = new DoubleFitness(fv,toMaximize);
 
 		
 		return f;
 		
 	}
-	
+
+
 	@Override
-	public List<Fitness> calculateFitnessForAll(List<Individual> inds) {
-		List<Fitness> allFitness = new ArrayList<Fitness>();
+	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
+		ArrayList<Fitness> allFitness = new ArrayList<Fitness>();
 		for(Individual ind:inds){
 			Fitness f = calculateFitness(ind);
 			allFitness.add(f);
 		}
 		
 		return allFitness;
-			
+	}
+	
+	public double evaluate(List<Gene> gens){
+		
+		double sum = 0;
+		double prod = 1;
+		
+		
+		
+		for (int i=0; i<gens.size(); i++) {
+			DoubleGene dg = (DoubleGene)gens.get(i);
+					double v = dg.getValue(); 
+			sum += Math.pow(v,2);
+			prod *= Math.cos(v/Math.sqrt(i+1));
+		}
+		double vfinal = sum/4000.0 - prod+1;
+		
+		return vfinal;
+		
+		
 	}
 
 

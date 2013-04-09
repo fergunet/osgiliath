@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleGene;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.MultiObjectiveDoubleFitness;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -66,9 +67,9 @@ public class MOP2FitnessCalculator extends OsgiliathService implements FitnessCa
 	
 	@Override
 	public Fitness calculateFitness(Individual ind) {
-		System.out.println("ALGUIEN ME LLAMA");
-		Genome genome = ind.getGenome();
-		List<Gene> genes = genome.getGeneList();
+		
+		ListGenome genome = (ListGenome) ind.getGenome();
+		ArrayList<Gene> genes = genome.getGeneList();
 		List<Double> points = new ArrayList<Double>();
 		
 		for(Gene g:genes){
@@ -90,8 +91,8 @@ public class MOP2FitnessCalculator extends OsgiliathService implements FitnessCa
 	}
 
 	@Override
-	public List<Fitness> calculateFitnessForAll(List<Individual> inds) {
-		List<Fitness> allFitness = new ArrayList<Fitness>();
+	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
+		ArrayList<Fitness> allFitness = new ArrayList<Fitness>();
 		for(Individual ind:inds){
 			Fitness f = calculateFitness(ind);
 			allFitness.add(f);
@@ -100,5 +101,6 @@ public class MOP2FitnessCalculator extends OsgiliathService implements FitnessCa
 		return allFitness;
 			
 	}
+
 
 }

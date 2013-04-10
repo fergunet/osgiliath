@@ -1,12 +1,42 @@
+/*
+ * IntelligentRandomManager.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ */
 package es.ugr.osgiliath.noosgi;
 
-import es.osgiliath.evolutionary.basicimplementations.combinators.BasicSPXListRecombinator;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+
+import es.ugr.osgiliath.evolutionary.basiccomponents.operators.UPXListCrossover;
+import es.osgiliath.evolutionary.basicimplementations.combinators.BasicOrderRecombinator;
+import es.osgiliath.evolutionary.basicimplementations.mutators.BasicOrderMutator;
 import es.osgiliath.evolutionary.basicimplementations.populations.ListPopulation;
-import es.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
+import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.evolutionary.EvolutionaryAlgorithm;
 import es.ugr.osgiliath.evolutionary.distances.CrowdingDistanceAssignator;
+import es.ugr.osgiliath.evolutionary.elements.Crossover;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
+import es.ugr.osgiliath.evolutionary.elements.Mutation;
 import es.ugr.osgiliath.evolutionary.elements.Mutator;
 import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
 import es.ugr.osgiliath.evolutionary.elements.Population;
@@ -19,28 +49,42 @@ import es.ugr.osgiliath.nsgaii.DoubleCrowdingDistanceAssignator;
 import es.ugr.osgiliath.nsgaii.NSGA2Replacer;
 import es.ugr.osgiliath.problem.Problem;
 import es.ugr.osgiliath.problem.ProblemParameters;
-import es.ugr.osgiliath.problem.mofunctions.MOP2;
 import es.ugr.osgiliath.problem.mofunctions.MOP2FitnessCalculator;
 import es.ugr.osgiliath.problem.ndimfunctions.NdimFunctionProblem;
-import es.ugr.osgiliath.problem.ndimfunctions.NdimFunctionProblemParameters;
-import es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NDimFunctionEvolutionaryParameters;
 import es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomInitializer;
-import es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomMutator;
+import es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomMutation;
+import es.ugr.osgiliath.util.impl.HashMapParameters;
 import es.ugr.osgiliath.utils.Stopwatch;
 
 
-public class AlgorithmLauncher {
+public class MOP2AlgorithmLauncher {
 	
 	public static void launchAlgorithm(){
 		Stopwatch sw = new Stopwatch();
 		sw.start();
 		//Algorithm and parameters
 		EvolutionaryAlgorithm algo = new EvolutionaryAlgorithm();
-		AlgorithmParameters params = new NDimFunctionEvolutionaryParameters();
+		
 		
 		Problem problem = new NdimFunctionProblem();
-		ProblemParameters problemParams = new NdimFunctionProblemParameters();
+		
+		Properties defaultProps = new Properties();
+		FileInputStream in;
+		try {
+			in = new FileInputStream(
+					"/home/pgarcia/workspace/osgiliath/parameterfiles/parameterART.properties");
+			defaultProps.load(in);
+			in.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ProblemParameters problemParams = new HashMapParameters();
+		problemParams.setup(defaultProps);
 		problem.setProblemParameters(problemParams);
+		
+		AlgorithmParameters params = (HashMapParameters) problemParams;
 		
 		FitnessCalculator fitnessCalculator = new MOP2FitnessCalculator();
 		
@@ -65,17 +109,28 @@ public class AlgorithmLauncher {
 		algo.setParentSelector(parentSelector);
 		
 		//RECOMBINATOR
-		Recombinator recombinator = new BasicSPXListRecombinator();
-		((BasicSPXListRecombinator) recombinator).setFitnessCalculator(fitnessCalculator);
-		((BasicSPXListRecombinator) recombinator).setProblem(problem);
-		((BasicSPXListRecombinator) recombinator).setAlgorithmParameters(params);
+		Recombinator recombinator = new BasicOrderRecombinator();
+		((BasicOrderRecombinator) recombinator).setFitnessCalculator(fitnessCalculator);
+		((BasicOrderRecombinator) recombinator).setProblem(problem);
+		((BasicOrderRecombinator) recombinator).setAlgorithmParameters(params);
+		Crossover cross = new UPXListCrossover();
+		((BasicOrderRecombinator) recombinator).setCrossover(cross);
 		algo.setRecombinator(recombinator);
 		
 		//MUTATOR
-		Mutator mutator = new NdimFunctionRandomMutator();
-		((NdimFunctionRandomMutator) mutator).setFitnessCalculator(fitnessCalculator);
-		((NdimFunctionRandomMutator) mutator).setAlgorithmParameters(params);
+		
+		//MUTATION
+		Mutation mutation = new  NdimFunctionRandomMutation();
+		((NdimFunctionRandomMutation)mutation).setAlgorithmParameters(params);
+		
+		//MUTATOR
+		Mutator mutator = new BasicOrderMutator();
+		((BasicOrderMutator) mutator).setFitnessCalculator(fitnessCalculator);
+		((BasicOrderMutator) mutator).setAlgorithmParameters(params);
+		((BasicOrderMutator) mutator).setMutation(mutation);
 		algo.setMutator(mutator);
+		
+
 		
 		//STOP CRITERION
 		StopCriterion stopCriterion = new NGenerationsStopCriterion();

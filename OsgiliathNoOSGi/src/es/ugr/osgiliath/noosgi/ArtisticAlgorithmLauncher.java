@@ -1,23 +1,43 @@
+/*
+ * IntelligentRandomManager.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ * Daniel Calandria
+ * Ana Belen Pelegrina
+ */
 package es.ugr.osgiliath.noosgi;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Properties;
-
-import es.osgiliath.evolutionary.basicimplementations.combinators.BasicOrderRecombinator;
 import es.osgiliath.evolutionary.basicimplementations.mutators.BasicOrderMutator;
 import es.osgiliath.evolutionary.basicimplementations.populations.ListPopulation;
-import es.osgiliath.evolutionary.basicimplementations.replacers.NWorstIndividualsReplacer;
 import es.osgiliath.evolutionary.basicimplementations.selectors.DeterministicTournamentSelection;
-import es.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
+import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
 import es.ugr.osgiliart.ArtisticCrossover;
-import es.ugr.osgiliart.ArtisticFitnessCalculator;
 import es.ugr.osgiliart.ArtisticInitializer;
 import es.ugr.osgiliart.ArtisticMutation;
 import es.ugr.osgiliart.ArtisticProblem;
 import es.ugr.osgiliart.ArtisticRecombinator;
 import es.ugr.osgiliart.ArtisticReplacer;
 import es.ugr.osgiliart.drawer.ProcessingDrawer;
+import es.ugr.osgiliart.fitnesscalculators.ArtisticHistogramFitnessCalculator;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.evolutionary.EvolutionaryAlgorithm;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -48,7 +68,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/home/dcalandria/5hackathon/parameterfiles/parameter.properties");
+						"/home/pgarcia/workspace/osgiliath/parameterfiles/parameterART.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -69,8 +89,8 @@ public class ArtisticAlgorithmLauncher {
 			drawer.setAlgorithmParameters(params);
 			
 			//FITNESS CALCULATOR
-			FitnessCalculator fitnessCalculator = new ArtisticFitnessCalculator();
-			((ArtisticFitnessCalculator) fitnessCalculator).setDrawer( drawer );
+			FitnessCalculator fitnessCalculator = new ArtisticHistogramFitnessCalculator();
+			((ArtisticHistogramFitnessCalculator) fitnessCalculator).setDrawer( drawer );
 			
 			//Population and Initializer
 			Population pop = new ListPopulation();		
@@ -132,6 +152,7 @@ public class ArtisticAlgorithmLauncher {
 			String time = sw.toString();
 			sw.start();
 			algo.start();
+			System.out.println("["+algo.getObtainedSolution()+"]");
 			sw.stop();
 			time=time+":"+sw.toString();
 			System.out.println(time);
@@ -141,7 +162,8 @@ public class ArtisticAlgorithmLauncher {
 		public static void main(String[] args) {
 			
 				launchAlgorithm();
-			
+				System.out.println("EXIT");
+			System.exit(0);
 			
 		}
 

@@ -9,7 +9,6 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
  es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
- es.ugr.osgiliath.evolutionary.basiccomponents.simpleoperators,
  es.ugr.osgiliath.evolutionary.elements,
  es.ugr.osgiliath.evolutionary.individual
 Service-Component: OSGI-INF/randomManager.xml

@@ -1,3 +1,26 @@
+/*
+ * IntelligentRandomManager.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ */
+
 package es.ugr.osgiliath.manager.intelligent;
 
 import java.util.ArrayList;
@@ -14,10 +37,10 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public class IntelligentRandomManager extends OsgiliathService implements ParentSelector, Replacer, Mutator, Recombinator{
 
-	List<ParentSelector> parentSelectors = new ArrayList<ParentSelector>();;
-	List<Replacer> replacers = new ArrayList<Replacer>();;
-	List<Recombinator> recombinators = new ArrayList<Recombinator>();;
-	List<Mutator> mutators= new ArrayList<Mutator>();;
+	List<ParentSelector> parentSelectors = new ArrayList<ParentSelector>();
+	List<Replacer> replacers = new ArrayList<Replacer>();
+	List<Recombinator> recombinators = new ArrayList<Recombinator>();
+	List<Mutator> mutators= new ArrayList<Mutator>();
 	
 	public void activate(){
 		 /*parentSelectors 
@@ -26,27 +49,27 @@ public class IntelligentRandomManager extends OsgiliathService implements Parent
 		 mutators */ 
 	}
 	@Override
-	public List<Individual> mutate(List<Individual> individuals) {
+	public ArrayList<Individual> mutate(Population pop, ArrayList<Individual> individuals) {
 		int which = (int)(Math.random()*this.mutators.size());
-		return this.mutators.get(which).mutate(individuals);
+		return this.mutators.get(which).mutate(pop, individuals);
 	}
 
 	@Override
-	public List<Individual> select(Population pop) {
+	public ArrayList<Individual> select(Population pop) {
 		int which = (int)(Math.random()*this.parentSelectors.size());
 		return this.parentSelectors.get(which).select(pop);
 	}
 
 	@Override
-	public void select(Population pop, List<Individual> parents,
-			List<Individual> offspring, List<Individual> mutatedOffspring) {
+	public void select(Population pop, ArrayList<Individual> parents,
+			ArrayList<Individual> offspring, ArrayList<Individual> mutatedOffspring) {
 		int which = (int)(Math.random()*this.replacers.size());
 	    this.replacers.get(which).select(pop,parents,offspring,mutatedOffspring);
 		
 	}
 
 	@Override
-	public List<Individual> recombine(List<Individual> parents) {
+	public ArrayList<Individual> recombine(ArrayList<Individual> parents) {
 		
 		int which = (int)(Math.random()*this.recombinators.size());
 		return this.recombinators.get(which).recombine(parents);
@@ -98,6 +121,12 @@ public class IntelligentRandomManager extends OsgiliathService implements Parent
 	
 	public void removeMutator(Mutator m){
 		this.mutators.remove(m);
+	}
+
+	@Override
+	public void reset() {
+		//TODO
+		
 	}
 	
 	

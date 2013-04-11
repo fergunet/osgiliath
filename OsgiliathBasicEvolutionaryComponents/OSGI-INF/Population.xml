@@ -4,6 +4,6 @@
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.Population"/>
    </service>
-   <reference bind="setInitializer" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.individual.Initializer" name="Initializer" policy="static" target="(name=acuinitializer)" unbind="unsetInitializer"/>
+   <reference bind="setInitializer" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.individual.Initializer" name="Initializer" policy="static" unbind="unsetInitializer"/>
    <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
 </scr:component>

@@ -1,17 +1,35 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * VRPFitnessCalculator.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
  */
 
 package es.ugr.osgiliath.vrp;
 
 import es.ugr.osgiliath.algorithms.Algorithm;
+import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.problem.InputData;
-import es.ugr.osgiliath.vrp.individual.ITPdata;
 import es.ugr.osgiliath.vrp.individual.Route;
 import es.ugr.osgiliath.vrp.individual.VRPGenome;
 
@@ -27,8 +45,9 @@ import java.util.ArrayList;
  */
 public class VRPFitnessCalculator implements FitnessCalculator{
 
-    private ITPdata itpdata;
-    private Algorithm father;
+    private TransportData tdata;
+    
+    private boolean maximize = false;
     
     public VRPFitnessCalculator() 
     {   
@@ -50,13 +69,14 @@ public class VRPFitnessCalculator implements FitnessCalculator{
             for(Route r:tour){
                 if(r.shopsVisited.size()!=2){
                     
-                    double distance = r.calculateDistance(itpdata);
+                    //double distance = r.calculateDistance(itpdata);
                     
-                    cost += r.calculateCost(itpdata);
-                    time = r.calculateTime(itpdata);
-                    if(r.demand > itpdata.vehicleCapacity 
+                    cost += tdata.calculateCost(r);
+                    time = tdata.calculateTime(r);
+                    /*if(r.demand > itpdata.vehicleCapacity 
                             || time>itpdata.maximumWorkTime)
-                        return new VRPCost(Double.MAX_VALUE);
+                        return new DoubleFitness(Double.MAX_VALUE,maximize);*/
+                    //TODO add this in case
                     
 
                 }
@@ -65,7 +85,7 @@ public class VRPFitnessCalculator implements FitnessCalculator{
 
            
             
-            return  new VRPCost(cost);
+            return  new DoubleFitness(cost,maximize);
 
     }
 
@@ -89,9 +109,9 @@ public class VRPFitnessCalculator implements FitnessCalculator{
 	}
 	
 
-	public void setInputData(InputData data){
-		this.itpdata = (ITPdata) data;
-	}
+	/*public void setInputData(InputData data){
+		this.itpdata =  data;
+	}*/
 
 
 

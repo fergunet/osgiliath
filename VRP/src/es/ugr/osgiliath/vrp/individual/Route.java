@@ -1,11 +1,33 @@
+/*
+ * Route.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ */
 package es.ugr.osgiliath.vrp.individual;
 
-/*import java.io.*;
-import ec.*;
-import ec.util.*;*/
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import es.ugr.osgiliath.vrp.VRPData;
 
 
 
@@ -30,53 +52,8 @@ public class Route implements Serializable {
 		cost = r.cost;
 		demand = r.demand;
 	}
-/** 
-  Calculate the route length. We must ensure the warehouse appears at the begining
-  and the end of the route 
- * */
-	public double calculateDistance(ITPdata data){
-	
-/*		distanceTravelled = 0.0;
-		demand = data.shopList.get(0).currentDeliverySize;
-		for (int i= 1; i <= shopsVisited.size(); i++){
-			distanceTravelled += data.distanceTable[i-1][i];
-			demand += data.shopList.get(i).currentDeliverySize;
-		}
-		return distanceTravelled;*/
-		
-		distanceTravelled = 0.0;
-		demand = data.shopList.get(0).currentDeliverySize;
-		for (int i= 1; i < shopsVisited.size(); i++){
-                    Shop current = shopsVisited.get(i);
-                    Shop previous = shopsVisited.get(i-1);
-                    int idCurrent = Integer.parseInt(current.shopID);
-                    int idPrevious = Integer.parseInt(previous.shopID);
-			//distanceTravelled += data.distanceTable[i-1][i];
-			//demand += data.shopList.get(i).currentDeliverySize;
-                    distanceTravelled += data.distanceTable[idPrevious][idCurrent];
-                    demand += data.shopList.get(idCurrent).currentDeliverySize;
-		}
-		return distanceTravelled;
-	}
-/**
- * Calculate the time of the route, including time spent at stops
- * excluding the warehouse. This depends on the vehicle used
- * @param data
- * @return
- */	
-	public double calculateTime(ITPdata data){
-		time = distanceTravelled/data.speed + (shopsVisited.size()-2)*data.downloadTime; 
-		return time;
-	}
-	/**
-	 * Calculate the cost of the route. This depends on the vehicle used
-	 * @param data
-	 * @return
-	 */
-	public double calculateCost(ITPdata data){
-		cost = distanceTravelled*data.costPerKm;
-		return cost;
-	}
+
+
 	public void clear(){
 		shopsVisited.clear();
 		distanceTravelled =0.0;

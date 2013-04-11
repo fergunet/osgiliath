@@ -6,18 +6,16 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.algorithms,
- es.ugr.osgiliath.distribution.utils,
  es.ugr.osgiliath.events,
  es.ugr.osgiliath.evolutionary,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
  es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
- es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions,
- es.ugr.osgiliath.evolutionary.distances,
  es.ugr.osgiliath.evolutionary.elements,
  es.ugr.osgiliath.evolutionary.individual,
- es.ugr.osgiliath.evolutionary.individual.comparators,
  es.ugr.osgiliath.evolutionary.migrator,
- es.ugr.osgiliath.geneticalgorithm.distributed,
- es.ugr.osgiliath.network,
- es.ugr.osgiliath.problem,
- es.ugr.osgiliath.utils
+ es.ugr.osgiliath.problem
+Service-Component: OSGI-INF/vrpinitializer.xml,OSGI-INF/vrpfitnesscalculator.xml,
+ OSGI-INF/vrpcrossover.xml,
+ OSGI-INF/vrpmutation.xml
+Export-Package: es.ugr.osgiliath.vrp,
+ es.ugr.osgiliath.vrp.individual

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="VRP">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="VRPFitnessCalculator">
    <implementation class="es.ugr.osgiliath.vrp.VRPFitnessCalculator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator"/>
+   </service>
+   <reference bind="setTransportData" cardinality="1..1" interface="es.ugr.osgiliath.vrp.TransportData" name="TransportData" policy="static" unbind="unsetTransportData"/>
+   <property name="name" type="String" value="vrpfitnesscalculator"/>
 </scr:component>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="FitnessCalculator">
-   <implementation class="es.ugr.osgiliath.problem.binary.MMDPFitnessCalculator"/>
+   <implementation class="es.ugr.osgiliath.problem.binary.OneMaxFitnessCalculator"/>
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator"/>
    </service>

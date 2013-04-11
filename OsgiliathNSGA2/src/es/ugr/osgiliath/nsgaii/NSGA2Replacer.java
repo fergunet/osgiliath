@@ -1,6 +1,29 @@
+/*
+ * NSGA2Replacer.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ */
 package es.ugr.osgiliath.nsgaii;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,11 +40,11 @@ public class NSGA2Replacer implements Replacer{
 	CrowdingDistanceAssignator assignator;
 
 	@Override
-	public void select(Population pop, List<Individual> parents,
-			List<Individual> offspring, List<Individual> mutatedOffspring) {
+	public void select(Population pop, ArrayList<Individual> parents,
+			ArrayList<Individual> offspring, ArrayList<Individual> mutatedOffspring) {
 		
-		List<Individual> all = new LinkedList<Individual>();
-		List<Individual> newPopulation = new LinkedList<Individual>();
+		ArrayList<Individual> all = new ArrayList<Individual>();
+		ArrayList<Individual> newPopulation = new ArrayList<Individual>();
 		
 		ParetoSelector ps = new ParetoSelector();
 		
@@ -91,6 +114,12 @@ public class NSGA2Replacer implements Replacer{
 	
 	public void unsetAssignator(CrowdingDistanceAssignator a){
 		this.assignator = a;
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -1,6 +1,28 @@
+/*
+ * BinaryTournamentCrowdingSelector.java
+ * 
+ * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301  USA
+ * 
+ * Contributors:
+ */
 package es.ugr.osgiliath.nsgaii;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
@@ -16,15 +38,15 @@ public class BinaryTournamentCrowdingSelector extends OsgiliathService implement
 	CrowdingDistanceAssignator cda;
 
 	@Override
-	public List<Individual> select(Population pop) {
+	public ArrayList<Individual> select(Population pop) {
 		List<Individual> all = pop.getAllIndividuals();
 		
 		cda.assignCrowdingDistance(all);
 		
 		//If NSGA-2 poolSize = popSize
-		int poolSize = ((EvolutionaryBasicParameters)this.getAlgorithmParameters()).getParentSelectorSize();
+		int poolSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
 		
-		List <Individual> pool = new LinkedList<Individual>();
+		ArrayList <Individual> pool = new ArrayList<Individual>();
 		
 		for(int i = 0; i<poolSize; i++){
 			Individual a = pop.getRandomIndividual();

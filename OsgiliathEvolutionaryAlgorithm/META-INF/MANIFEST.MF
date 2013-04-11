@@ -18,8 +18,7 @@ Export-Package: es.ugr.osgiliath.evolutionary,
  es.ugr.osgiliath.evolutionary.elements;uses:="es.ugr.osgiliath.algorithms,es.ugr.osgiliath.evolutionary.individual",
  es.ugr.osgiliath.evolutionary.individual,
  es.ugr.osgiliath.evolutionary.individual.comparators,
- es.ugr.osgiliath.evolutionary.migrator,
- es.ugr.osgiliath.geneticalgorithm.distributed;
+ es.ugr.osgiliath.evolutionary.migrator;
   uses:="es.ugr.osgiliath.evolutionary.components,
    es.ugr.osgiliath.algorithms,
    es.ugr.osgiliath.problem,

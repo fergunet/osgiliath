@@ -38,6 +38,7 @@ import es.ugr.osgiliart.ArtisticRecombinator;
 import es.ugr.osgiliart.ArtisticReplacer;
 import es.ugr.osgiliart.drawer.ProcessingDrawer;
 import es.ugr.osgiliart.fitnesscalculators.ArtisticHistogramFitnessCalculator;
+import es.ugr.osgiliart.fitnesscalculators.ArtisticMatchingFitnessCalculator;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.evolutionary.EvolutionaryAlgorithm;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -68,7 +69,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/home/pgarcia/workspace/osgiliath/parameterfiles/parameterART.properties");
+						"/Users/anabpel/Documents/workspace/osgiliath-code/osgiliath/parameterfiles/parameterART.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -89,8 +90,11 @@ public class ArtisticAlgorithmLauncher {
 			drawer.setAlgorithmParameters(params);
 			
 			//FITNESS CALCULATOR
-			FitnessCalculator fitnessCalculator = new ArtisticHistogramFitnessCalculator();
-			((ArtisticHistogramFitnessCalculator) fitnessCalculator).setDrawer( drawer );
+			FitnessCalculator fitnessCalculator = new ArtisticMatchingFitnessCalculator();
+
+			((ArtisticMatchingFitnessCalculator) fitnessCalculator).setDrawer( drawer );
+
+			((ArtisticMatchingFitnessCalculator) fitnessCalculator).setAlgorithmParameters(params);
 			
 			//Population and Initializer
 			Population pop = new ListPopulation();		

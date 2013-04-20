@@ -18,7 +18,7 @@ public class MatchImage {
 	
 	static{ 
 		//System.load("/home/dcalandria/5hackathon/eclipse/FeaturesOpenCV/libopencv_java244.so");		
-		System.load("/Users/dcalandria/hackathon/workspace/osgiliath-code/FeaturesOpenCV/libopencv_java245.dylib");
+		System.load("/Users/anabpel/Documents/workspace/osgiliath-code/FeaturesOpenCV/libopencv_java245.dylib");
 	}
 
 	
@@ -60,5 +60,4 @@ public class MatchImage {
 		corrcoef /= 3.0;
 		return corrcoef;
 	}
-	
 }

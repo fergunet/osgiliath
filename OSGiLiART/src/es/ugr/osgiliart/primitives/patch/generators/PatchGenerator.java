@@ -14,12 +14,9 @@ public class PatchGenerator implements PrimitiveGenerator {
 	
 	@Override
 	public Primitive generate() {
-		
 		Point location = pointGenerator.generate();
 		String filePath = pathGenerator.generate();
-		
 		Patch p = new Patch(location, filePath);
-		
 		return p;
 	}
 

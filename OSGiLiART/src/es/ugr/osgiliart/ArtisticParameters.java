@@ -23,4 +23,6 @@ public class ArtisticParameters {
 	public static final String MAX_RADIUS  =            "parameters.osgiliart.primitive.maxRadius";
 			
 	public static final String MATCHING_TAMPLATE  =       "parameters.osgiliart.features.matching.template";
+	
+	public static final String FRAGMENT_FOLDER = "parameters.osgiliart.collage.folder";
 }

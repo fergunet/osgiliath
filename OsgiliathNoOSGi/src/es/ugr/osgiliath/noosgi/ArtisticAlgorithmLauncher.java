@@ -69,7 +69,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/Users/anabpel/Documents/workspace/osgiliath-code/osgiliath/parameterfiles/parameterART.properties");
+						"/Users/fergunet/Documents/workspace/osgiliath-code/osgiliath/parameterfiles/parameterART.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -79,6 +79,8 @@ public class ArtisticAlgorithmLauncher {
 			
 			
 			params.setup(defaultProps);
+			String library = (String) params.getParameter("parameters.osgiliart.library.opencv");
+			System.load(library);
 			
 			Problem problem = new ArtisticProblem();
 			ProblemParameters problemParams = new HashMapParameters();

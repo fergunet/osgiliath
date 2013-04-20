@@ -127,9 +127,9 @@ public class Helper {
                 fProp.setProperty("votes", "0");
             }
 
-            int votes = Integer.parseInt(fProp.getProperty("votes"));
-            votes++;
-            fProp.setProperty("votes", Integer.toString(votes));
+            float votes = Float.parseFloat(fProp.getProperty("votes"));
+            votes+=value;
+            fProp.setProperty("votes", Float.toString(votes));
 
             try {
                 fProp.store(new FileOutputStream(props.getProperty("data.url")
@@ -139,5 +139,23 @@ public class Helper {
                         ex);
             }
         }
+    }
+    
+    /**
+     * Votes the images
+     *
+     * @param ok image that will be voted as 1
+     * @param ko list of images that will be voted as -1/length
+     */
+    public void vote(String ok, String[] ko) {
+        if (ok!=null) {
+            this.vote(ok, 1);
+        }
+        if (ko!=null) {
+            for (String string : ko) {
+                this.vote(string, (float) -1.0/ko.length);
+            }
+        }
+        
     }
 }

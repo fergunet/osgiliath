@@ -4,6 +4,7 @@
     Author     : rhgarcia
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="org.osgiliath.humanguidance.Helper"%>
 <%@page import="java.util.Enumeration"%>
@@ -12,22 +13,22 @@
 <%
     Enumeration paramNames = request.getParameterNames();
     float value = 1;
-    String name = null;
+    String ok = null;
+    String[] ko = null;
     
     while (paramNames.hasMoreElements()) {
         String paramName = (String) paramNames.nextElement();
-        if (paramName.equals("value")) {
+        if (paramName.equals("ok")) {
             String paramValue = request.getParameter(paramName);
-            value = Float.parseFloat(paramValue);
+            ok = paramValue;
         }
-        if (paramName.equals("name")) {
+        if (paramName.equals("ko")) {
             String paramValue = request.getParameter(paramName);
-            name = paramValue;
+            ko = paramValue.split(",");
         }
     }
-    if (name != null){
-        Helper.getInstance().vote(name, value);
-    }
+    Helper.getInstance().vote(ok, ko);
+    
 %>
 
 {

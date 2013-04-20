@@ -62,10 +62,25 @@
 
     <script>
         $(".clickable_image").click(function () {
+            
             var index = $(".clickable_image").index(this)
             var url = this.getAttribute("src");
             var filename = url.substring(url.lastIndexOf('/')+1);
-            var t_url = "vote.jsp?name="+filename+"&value=1"
+            var t_url = "vote.jsp?ok="+filename;
+            
+            var ko = "&ko=";
+            var first = true;
+            $.each($(".clickable_image"), function(){
+                var ourl = this.getAttribute("src");
+                var ofilename = ourl.substring(ourl.lastIndexOf('/')+1);
+                if (ofilename != filename) {
+                    if (!first) ko += ","
+                    ko += ofilename;
+                    first = false;
+                }
+            });
+            t_url += ko;
+            
             $.ajax({
                 url: t_url,
                 context: document.body

@@ -142,10 +142,6 @@ public class ArtisticHistogramFitnessCalculator extends OsgiliathService impleme
 	}
 	
 	public static void main(String[] args){
-		
-		
-		
-		
 		ArtisticHistogramFitnessCalculator ahfc = new ArtisticHistogramFitnessCalculator();
 		ProcessingDrawer d = new ProcessingDrawer();
 		ahfc.setDrawer(new ProcessingDrawer());

@@ -38,7 +38,8 @@ public class ArtisticMatchingFitnessCalculator extends OsgiliathService implemen
 			String pattern = (String) this.getAlgorithmParameters().getParameter(ArtisticParameters.MATCHING_TAMPLATE);
 			matcher = new MatchImage(pattern);			
 		}
-		double result =  matcher.match(((ArtisticIndividual) ind).getImagePath());	
+		
+		double result =  matcher.match( ((ArtisticIndividual) ind).getImagePath() );	
 		System.out.println("Fitness: " + result);
 		DoubleFitness fitness = new DoubleFitness(result, true);
 		

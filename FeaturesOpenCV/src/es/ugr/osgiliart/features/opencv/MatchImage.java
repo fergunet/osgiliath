@@ -17,10 +17,11 @@ public class MatchImage {
 	static public int FILTER_SIZE = 3;
 	
 	static{ 
-		System.load("/home/dcalandria/5hackathon/eclipse/FeaturesOpenCV/libopencv_java244.so");		
+		//System.load("/home/dcalandria/5hackathon/eclipse/FeaturesOpenCV/libopencv_java244.so");		
+		System.load("/Users/dcalandria/hackathon/workspace/osgiliath-code/FeaturesOpenCV/libopencv_java245.dylib");
 	}
 
-	  
+	
 	List<Mat> templateChannels;
 	
 	

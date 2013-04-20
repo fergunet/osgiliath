@@ -1,6 +1,7 @@
 package es.ugr.osgiliart.features.opencv;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.opencv.core.Core;
@@ -11,20 +12,18 @@ import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
 
-public class MatchImage {
+public class MatchImage  implements Feature {
 
-	static public int SIZE = 50;
+	static public int SIZE = 100;
 	static public int FILTER_SIZE = 3;
 	
 	static{ 
 		//System.load("/home/dcalandria/5hackathon/eclipse/FeaturesOpenCV/libopencv_java244.so");		
-		System.load("/Users/anabpel/Documents/workspace/osgiliath-code/FeaturesOpenCV/libopencv_java245.dylib");
+		System.load("/Users/dcalandria/hackathon/workspace/osgiliath-code/FeaturesOpenCV/libopencv_java245.dylib");
 	}
 
-	
 	List<Mat> templateChannels;
-	
-	
+		
 	public MatchImage ( String templatePath ) {
 		Mat template = Highgui.imread(templatePath);	
 		Mat resized = new Mat(SIZE, SIZE,  template.type());
@@ -32,9 +31,6 @@ public class MatchImage {
 		Imgproc.resize(template, resized, new Size(SIZE,SIZE));
 		//Imgproc.blur(resized, blurred, new Size(FILTER_SIZE,FILTER_SIZE) );
 		templateChannels = new ArrayList<Mat>();
-		templateChannels.add(new Mat());
-		templateChannels.add(new Mat());
-		templateChannels.add(new Mat());
 		Core.split(resized, templateChannels);		
 	}
 	 
@@ -46,9 +42,6 @@ public class MatchImage {
 		//Imgproc.blur(resizedImg, blurredImg, new Size(FILTER_SIZE,FILTER_SIZE) );
 		
 		ArrayList<Mat> channels = new ArrayList<Mat>();
-		channels.add(new Mat());
-		channels.add(new Mat());
-		channels.add(new Mat());
 		Core.split(resizedImg, channels);
 		
 		double corrcoef = 0;
@@ -60,4 +53,18 @@ public class MatchImage {
 		corrcoef /= 3.0;
 		return corrcoef;
 	}
+	
+	
+	@Override
+	public double[] extract(String path) {
+		Mat img = Highgui.imread(path);	
+		return extract(img);
+	}
+
+	@Override
+	public double[] extract(Mat image) {
+		return null;
+	}
+	
+	
 }

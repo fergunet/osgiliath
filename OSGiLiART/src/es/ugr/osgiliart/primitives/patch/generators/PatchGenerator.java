@@ -12,6 +12,11 @@ public class PatchGenerator implements PrimitiveGenerator {
 	PointGenerator pointGenerator;
 	PathGenerator pathGenerator;
 	
+	public PatchGenerator(PointGenerator pointG, PathGenerator pathG){
+		this.pointGenerator = pointG;
+		this.pathGenerator = pathG;
+	}
+	
 	@Override
 	public Primitive generate() {
 		Point location = pointGenerator.generate();

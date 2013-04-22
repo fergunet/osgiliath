@@ -2,6 +2,7 @@ package es.ugr.osgiliart;
 
 import java.util.ArrayList;
 
+import es.ugr.osgiliart.core.generators.PathGenerator;
 import es.ugr.osgiliart.core.generators.RandomFloatGenerator;
 import es.ugr.osgiliart.core.generators.color.ColorGenerator;
 import es.ugr.osgiliart.core.generators.color.RandomColorGenerator;
@@ -10,6 +11,7 @@ import es.ugr.osgiliart.core.generators.point.RandomPointGenerator;
 import es.ugr.osgiliart.core.rand.RandU;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.Circle;
+import es.ugr.osgiliart.primitives.patch.Patch;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
 import es.ugr.osgiliath.evolutionary.individual.Genome;
@@ -27,6 +29,7 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 			new RandU()
 			);
 	
+	
 	RandomFloatGenerator radiusGenerator = new RandomFloatGenerator(new RandU());
 	
 	@Override
@@ -36,7 +39,9 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 		ArrayList<Primitive> primitives = artisticGenome.getPrimitives();		
 		for ( Primitive primitive: primitives ) {
 			if ( Math.random() <= prob ) {
+				//System.out.println("ANTES"+primitive.toString());
 				mutate(primitive);
+				//System.out.println("DESPUES"+primitive.toString());
 			} 
 		}						
 		return genome;
@@ -52,6 +57,13 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 			circle.setColor( colorGenerator.generate() );
 			circle.setCenter(pointGenerator.generate() );
 			circle.setRadius(radiusGenerator.generate());
+		}
+		
+		if( primitive instanceof Patch){
+			Patch patch = (Patch) primitive;
+			PathGenerator pg = new PathGenerator((String)this.getAlgorithmParameters().getParameter(ArtisticParameters.PATCHES_FOLDER));
+			patch.setFilePath(pg.generate());
+			patch.setLocation(pointGenerator.generate());
 		}
 		return primitive;
 	}

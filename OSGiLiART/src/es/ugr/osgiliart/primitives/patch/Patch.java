@@ -11,17 +11,16 @@ public class Patch implements Primitive {
 	protected Point location;
 	
 	protected String filePath;
-	protected Mat patch;
 	
 	public Patch(Point location, String filePath){
 		this.location = location;
 		this.filePath = filePath;
-		getImagePatch();
+		
 	}
 	
 	
-	private void getImagePatch(){
-		patch = Highgui.imread(this.filePath);
+	public Mat getMat(){
+		return Highgui.imread(this.filePath);
 	}
 	
 	//------- GETTERS & SETTERS ---------
@@ -39,11 +38,12 @@ public class Patch implements Primitive {
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
-		getImagePatch();
 	}
 
 	
-	
+	public String toString(){
+		return this.filePath+" ["+this.location+"]";
+	}
 	@Override
 	public Object clone()  {
 		return new Patch(this.location, this.filePath);

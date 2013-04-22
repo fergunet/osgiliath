@@ -20,6 +20,7 @@ public class ArtisticParameters {
 	public static final String IMAGE_HEIGHT =   		"parameters.osgiliart.image.height";	
 	public static final String IMAGE_TYPE  = 			"parameters.osgiliart.image.type";
 	public static final String DATA_FOLDER  = 			"parameters.osgiliart.data.folder";
+	public static final String PATCHES_FOLDER  = 			"parameters.osgiliart.data.patches";
 	public static final String MAX_RADIUS  =            "parameters.osgiliart.primitive.maxRadius";
 			
 	public static final String MATCHING_TAMPLATE  =       "parameters.osgiliart.features.matching.template";

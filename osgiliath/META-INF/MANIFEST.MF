@@ -5,12 +5,11 @@ Bundle-SymbolicName: es.ugr.osgiliath;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: ugr
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Import-Package: org.osgi.framework;version="1.4.0",
- org.osgi.service.component;version="1.1.0",
- org.osgi.service.event;version="1.1.0"
+Import-Package: org.osgi.framework,
+ org.osgi.service.component,
+ org.osgi.service.event
 Export-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.algorithms,
  es.ugr.osgiliath.events,
- es.ugr.osgiliath.network,
  es.ugr.osgiliath.problem,
  es.ugr.osgiliath.utils

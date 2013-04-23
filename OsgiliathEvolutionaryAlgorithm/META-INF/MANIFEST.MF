@@ -9,7 +9,6 @@ Import-Package:
  es.ugr.osgiliath,
  es.ugr.osgiliath.algorithms,
  es.ugr.osgiliath.events,
- es.ugr.osgiliath.network,
  es.ugr.osgiliath.problem,
  es.ugr.osgiliath.utils,
  org.osgi.service.event

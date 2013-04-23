@@ -41,7 +41,7 @@ public class OpenCVCollageDrawer extends OsgiliathService implements Drawer {
 			String folderPath = (String) this.getAlgorithmParameters().getParameter(ArtisticParameters.DATA_FOLDER);
 			
 			List<Primitive> primitives = ((ArtisticGenome) artistic.getGenome()).getPrimitives();		
-			Mat orig = new Mat(imageWidth, imageHeight, CvType.CV_8UC3, new Scalar(0));
+			Mat orig = new Mat(imageWidth, imageHeight, CvType.CV_8UC3, new Scalar(255,255,255));
 			
 			for(Primitive p:primitives){
 				Patch patch = (Patch) p;

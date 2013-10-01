@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PlanetWars
+Bundle-SymbolicName: PlanetWars
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.elements,
+ es.ugr.osgiliath.evolutionary.individual

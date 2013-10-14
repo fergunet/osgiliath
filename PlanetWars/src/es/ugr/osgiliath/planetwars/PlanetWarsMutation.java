@@ -12,10 +12,10 @@ public class PlanetWarsMutation  extends OsgiliathService implements Mutation {
 
 	@Override
 	public Genome mutate(Genome genome) {
-		TreeGenome<TreeElement> tree = (TreeGenome<TreeElement>) genome;
+		TreeGenome tree = (TreeGenome) genome;
 		//TODO clonar?
 		
-		GenericTreeNode<TreeElement> branch = tree.getRandomBranch();
+		GenericTreeNode branch = tree.getRandomBranch();
 		
 		if(branch.getData() instanceof Action && branch.getChildren().size()!=0)
 			System.out.println("NO DEBERIA TENER HIJOS!!!!");
@@ -37,8 +37,8 @@ public class PlanetWarsMutation  extends OsgiliathService implements Mutation {
 		
 		}
 		
-		if(branch.getData() instanceof Decission && branch.getChildren().size()==0)
-			System.out.println("DEBERIA TENER HIJOS!!!!");
+		if(branch.getData() instanceof Decission && branch.getChildren().size()!=2)
+			System.out.println("DECISION TIENE "+branch.getChildren().size()+"!!!!");
 		if(branch.getData() instanceof Decission){
 			Decission decission = (Decission) branch.getData();
 			

@@ -2,14 +2,17 @@ package es.ugr.osgiliath.planetwars;
 
 import java.util.ArrayList;
 
+import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
+import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
 
-public class PlanetWarsRandomInitializer implements Initializer{
+public class PlanetWarsRandomInitializer extends OsgiliathService implements Initializer{
 
+	FitnessCalculator fc;
 	@Override
 	public ArrayList<Individual> initializeIndividuals(int size) {
 		ArrayList<Individual> pop = new ArrayList<Individual>();
@@ -19,36 +22,37 @@ public class PlanetWarsRandomInitializer implements Initializer{
 			ind.setGenome(generateRandomTree());
 			pop.add(ind);
 		}
+		System.out.println("CALCULAR FITNESSS!!!");
 		return pop;
 	}
 	
-	private TreeGenome<TreeElement> generateRandomTree(){
-		TreeGenome<TreeElement> arbol = new TreeGenome<TreeElement>();
+	private TreeGenome generateRandomTree(){
+		TreeGenome arbol = new TreeGenome();
 		
 		//root
 		Decission dr = Decission.generateRandomDecission();
-		GenericTreeNode<TreeElement> raiz = new GenericTreeNode<TreeElement>();
+		GenericTreeNode raiz = new GenericTreeNode();
 		raiz.setData(dr);
 		
 		arbol.setRoot(raiz);
-		int deep = 4;
+		int deep = 5;
 		addRandomChilds(raiz,deep-1);  //the root is created
 		
 		return arbol;
 	}
 	
 	
-	private void addRandomChilds(GenericTreeNode<TreeElement> node, int depth){
+	private void addRandomChilds(GenericTreeNode node, int depth){
 		if(depth <= 1){
 			
-			GenericTreeNode<TreeElement> a1 = new GenericTreeNode<TreeElement>(Action.generateRandomAction());
-			GenericTreeNode<TreeElement> a2 = new GenericTreeNode<TreeElement>(Action.generateRandomAction());
+			GenericTreeNode a1 = new GenericTreeNode(Action.generateRandomAction());
+			GenericTreeNode a2 = new GenericTreeNode(Action.generateRandomAction());
 			node.addChild(a1);
 			node.addChild(a2);
 			
 		}else{
-			GenericTreeNode<TreeElement> a1 = new GenericTreeNode<TreeElement>(Decission.generateRandomDecission());
-			GenericTreeNode<TreeElement> a2 = new GenericTreeNode<TreeElement>(Decission.generateRandomDecission());
+			GenericTreeNode a1 = new GenericTreeNode(Decission.generateRandomDecission());
+			GenericTreeNode a2 = new GenericTreeNode(Decission.generateRandomDecission());
 			node.addChild(a1);
 			node.addChild(a2);
 			
@@ -56,6 +60,11 @@ public class PlanetWarsRandomInitializer implements Initializer{
 			addRandomChilds(a2, depth-1);
 		}
 			
+	}
+
+	public void setFitnessCalculator(FitnessCalculator fitnessCalculator) {
+		this.fc = fitnessCalculator;
+		
 	}
 
 }

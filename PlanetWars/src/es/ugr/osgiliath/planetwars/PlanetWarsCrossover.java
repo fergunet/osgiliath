@@ -11,24 +11,35 @@ public class PlanetWarsCrossover implements Crossover{
 
 	@Override
 	public ArrayList<Genome> cross(Genome mother, Genome father) {
-		TreeGenome<TreeElement> motherTree = (TreeGenome<TreeElement>) mother;
-		TreeGenome<TreeElement> fatherTree = (TreeGenome<TreeElement>) father;
+		TreeGenome motherTree = (TreeGenome) mother;
+		TreeGenome fatherTree = (TreeGenome) father;
 		
-		TreeGenome<TreeElement> childA = (TreeGenome<TreeElement>) motherTree.clone();
-		TreeGenome<TreeElement> childB = (TreeGenome<TreeElement>) fatherTree.clone();
+		TreeGenome childA = (TreeGenome) motherTree.clone();
+		TreeGenome childB = (TreeGenome) fatherTree.clone();
 		
-		GenericTreeNode<TreeElement> branchA = childA.getRandomBranch();
-		GenericTreeNode<TreeElement> branchB = childB.getRandomBranch();
 		
-		GenericTreeNode<TreeElement> parentA = branchA.getParent();
-		GenericTreeNode<TreeElement> parentB = branchB.getParent();
+		
+		GenericTreeNode branchA = childA.getRandomBranch();
+		GenericTreeNode branchB = childB.getRandomBranch();
+		System.out.println("BRANCH A: "+branchA);
+		System.out.println("BRANCH B: "+branchB);
+		
+		GenericTreeNode parentA = branchA.getParent();
+		GenericTreeNode parentB = branchB.getParent();
+		System.out.println("PARENT of A: "+parentA);
+		System.out.println("PARENT of B: "+parentB);
 		
 		
 		int indexA = parentA.getChildren().indexOf(branchA);
 		int indexB = parentB.getChildren().indexOf(branchB);
+		System.out.println("A is in position "+indexA);
+		System.out.println("B is in position "+indexB);
 		
 		parentA.addChildAt(indexA, branchB);
+		parentA.removeChildAt(indexA+1);
+		
 		parentB.addChildAt(indexB, branchA);
+		parentB.removeChildAt(indexB+1);
 				
 		ArrayList<Genome> gens = new ArrayList<Genome>();
 		gens.add(childA);

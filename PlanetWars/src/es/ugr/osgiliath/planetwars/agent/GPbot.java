@@ -51,11 +51,12 @@ public class GPbot {
 		
 		
 		try{
-			pw = generateDummyPw(); ///BORRAAAAAAAAAA ESTO!!!!
+			//pw = generateDummyPw(); ///BORRAAAAAAAAAA ESTO!!!!
+			System.err.println("1");
 			agent.setPlanetWarsData(pw);
 			agent.calculatePlanets();
 			agent.calculateGlobalRatios();
-			
+			System.err.println("2");
 			Method method = agent.getClass().getMethod("executeTree", new Class[]{});
 			for(Planet p:pw.MyPlanets()){
 				agent.setActualPlanet(p);
@@ -63,6 +64,7 @@ public class GPbot {
 				method.invoke(agent,new Object[]{});
 				//agent.attackQuickPlanet(0.25);
 			}
+			System.err.println("3");
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -71,7 +73,12 @@ public class GPbot {
 	public static void main(String[] args) {
 		System.err.println(args[0]);
 		try{
-			createMethod(args[0]);
+			System.err.println("GENERANDO METODO A PARTIR DE ARBOL");
+			String arbol = args[0];
+			arbol = arbol.replace("@", " ");
+			System.err.println("EL ARBOL ES "+arbol);
+			createMethod(arbol);
+			System.err.println("ARBOL GENERADO");
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -79,13 +86,14 @@ public class GPbot {
 		agent = new GPAgent();
 		
 		
-		System.out.println("BORRA LO DE ABAJO");
+		/*System.out.println("BORRA LO DE ABAJO");
 		
 		
 		DoTurn(null);
 		if(true)
 			return;
 		//HASTA AQUI
+		 * */
 		String line = "";
 		String message = "";
 		int c;
@@ -122,9 +130,10 @@ public class GPbot {
 		CtMethod newmethod = CtNewMethod.make(" public void executeTree(){"+tree+"}",ctclass);
 		ctclass.addMethod(newmethod);
         ctclass.writeFile();
-        for(Method me: ctclass.toClass().getDeclaredMethods()){ //test print, ok
+        ctclass.toClass();
+       /* for(Method me: ctclass.toClass().getDeclaredMethods()){ //test print, ok
             System.err.println(me.getName());
-        }
+        }*/
 	}
 
 }

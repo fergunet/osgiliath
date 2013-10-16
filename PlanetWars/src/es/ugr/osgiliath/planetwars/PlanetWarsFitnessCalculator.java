@@ -11,6 +11,7 @@ import java.util.List;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
+import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
@@ -19,37 +20,70 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 	@Override
 	public Fitness calculateFitness(Individual ind) {
-		// TODO Auto-generated method stub
-		return null;
+		BasicIndividual individual = (BasicIndividual) ind;
+
+		int numWins = 0;
+		int numTurns = 0;
+
+		String mapList = (String) this.getAlgorithmParameters().getParameter(PlanetWarsParameters.FITNESS_MAPLIST);
+		String[] maps = mapList.split(" ");
+		Integer runsPerMap = (Integer) this.getAlgorithmParameters().getParameter(PlanetWarsParameters.FITNESS_RUNS_PER_MAP);
+
+		PlanetWarsHierarchicalFitness fit = new PlanetWarsHierarchicalFitness(0, 0);
+
+		String tree = this.writePlanetWarsTree((TreeGenome)ind.getGenome());
+		tree = tree.replace(" ", "@");
+
+		for(String map:maps){
+			for(int i = 0; i < runsPerMap; i++){
+
+				try{
+					PlanetWarsHierarchicalFitness one = (PlanetWarsHierarchicalFitness) this.executeMap(tree, map);
+					System.out.println(one);
+					fit.setTotalTurns(fit.getTotalTurns()+one.getTotalTurns());
+					fit.setTotalWins(fit.getTotalWins()+one.getTotalWins());
+				}catch(Exception ex){
+					System.out.println("ERROR IN FITNESS CALCULATOR");
+					ex.printStackTrace();
+				}
+			}
+		}
+		System.out.println("El fitness del individuo es "+fit);
+		return fit;
 	}
 
 	@Override
 	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Fitness> fits = new ArrayList<Fitness>();
+		for(Individual ind:inds){
+			Fitness f = this.calculateFitness(ind);
+			fits.add(f);
+		}
+		return fits;
+
 	}
-	
+
 	public String writePlanetWarsTree(TreeGenome tree){
 		String theTree = ""; 
-		
-			//theTree = writePlanetWarsTreeAux(tree.getRoot(),1); //INDENTED
-			theTree = writePlanetWarsTreeAux(tree.getRoot());
-		
+
+		//theTree = writePlanetWarsTreeAux(tree.getRoot(),1); //INDENTED
+		theTree = writePlanetWarsTreeAux(tree.getRoot());
+
 		return theTree;
-		
+
 	}
-	
+
 	public String writePlanetWarsTreeIndented(TreeGenome tree){
 		String theTree = ""; 
-		
-			theTree = writePlanetWarsTreeAux(tree.getRoot(),1); //INDENTED
-			//theTree = writePlanetWarsTreeAux(tree.getRoot());
-		
+
+		theTree = writePlanetWarsTreeAux(tree.getRoot(),1); //INDENTED
+		//theTree = writePlanetWarsTreeAux(tree.getRoot());
+
 		return theTree;
-		
+
 	}
-	
-	
+
+
 	private String writePlanetWarsTreeAux(GenericTreeNode node, int indent){
 		String str = "";
 		String indentStr = "";
@@ -57,7 +91,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 			indentStr = indentStr+" ";
 		}
 		str = indentStr+node.getData().toString()+"\n";
-		
+
 		if(node.getChildren().size()==2){
 			str = str + writePlanetWarsTreeAux(node.getChildAt(0),indent+1);
 			str = str + indentStr+"else \n"+writePlanetWarsTreeAux(node.getChildAt(1),indent+1);
@@ -66,14 +100,14 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 			System.out.println("ERROR: NUMERO DE HIJOS ERRONEO!!! "+node.getNumberOfChildren() );
 		}
 		return str;
-		
+
 	}
 
 	private String writePlanetWarsTreeAux(GenericTreeNode node){
 		String str = "";
 		String indentStr = "";
 		str = indentStr+node.getData().toString();
-		
+
 		if(node.getChildren().size()==2){
 			str = str + writePlanetWarsTreeAux(node.getChildAt(0));
 			str = str + indentStr+"else "+writePlanetWarsTreeAux(node.getChildAt(1));
@@ -82,56 +116,142 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 			System.out.println("ERROR: NUMERO DE HIJOS ERRONEO!!! "+node.getNumberOfChildren() );
 		}
 		return str;
-		
+
 	}
-	
-	public String generateLaunchScript(String tree){
-		
-		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER);
+
+
+
+	public String[] generateString(String tree, String map){
+		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER)+"/";
+		String mapFolder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_MAPS_FOLDER)+"/";
+		//Added the slash to the folder
+
 		String simulator = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_SIMULATOR);		
-		String turns = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TURNS);
-		String time = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TIME);
-		
+		Integer turns = (Integer)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TURNS);
+		Integer time = (Integer)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TIME);
+		String filelog = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FILELOG);
 		String agentJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_AGENT_JAR);
 		String enemyJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_JAR);
-		
-		String agent = "java -jar "+folder+agentJar+" "+"\'"+tree+"\'";
-		String enemy = "java -jar "+folder+enemyJar;
-		String complete = folder+simulator +" "+
-		 time +" "+
-		 turns + " " +
-		"\""+agent+"\""+
-		"\""+enemy+"\"";
-		
-		return complete;
+
+		String agent = "java -jar "+folder+agentJar+" "+tree+" ";
+		String enemyParameters = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_PARAMETERS);
+		String enemy = "java -jar "+folder+enemyJar+" "+enemyParameters;
+
+		ArrayList<String> all = new ArrayList<String>();
+		all.add("java");
+		all.add("-jar");
+		all.add(folder+simulator);
+		all.add(folder+mapFolder+map);
+		all.add(time.toString());
+		all.add(turns.toString());
+		all.add(folder+filelog);
+		all.add(agent);
+		all.add(enemy);
+
+
+		return all.toArray(new String[0]);
 	}
-	public void executeScript(String tree, String map) throws IOException, InterruptedException {
 
-		String line = this.generateLaunchScript(tree);
-		Process _p = Runtime.getRuntime().exec(line);
-		
-        //System.out.println(_p.getOutputStream().toString());
+	public String[] generateStringScript(String tree, String map){
+		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER)+"/";
+		String mapFolder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_MAPS_FOLDER)+"/";
+		//Added the slash to the folder
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(_p.getInputStream()));
-        String turn = "";
-        String winer ="";
-        while ((line = in.readLine()) != null) {
-        
-                System.out.print(line);
-               /* turn = winer;
-                if (winer != "Draw!") {
-                    winer = line;
-                } else {
-                    br2.readLine();
-                    winer = line;
-                }*/
+		String simulator = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_SIMULATOR);		
+		Integer turns = (Integer)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TURNS);
+		Integer time = (Integer)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_TIME);
+		String filelog = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FILELOG);
+		String agentJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_AGENT_JAR);
+		String enemyJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_JAR);
 
-            
+		String agent = "java -jar "+folder+agentJar+" "+tree+" ";
+		String enemyParameters = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_PARAMETERS);
+		String enemy = "java -jar "+folder+enemyJar+" "+enemyParameters;
+
+		ArrayList<String> all = new ArrayList<String>();
+		all.add(folder+"launch.sh");
+
+
+		return all.toArray(new String[0]);
+	}
+	public Fitness executeMap(String tree, String map) throws IOException, InterruptedException {
+		System.out.println("Testeando en mapa "+map);
+
+
+		/*String line = this.generateLaunchScript(tree,map);
+		System.out.println(line);
+		Process _p = Runtime.getRuntime().exec(line);*/
+
+
+		/*String[] cmd = this.generateString(tree, map);
+		ArrayList<String> cmds = new ArrayList<String>();
+		for(String part:cmd){
+			System.out.println(part+" ");
+			cmds.add(part);
+		}*/
+
+		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER)+"/";
+		//String commandline = "/home/pgarcia/workspace/PlanetWars/environment/launch.sh";
+		String commandline = folder+"launch.sh "+tree+" "+map;
+		//System.out.println("LAUNCHING "+commandline);
+		Process _p = Runtime.getRuntime().exec(commandline);
+
+		//The mistery code of Antares
+		InputStreamReader isr = new InputStreamReader(_p.getInputStream());
+        BufferedReader br = new BufferedReader(isr);
+
+        String lineRead;
+        while ((lineRead = br.readLine()) != null) {
+            //System.out.println(lineRead);
         }
-        in.close();
+        isr.close();
+        br.close();
+		_p.waitFor();
+		_p.destroy();
+		String line;
+
+		
+		
+		
+		//ProcessBuilder pb = new ProcessBuilder(cmds);
+		//Process _p = pb.start();
 
 
-        _p.waitFor();
+		File archivo = new File(folder+"error.txt");
+		FileReader fr = new FileReader(archivo);
+		BufferedReader br2 = new BufferedReader(fr);
+		String linea, winner = "", turn = "";
+
+		while ((linea = br2.readLine()) != null) {
+
+			turn = winner;
+			if (winner != "Draw!") {
+				winner = linea;
+			} else {
+				br2.readLine();
+				winner = linea;
+			}
+
+		}
+
+		int turnInt = Integer.parseInt(turn.split(" ")[1]);
+		//In line 3 we have the numbers of turn and in line2 we have the result
+		fr.close();
+        br2.close();
+		if (winner.charAt(7) == '2') {
+			return new PlanetWarsHierarchicalFitness(0,turnInt);
+		} else {
+			return new PlanetWarsHierarchicalFitness(1,turnInt);
+		}
+
+
+
+
+	
+
+
+
+
+		//return new PlanetWarsHierarchicalFitness(0,1);
 	}
 }

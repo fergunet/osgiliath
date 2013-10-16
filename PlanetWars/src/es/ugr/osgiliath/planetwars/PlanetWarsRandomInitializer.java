@@ -1,12 +1,14 @@
 package es.ugr.osgiliath.planetwars;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
+import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
 
@@ -22,7 +24,13 @@ public class PlanetWarsRandomInitializer extends OsgiliathService implements Ini
 			ind.setGenome(generateRandomTree());
 			pop.add(ind);
 		}
-		System.out.println("CALCULAR FITNESSS!!!");
+		
+		List<Fitness> fits = this.fc.calculateFitnessForAll(pop);
+		int w = 0;
+		for(Fitness f:fits){
+			pop.get(w).setFitness(f);
+			w++;
+		}
 		return pop;
 	}
 	

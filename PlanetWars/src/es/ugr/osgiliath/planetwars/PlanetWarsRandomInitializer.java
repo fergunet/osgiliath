@@ -43,7 +43,7 @@ public class PlanetWarsRandomInitializer extends OsgiliathService implements Ini
 		raiz.setData(dr);
 		
 		arbol.setRoot(raiz);
-		int deep = 5;
+		int deep = (Integer) this.getAlgorithmParameters().getParameter(PlanetWarsParameters.INITIAL_DEPTH);
 		addRandomChilds(raiz,deep-1);  //the root is created
 		
 		return arbol;

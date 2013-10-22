@@ -55,7 +55,7 @@ TreeGenome arbol = new TreeGenome();
 		
 		System.out.println(arbol.toString());
 		
-		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator();
+		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator(1);
 		
 		System.out.println(fc.writePlanetWarsTree(arbol));
 		
@@ -79,7 +79,7 @@ TreeGenome arbol = new TreeGenome();
 		printTree((TreeGenome)offs.get(1));
 		System.out.println(((TreeGenome)offs.get(1)).getDepth());
 		
-		PlanetWarsFitnessCalculator fit = new PlanetWarsFitnessCalculator();
+		PlanetWarsFitnessCalculator fit = new PlanetWarsFitnessCalculator(1);
 		return fit.writePlanetWarsTree((TreeGenome)offs.get(0));
 		
 	}
@@ -130,7 +130,7 @@ TreeGenome arbol = new TreeGenome();
 	}
 	
 	private static void printTree(TreeGenome tree){
-		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator();
+		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator(1);
 		System.out.println(fc.writePlanetWarsTree(tree));
 		System.out.println("\n\n");
 	}

@@ -18,6 +18,13 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public class PlanetWarsFitnessCalculator extends OsgiliathService implements FitnessCalculator{
 
+
+
+	int logFile = 0;
+	public PlanetWarsFitnessCalculator(int logFile){
+		this.logFile = logFile;
+	}
+	
 	@Override
 	public Fitness calculateFitness(Individual ind) {
 		BasicIndividual individual = (BasicIndividual) ind;
@@ -31,6 +38,8 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 		PlanetWarsHierarchicalFitness fit = new PlanetWarsHierarchicalFitness(0, 0);
 
+	
+		
 		String tree = this.writePlanetWarsTree((TreeGenome)ind.getGenome());
 		tree = tree.replace(" ", "@");
 
@@ -55,6 +64,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 	@Override
 	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
 		ArrayList<Fitness> fits = new ArrayList<Fitness>();
+		
 		for(Individual ind:inds){
 			Fitness f = this.calculateFitness(ind);
 			fits.add(f);
@@ -164,7 +174,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 		String agentJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_AGENT_JAR);
 		String enemyJar = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_JAR);
 
-		String agent = "java -jar "+folder+agentJar+" "+tree+" ";
+		String agent = "java -jar "+folder+agentJar+" "+tree+" "+this.logFile;
 		String enemyParameters = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_ENEMY_PARAMETERS);
 		String enemy = "java -jar "+folder+enemyJar+" "+enemyParameters;
 
@@ -174,6 +184,83 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 		return all.toArray(new String[0]);
 	}
+	public Fitness executeMapMAL(String tree, String map) throws IOException, InterruptedException {
+		System.out.println("Testeando en mapa "+map);
+
+
+		/*String line = this.generateLaunchScript(tree,map);
+		System.out.println(line);
+		Process _p = Runtime.getRuntime().exec(line);*/
+
+
+		String[] cmd = this.generateString(tree, map);
+		ArrayList<String> cmds = new ArrayList<String>();
+		for(String part:cmd){
+			System.out.println(part+" ");
+			cmds.add(part);
+		}
+
+		ProcessBuilder pb = new ProcessBuilder(cmds);
+		Process _p = pb.start();
+
+		//The mistery code of Antares
+		InputStreamReader isr = new InputStreamReader(_p.getInputStream());
+        BufferedReader br = new BufferedReader(isr);
+
+        ///CLEAR
+        String lineRead;
+        while ((lineRead = br.readLine()) != null) {
+           
+        }
+        
+        InputStreamReader isr2 = new InputStreamReader(_p.getErrorStream());
+        BufferedReader br2 = new BufferedReader(isr2);
+		String linea, winner = "", turn = "";
+        while ((linea = br2.readLine()) != null) {
+        	System.out.println(linea);
+			turn = winner;
+			if (winner != "Draw!") {
+				winner = linea;
+			} else {
+				br2.readLine();
+				winner = linea;
+			}
+
+		}
+        
+        isr.close();
+        br.close();
+		_p.waitFor();
+		_p.destroy();
+		String line;
+
+		
+		
+	
+
+		
+
+		int turnInt = Integer.parseInt(turn.split(" ")[1]);
+		//In line 3 we have the numbers of turn and in line2 we have the result
+		isr2.close();
+        br2.close();
+		if (winner.charAt(7) == '2') {
+			return new PlanetWarsHierarchicalFitness(0,turnInt);
+		} else {
+			return new PlanetWarsHierarchicalFitness(1,0);
+		}
+
+
+
+
+	
+
+
+
+
+		//return new PlanetWarsHierarchicalFitness(0,1);
+	}
+	
 	public Fitness executeMap(String tree, String map) throws IOException, InterruptedException {
 		System.out.println("Testeando en mapa "+map);
 
@@ -192,8 +279,8 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER)+"/";
 		//String commandline = "/home/pgarcia/workspace/PlanetWars/environment/launch.sh";
-		String commandline = folder+"launch.sh "+tree+" "+map;
-		//System.out.println("LAUNCHING "+commandline);
+		String commandline = folder+"launch.sh "+tree+" "+map+" "+this.logFile;
+		System.out.println("LAUNCHING "+commandline);
 		Process _p = Runtime.getRuntime().exec(commandline);
 
 		//The mistery code of Antares
@@ -217,7 +304,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 		//Process _p = pb.start();
 
 
-		File archivo = new File(folder+"error.txt");
+		File archivo = new File(folder+"error"+this.logFile+".txt");
 		FileReader fr = new FileReader(archivo);
 		BufferedReader br2 = new BufferedReader(fr);
 		String linea, winner = "", turn = "";
@@ -241,17 +328,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 		if (winner.charAt(7) == '2') {
 			return new PlanetWarsHierarchicalFitness(0,turnInt);
 		} else {
-			return new PlanetWarsHierarchicalFitness(1,turnInt);
+			return new PlanetWarsHierarchicalFitness(1,0);
 		}
-
-
-
-
-	
-
-
-
-
-		//return new PlanetWarsHierarchicalFitness(0,1);
 	}
 }

@@ -43,6 +43,16 @@ public class Decission implements Gene{
 		Decission c = new Decission(this.variable,this.value);
 		return c;
 	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+	
+	
 	
 	
 	

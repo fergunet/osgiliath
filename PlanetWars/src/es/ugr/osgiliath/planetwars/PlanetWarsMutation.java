@@ -23,17 +23,26 @@ public class PlanetWarsMutation  extends OsgiliathService implements Mutation {
 		if(branch.getData() instanceof Action){
 			Action action = (Action) branch.getData();
 			
-			//Change action
-			int val = (int) (GPAgent.actionList.size()*Math.random());
-			String newAction = GPAgent.actionList.get(val);
-			action.setAction(newAction);
+			if(Math.random()<0.5){
+				//Change action
+				int val = (int) (GPAgent.actionList.size()*Math.random());
+				String newAction = GPAgent.actionList.get(val);
+				action.setAction(newAction);
+			}else{
+				//Change percentage
+				double stepSize = (Double)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.PERC_STEP_SIZE);
+				stepSize = Math.random()*stepSize;
 			
-			//Change percentage
-			double stepSize = (Double)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.PERC_STEP_SIZE);
-			stepSize = Math.random()*stepSize;
-			if(Math.random()>0.5)
-				stepSize *=-1;
-			action.setPerc(action.getPerc()*stepSize);
+				if(Math.random()>0.5)
+					stepSize *=-1;
+				double newValue = action.getPerc()+stepSize;
+				if(newValue>1)
+					newValue = 1;
+				if(newValue<0)
+					newValue = 0;
+			
+				action.setPerc(newValue);
+			}
 		
 		}
 		
@@ -41,11 +50,26 @@ public class PlanetWarsMutation  extends OsgiliathService implements Mutation {
 			System.out.println("DECISION TIENE "+branch.getChildren().size()+"!!!!");
 		if(branch.getData() instanceof Decission){
 			Decission decission = (Decission) branch.getData();
+			if(Math.random()<0.5){
+				//Change decission
+				int val = (int) (GPAgent.decissionList.size()*Math.random());
+				String newDecission =  GPAgent.decissionList.get(val);
+				decission.setVariable(newDecission);
+			}else{
+				//Change percentage
+				double stepSize = (Double)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.PERC_STEP_SIZE);
+				stepSize = Math.random()*stepSize;
 			
-			//Change decission
-			int val = (int) (GPAgent.decissionList.size()*Math.random());
-			String newDecission =  GPAgent.decissionList.get(val);
-			decission.setVariable(newDecission);
+				if(Math.random()>0.5)
+					stepSize *=-1;
+				double newValue = decission.getValue()+stepSize;
+				if(newValue>1)
+					newValue = 1;
+				if(newValue<0)
+					newValue = 0;
+			
+				decission.setValue(newValue);
+			}
 			
 		}
 		

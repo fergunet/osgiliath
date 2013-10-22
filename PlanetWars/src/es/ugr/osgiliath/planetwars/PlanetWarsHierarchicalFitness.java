@@ -40,7 +40,7 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 		if(this.totalWins < other.totalWins)
 			return 1;
 		if(this.totalWins == other.totalWins)
-			if(this.totalTurns < other.totalTurns)
+			if(this.totalTurns > other.totalTurns)
 				return -1;
 			else
 				return 1;

@@ -138,12 +138,13 @@ public class PlanetWarsLogger extends OsgiliathService implements Logger{
 			for(String k:keys)
 				out.write(k+" = "+this.getAlgorithmParameters().getParameter(k)+"\n");
 			out.write(filename+"\n");
-			out.write("IT;EVALUATIONS;TIME;BEST;AVERAGE;BESTSIZE;AVERAGESIZE;\n");
+			out.write("IT;EVALUATIONS;TIME;BEST_F;AVERAGE_F;BEST_DEPTH;AVERAGE_DEPTH;BEST_SIZE;AVERAGE_SIZE;BEST_AGE;AVERAGE_AGE;\n");
 			out.close();
 			//System.out.println("CREADO ARCHIVO DE LOG "+filename);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+	
 		
 		
 		//CONTROLS THE TIME

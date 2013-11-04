@@ -14,3 +14,4 @@ Import-Package: es.ugr.osgiliath,
  org.osgi.service.cm,
  org.osgi.service.event
 Service-Component: OSGI-INF/OsgiliathCommandProvider.xml, OSGI-INF/Configurator.xml, OSGI-INF/HashmapParameters.xml
+Export-Package: es.ugr.osgiliath.util.impl

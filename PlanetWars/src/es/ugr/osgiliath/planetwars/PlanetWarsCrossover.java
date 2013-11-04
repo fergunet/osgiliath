@@ -24,6 +24,8 @@ public class PlanetWarsCrossover extends OsgiliathService implements Crossover{
 		
 		int maxDepth = (Integer) this.getAlgorithmParameters().getParameter(PlanetWarsParameters.MAX_DEPTH);
 		int sum = Integer.MAX_VALUE;
+		int totalA = Integer.MAX_VALUE;
+		int totalB = Integer.MAX_VALUE;
 	
 		do{
 			branchA = childA.getRandomBranch();
@@ -33,9 +35,10 @@ public class PlanetWarsCrossover extends OsgiliathService implements Crossover{
 			TreeGenome b = new TreeGenome();
 			a.setRoot(branchA);
 			b.setRoot(branchB);
-			//System.out.println(a.getDepth()+" "+b.getDepth());
-			sum = a.getDepth() + b.getDepth();
-		}while(sum > maxDepth);
+			 totalA = b.getDepth() +branchA.getAncestorsNumber();
+			 totalB = a.getDepth() +branchB.getAncestorsNumber();
+			
+		}while((totalA > maxDepth) || (totalB >maxDepth));
 		
 		//System.out.println("BRANCH A: "+branchA);
 		//System.out.println("BRANCH B: "+branchB);

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Variables
+# $1 Mapa
+# $2 Peso
+# $3 Peso
+# $4 Peso
+# $5 Peso
+# $6 Peso
+# $7 Peso
+# $8 Peso
+# $9 Peso
+# $10 fichero salida
+
+java -jar ../../tools/PlayGame-1.2.jar ../../maps/map$1.txt 1000 1000 log.txt  2> "${10}" "java -jar ../../MyBot/dist/MyBot.jar $2 $3 $4 $5 $6 $7 $8 $9  " "java -jar ../../example_bots/DualBot.jar"
+echo "Termino"
+
+#java -jar ../../tools/PlayGame-1.2.jar ../../maps/map$1.txt 1000 1000 log.txt  2> $10 "java -jar ../../MyBot/dist/MyBot.jar $2 $3 $4 $5 $6 $7 $8 $9  " "java -jar ../../example_bots/DualBot.jar"
+echo "Termino"
+
+#java -jar ../../tools/PlayGame-1.2.jar ../../maps/map$1.txt 2000 1000 log.txt 2> aa.txt "java -jar ../../MyBot/dist/MyBot.jar $2 $3 $4 $5 $6 $7" "java -#jar ../../example_bots/DualBot.jar" > ../../log/map_s1.txt | java -jar ../../tools/ShowGame-1.2.jar
+

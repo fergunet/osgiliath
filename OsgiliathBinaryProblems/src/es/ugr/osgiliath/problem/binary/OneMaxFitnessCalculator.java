@@ -56,7 +56,6 @@ public class OneMaxFitnessCalculator extends OsgiliathService implements Fitness
 	}
 
 	private Fitness calculate(Individual ind){
-		//System.out.println("WTF");
 		
 		List<Gene> genelist = ((ListGenome)ind.getGenome()).getGeneList();
 		

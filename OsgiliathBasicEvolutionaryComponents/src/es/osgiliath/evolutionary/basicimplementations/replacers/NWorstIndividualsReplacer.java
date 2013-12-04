@@ -62,7 +62,8 @@ public class NWorstIndividualsReplacer extends OsgiliathService implements Repla
 		//System.out.println("POP "+pop);
 		//System.out.println("====================================================");
 		
-		
+		Individual best = pop.getNBestIndividuals(1).get(0);
+		System.out.println(best.getFitness()+" "+best.getGenome());
 		
 		
 	}

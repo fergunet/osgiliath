@@ -31,7 +31,7 @@ public class BasicIndividual implements Individual{
 
 	Fitness f;
 	Genome g;
-
+	int age = 0;
 	
 	@Override
 	public int compareTo(Object arg0) {
@@ -79,6 +79,12 @@ public class BasicIndividual implements Individual{
 		return this.f;
 	}
 
-
+	public int getAge(){
+		return this.age;
+	}
+	
+	public void increaseAge(){
+		this.age++;
+	}
 
 }

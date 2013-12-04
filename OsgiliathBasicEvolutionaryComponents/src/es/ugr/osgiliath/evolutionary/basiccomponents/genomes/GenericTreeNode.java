@@ -70,6 +70,7 @@ public class GenericTreeNode implements Cloneable{
    public void removeChildAt(int index) throws IndexOutOfBoundsException {
        children.remove(index);
    }
+   
 
    public GenericTreeNode getChildAt(int index) throws IndexOutOfBoundsException {
        return children.get(index);
@@ -94,6 +95,16 @@ public class GenericTreeNode implements Cloneable{
        return getData().toString();
    }
 
+   public int getAncestorsNumber(){
+	   GenericTreeNode anc = this.getParent();
+	   int n = 0;
+	   while(anc != null){
+		   anc = anc.getParent();
+		   n++;
+	   }
+		   
+		   return n;
+   }
    @Override
    public boolean equals(Object obj) {
        if (this == obj) {

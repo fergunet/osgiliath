@@ -113,7 +113,7 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 		
 		
 		public void run(){
-			System.out.println("HEBRA: VOY A INICIAR");
+			//System.out.println("HEBRA: VOY A INICIAR");
 			fc.calculateFitness(this.indsToCalculate.get(0));
 			this.calculatedFitness = fc.calculateFitnessForAll(this.indsToCalculate);
 		}

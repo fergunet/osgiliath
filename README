@@ -22,10 +22,9 @@ OSGiLiath is a Service Oriented Evolutionary Framework for Evolutionary Algorith
 
 
 - How to obtain the project:
-Project sources can be obtained from SourceForge using the command
+Project sources can be obtained from GitHub using the command
 
-svn checkout –username=your-username svn+ssh://your-username@svn.code.sf.net/p/osgiliath/code/ osgiliath-code
-
+git clone https://github.com/fergunet/osgiliath.git
 (or via Eclipse following the tutorial in [2])
 
 - Requisites:

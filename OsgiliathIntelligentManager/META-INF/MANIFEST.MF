@@ -10,5 +10,7 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
  es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
  es.ugr.osgiliath.evolutionary.elements,
- es.ugr.osgiliath.evolutionary.individual
-Service-Component: OSGI-INF/randomManager.xml
+ es.ugr.osgiliath.evolutionary.individual,
+ org.osgi.service.component;version="1.2.0"
+Service-Component: OSGI-INF/randomManager.xml,
+ OSGI-INF/selectorGatherer.xml

@@ -104,10 +104,10 @@ public class IntegerFitness implements Fitness {
 
 	@Override
 	public Fitness subtract(Fitness other) {
-		double ov = ((IntegerFitness) other).getIntegerValue().intValue();
-		double tv = this.getIntegerValue().doubleValue() - ov;
+		int ov = ((IntegerFitness) other).getIntegerValue().intValue();
+		int tv = this.getIntegerValue().intValue() - ov;
 		
-		Fitness f = new DoubleFitness(new Double(tv), this.maximize);
+		Fitness f = new IntegerFitness(new Integer(tv), this.maximize);
 		return f;
 	}
 
@@ -117,6 +117,11 @@ public class IntegerFitness implements Fitness {
 		int ntv = (int)tv;
 		Fitness f = new IntegerFitness(new Integer(ntv), this.maximize);
 		return f;
+	}
+
+	@Override
+	public double getWeight() {
+		return this.fitness.doubleValue();
 	}
 
 }

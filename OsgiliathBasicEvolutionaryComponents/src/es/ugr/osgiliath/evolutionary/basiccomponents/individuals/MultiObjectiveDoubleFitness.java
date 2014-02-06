@@ -196,4 +196,10 @@ public class MultiObjectiveDoubleFitness implements MultiObjectiveFitness {
 		return null;
 	}
 
+	@Override
+	public double getWeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

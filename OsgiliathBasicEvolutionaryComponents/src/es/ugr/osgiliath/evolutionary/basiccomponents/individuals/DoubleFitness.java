@@ -121,6 +121,11 @@ public class DoubleFitness implements Fitness{
 		return f;
 	}
 
+	@Override
+	public double getWeight() {
+		return this.fitness.doubleValue();
+	}
+
 
 
 

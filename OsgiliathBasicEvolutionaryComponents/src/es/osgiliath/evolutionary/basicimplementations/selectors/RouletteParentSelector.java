@@ -22,10 +22,11 @@ public ArrayList<Individual> select(Population pop) {
 	//Create probs
 	Collections.sort(inds);
 	
-	Fitness total = inds.get(0).getFitness();
+	double total = inds.get(0).getFitness().getWeight();
 	
 	for(int i = 1; i<inds.size();i++){
-		total = total.add(inds.get(0).getFitness());
+		System.out.println("IND "+inds.get(i));
+		total += inds.get(i).getFitness().getWeight();
 	}
 	
 	int selectorSize = 10;
@@ -41,34 +42,25 @@ public ArrayList<Individual> select(Population pop) {
 	
 
  }
+/**
+ * Returns the inmediately superior whose fitness is higher than a random in 0..total
+ * @param inds An ordered list of individuals
+ * @param total the sumatory of all fitness of the population
+ * @return
+ */
+private Individual roulette(ArrayList<Individual> inds, double total){
+	
 
-private Individual roulette(ArrayList<Individual> inds, Fitness total){
-	Fitness selected;
-	Fitness minimum = null;
-	
-	Double d;
-	if(total instanceof DoubleFitness){
-		Double totalD = ((DoubleFitness) total).getDoubleValue();	
-		selected = new DoubleFitness(totalD*Math.random(), total.toMaximize());
-		minimum = new IntegerFitness(0, total.toMaximize());
-	}
-	
-	if(total instanceof IntegerFitness){
-		Integer totalD = ((IntegerFitness)total).getIntegerValue();
-		int inte = (int) (totalD*Math.random());
-		selected = new IntegerFitness(inte, total.toMaximize());
-		minimum = new IntegerFitness(0, total.toMaximize());
-	}
-	
-	
-	
-	Fitness actual;
+	//subtract until <0
+	double selected = Math.random()*total;
+	System.out.println("Selected "+selected);
+	int i = 0;
 	for(Individual ind:inds){
-		actual = total.subtract(ind.getFitness());
-		
-		if(actual.compareTo(minimum) < 0){
+		System.out.println(i); 
+		i++;
+		selected -= ind.getFitness().getWeight();
+		if(selected < 0)
 			return ind;
-		}
 	}
 		
 	return null;

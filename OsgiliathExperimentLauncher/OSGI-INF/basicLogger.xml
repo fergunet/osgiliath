@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="BasicLogger">
+   <implementation class="es.ugr.osgiliath.util.impl.BasicLogger"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.utils.Logger"/>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
+   <property name="event.topics" type="String" value="OSGILIATH/*"/>
+</scr:component>

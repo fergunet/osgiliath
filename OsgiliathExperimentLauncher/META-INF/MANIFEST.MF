@@ -13,5 +13,6 @@ Import-Package: es.ugr.osgiliath,
  org.eclipse.osgi.framework.console;version="1.1.0",
  org.osgi.service.cm,
  org.osgi.service.event
-Service-Component: OSGI-INF/OsgiliathCommandProvider.xml, OSGI-INF/Configurator.xml, OSGI-INF/HashmapParameters.xml
+Service-Component: OSGI-INF/OsgiliathCommandProvider.xml, OSGI-INF/Configurator.xml, OSGI-INF/HashmapParameters.xml,
+ OSGI-INF/basicLogger.xml
 Export-Package: es.ugr.osgiliath.util.impl

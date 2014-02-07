@@ -1,5 +1,7 @@
+package es.ugr.osgiliath.util.impl;
+
 /*
- * BasicLogger.java
+ * ACULogger.java
  * 
  * Copyright (c) 2013, Pablo Garcia-Sanchez. All rights reserved.
  *
@@ -20,21 +22,45 @@
  * 
  * Contributors:
  */
-package es.ugr.osgiliath.util.impl;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Properties;
 
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
+import es.ugr.osgiliath.OsgiliathService;
+import es.ugr.osgiliath.events.EventCreator;
+
 import es.ugr.osgiliath.utils.Logger;
+import es.ugr.osgiliath.utils.OsgiliathConfiguration;
+import es.ugr.osgiliath.utils.Stopwatch;
 
-public class BasicLogger implements Logger{
-
-	boolean infoOnConsole = false;
-	boolean infoOnFile = false;
-	boolean infoFile = false;
+public class BasicLogger extends OsgiliathService implements Logger,EventHandler{
 	
+	
+	int run = 0;
+	int iteration = 0;
+	int numEvaluations = 0;
+	long initTime = 0;
+	String filename;
+
+
+	public void activate(){
+		System.out.println("ACU LOGGER ACTIVATED"); //NOTA: EL SETUP LO HACE EL EVENTO DEL STARTALL
+		//setup(null);
+		
+	}
 	@Override
 	public void info(String message) {
-		System.out.println(message);
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -58,20 +84,107 @@ public class BasicLogger implements Logger{
 
 	@Override
 	public void stats(String message) {
-		// TODO Auto-generated method stub
-		
+		try{
+			FileWriter fstream = new FileWriter(filename,true); //EXISTENT FILE
+			BufferedWriter out = new BufferedWriter(fstream);
+			long time =  System.currentTimeMillis() -initTime;
+			out.write(iteration+";"+numEvaluations+";"+time+";"+";"+message);
+			iteration++;
+			out.close();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+
 	}
 
+	public void statsX(String message, String appendix) {
+		try{
+			FileWriter fstream = new FileWriter(filename+"."+appendix,true); //EXISTENT FILE
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(message);
+			out.close();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+
+	}
 	@Override
 	public void setup(Properties props) {
-		// TODO Auto-generated method stub
 		
+		
+		//RESET VALUES
+		run++;
+		iteration = 0;
+		numEvaluations = 0;
+		//initTime = 0;
+		
+		//CREATE FILE
+		Date d = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd.hh'h'mm'm'ss's'");
+		String timestamp = format.format(d);
+		
+		// Create folder
+		String folderName = "";
+		String ROOT_FOLDER = (String) this.getAlgorithmParameters().getParameter(OsgiliathConfiguration.LOG_FOLDER);
+		//String cross = (String) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.CROSSOVER_PROB).toString();
+		//String mut = (String) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_PROB).toString();
+		String cross = "0"; //TODO fix
+		String mut = "0";
+		String problemName = (String) this.getAlgorithmParameters().getParameter(OsgiliathConfiguration.PROBLEM_NAME).toString();
+		folderName += ROOT_FOLDER+"/"+problemName+"_"+cross+"_"+mut;
+		filename = folderName+"/"+timestamp+"out.run."+this.run+".fwork."+this.getFrameworkId();
+		try{
+			System.out.println("Creating logfile: "+filename);
+			File folder = new File(folderName);
+			 
+			// if file doesnt exists, then create it
+			boolean status = folder.mkdirs();
+			
+			FileWriter fstream = new FileWriter(filename);
+			BufferedWriter out = new BufferedWriter(fstream);
+
+			ArrayList<String> keys = this.getAlgorithmParameters().getKeys();
+			Collections.sort(keys);
+
+			for(String k:keys)
+				out.write(k+" = "+this.getAlgorithmParameters().getParameter(k)+"\n");
+			out.write(filename+"\n");
+			out.write("IT;EVALUATIONS;TIME;BEST;AVERAGE;NUM_EVALS\n");
+			out.close();
+			//System.out.println("CREADO ARCHIVO DE LOG "+filename);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		
+		//CONTROLS THE TIME
+		this.initTime = System.currentTimeMillis();
+		
+		
+
 	}
 
 	@Override
-	public void statsX(String message, String appendix) {
-		// TODO Auto-generated method stub
+	public void handleEvent(Event arg0) {
+		String topic = arg0.getTopic();
+		
+		//ESTO SE EJECUTA DESDE EL START ALL QUE RESETEA!!!
+		if(topic.contains(EventCreator.TOPIC_RESET)){
+			this.setup(null);
+			System.out.println("RESETEO EL LOGGER");
+		}
+		
+		if(topic.contains(EventCreator.TOPIC_EVALUATIONS)){
+			int newEv = (Integer) arg0.getProperty(EventCreator.PROP_EVALUATIONS_NUMBER);
+			this.numEvaluations+=newEv;
+			//System.out.println("EVALUACIONES");
+		}
+		
 		
 	}
+	
+
+	
+	
 
 }

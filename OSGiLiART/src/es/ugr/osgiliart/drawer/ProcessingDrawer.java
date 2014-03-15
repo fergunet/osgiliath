@@ -38,6 +38,8 @@ import es.ugr.osgiliart.core.Point;
 import es.ugr.osgiliart.primitives.Drawer;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.Circle;
+import es.ugr.osgiliart.primitives.basic.Quad;
+import es.ugr.osgiliart.primitives.basic.Triangle;
 import es.ugr.osgiliath.OsgiliathService;
 
 public class ProcessingDrawer extends OsgiliathService implements Drawer {
@@ -93,6 +95,46 @@ public class ProcessingDrawer extends OsgiliathService implements Drawer {
 						  radius*maxRadius, 
 						  radius*maxRadius );								
 			}
+			else if ( primitive instanceof Quad ) {
+				Quad quad = (Quad) primitive;
+				Point p1 = quad.getP1();
+				Point p2 = quad.getP2();
+				Point p3 = quad.getP3();
+				Point p4 = quad.getP4();
+				Color color = quad.getColor();
+				
+				graphics.fill(  graphics.color( color.r*COLOR_SCALE,  
+						color.g*COLOR_SCALE,
+						color.b*COLOR_SCALE )  );
+				graphics.rectMode(PGraphics.RECT);
+				graphics.rect(p1.x*imageWidth, 
+						p2.x*imageWidth, 
+						p3.x*imageWidth, 
+						p4.x*imageWidth, 
+						p1.y*imageHeight, // Top Left
+						p2.y*imageHeight, // Top Right
+						p3.y*imageHeight, // Bottom Right
+						p4.y*imageHeight); // Bottom Left
+			}
+			
+			else if ( primitive instanceof Triangle ) {
+				Triangle tri = (Triangle) primitive;
+				Point p1 = tri.getP1();
+				Point p2 = tri.getP2();
+				Point p3 = tri.getP3();
+				Color color = tri.getColor();
+				
+				graphics.fill(  graphics.color( color.r*COLOR_SCALE,  
+						color.g*COLOR_SCALE,
+						color.b*COLOR_SCALE )  );
+				graphics.rectMode(PGraphics.TRIANGLE);
+				graphics.triangle(p1.x*imageWidth, 
+						p1.y*imageHeight, 
+						p2.x*imageWidth, 
+						p2.y*imageHeight, 
+						p3.x*imageWidth, 
+						p3.y*imageHeight);
+				}
 		}
 		graphics.endDraw();
 		

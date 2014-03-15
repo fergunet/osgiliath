@@ -32,8 +32,12 @@ import es.osgiliath.evolutionary.basicimplementations.selectors.DeterministicTou
 import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
 import es.ugr.osgiliart.ArtisticCrossover;
 import es.ugr.osgiliart.ArtisticInitializer;
+<<<<<<< HEAD
 import es.ugr.osgiliart.ArtisticInitializerPrueba; // Añadido
 import es.ugr.osgiliart.ArtisticInitializerTriangle; // Añadido
+=======
+import es.ugr.osgiliart.ArtisticInitializer2;
+>>>>>>> 6567cbba7011b1f87607255a71ecd4b6582ef680
 import es.ugr.osgiliart.ArtisticMutation;
 import es.ugr.osgiliart.ArtisticProblem;
 import es.ugr.osgiliart.ArtisticRecombinator;
@@ -71,7 +75,11 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
+<<<<<<< HEAD
 						"/home/afercab/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+=======
+						"/Users/fergunet/Documents/workspace/osgiliathgit/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+>>>>>>> 6567cbba7011b1f87607255a71ecd4b6582ef680
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -155,6 +163,10 @@ public class ArtisticAlgorithmLauncher {
 			((ArtisticReplacer) replacer).setFitnessCalculator(fitnessCalculator);
 			algo.setReplacer(replacer);
 			
+<<<<<<< HEAD
+=======
+			//TODO DESCOMENTAR ESTO PARA EL FUTURO
+>>>>>>> 6567cbba7011b1f87607255a71ecd4b6582ef680
 			//algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();

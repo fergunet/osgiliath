@@ -69,7 +69,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/Users/fergunet/Documents/workspace/osgiliath-code/osgiliath/parameterfiles/parameterART.properties");
+						"/media/antares/Documentos/Repositorios/Hackathon_Fergu/osgiliath/osgiliath/parameterfiles/parameterART.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -152,7 +152,7 @@ public class ArtisticAlgorithmLauncher {
 			((ArtisticReplacer) replacer).setFitnessCalculator(fitnessCalculator);
 			algo.setReplacer(replacer);
 			
-			algo.setLogger(new BasicLogger());
+			//algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();
 			String time = sw.toString();

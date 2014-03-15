@@ -32,6 +32,7 @@ import es.osgiliath.evolutionary.basicimplementations.selectors.DeterministicTou
 import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
 import es.ugr.osgiliart.ArtisticCrossover;
 import es.ugr.osgiliart.ArtisticInitializer;
+import es.ugr.osgiliart.ArtisticInitializer2;
 import es.ugr.osgiliart.ArtisticMutation;
 import es.ugr.osgiliart.ArtisticProblem;
 import es.ugr.osgiliart.ArtisticRecombinator;
@@ -69,7 +70,11 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
+<<<<<<< HEAD
 						"/media/antares/Documentos/Repositorios/Hackathon_Fergu/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+=======
+						"/Users/fergunet/Documents/workspace/osgiliathgit/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+>>>>>>> 0443ba36d76311bc4e01a26dc2349fc0a956695a
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -152,6 +157,10 @@ public class ArtisticAlgorithmLauncher {
 			((ArtisticReplacer) replacer).setFitnessCalculator(fitnessCalculator);
 			algo.setReplacer(replacer);
 			
+<<<<<<< HEAD
+=======
+			//TODO DESCOMENTAR ESTO PARA EL FUTURO
+>>>>>>> 0443ba36d76311bc4e01a26dc2349fc0a956695a
 			//algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();

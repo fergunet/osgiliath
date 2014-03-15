@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import es.ugr.osgiliart.core.Color;
+import es.ugr.osgiliart.core.Point;
 import es.ugr.osgiliart.core.generators.PathGenerator;
 import es.ugr.osgiliart.core.generators.RandomFloatGenerator;
 import es.ugr.osgiliart.core.generators.color.ColorGenerator;
@@ -88,16 +89,28 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 				b = a.nextFloat();
 				
 				if(b<1/3){
-					circle.setColor(new Color(a.nextInt(256), circle.getColor().g, circle.getColor().b));
+					circle.setColor(new Color(a.nextFloat(), circle.getColor().g, circle.getColor().b));
 				}else if(b < 2/3){
-					circle.setColor(new Color(circle.getColor().r, a.nextInt(256), circle.getColor().b));
+					circle.setColor(new Color(circle.getColor().r, a.nextFloat(), circle.getColor().b));
 				}else{
-					circle.setColor(new Color(circle.getColor().r, circle.getColor().g, a.nextInt(256)));
+					circle.setColor(new Color(circle.getColor().r, circle.getColor().g, a.nextFloat()));
 				}
 				
 				//circle.setColor(colorGenerator.generate() );
 			}else if(b < 2/3){
-				circle.setCenter(pointGenerator.generate() );
+				b = a.nextFloat();
+				
+				if(b<1/3){
+					circle.setCenter(pointGenerator.generate() );
+				}else if(b < 2/3){
+					circle.setCenter(new Point(a.nextFloat(), circle.getCenter().y));
+				}else{
+					circle.setCenter(new Point(circle.getCenter().x,a.nextFloat()));
+				}
+				
+				
+				
+				//circle.setCenter(pointGenerator.generate() );
 			}else{
 				circle.setRadius(radiusGenerator.generate());
 			}

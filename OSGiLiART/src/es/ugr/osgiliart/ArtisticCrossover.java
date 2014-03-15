@@ -43,6 +43,9 @@ public class ArtisticCrossover implements Crossover{
 		ArrayList<Primitive> bPrimitives = new ArrayList<Primitive>();
 		
 		int length = motherPrimitives.size();
+		
+		
+		
 		for ( int i = 0; i < length; ++i ) {
 			/* merge with same probability */			
 			if ( Math.random() >= 0.5 ) {

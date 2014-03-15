@@ -24,7 +24,9 @@
 package es.ugr.osgiliart;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import es.ugr.osgiliart.core.Color;
 import es.ugr.osgiliart.core.generators.PathGenerator;
 import es.ugr.osgiliart.core.generators.RandomFloatGenerator;
 import es.ugr.osgiliart.core.generators.color.ColorGenerator;
@@ -77,9 +79,31 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 		if ( primitive instanceof Circle ) {			
 			Circle circle = (Circle) primitive;			
 			/*TODO: we only change the color */
-			circle.setColor( colorGenerator.generate() );
-			circle.setCenter(pointGenerator.generate() );
-			circle.setRadius(radiusGenerator.generate());
+			
+			Random a = new Random();
+			
+			float b = a.nextFloat();
+			
+			if(b < 1/3){
+				b = a.nextFloat();
+				
+				if(b<1/3){
+					circle.setColor(new Color(a.nextInt(256), circle.getColor().g, circle.getColor().b));
+				}else if(b < 2/3){
+					circle.setColor(new Color(circle.getColor().r, a.nextInt(256), circle.getColor().b));
+				}else{
+					circle.setColor(new Color(circle.getColor().r, circle.getColor().g, a.nextInt(256)));
+				}
+				
+				//circle.setColor(colorGenerator.generate() );
+			}else if(b < 2/3){
+				circle.setCenter(pointGenerator.generate() );
+			}else{
+				circle.setRadius(radiusGenerator.generate());
+			}
+			
+			
+			
 		}
 		
 		if( primitive instanceof Patch){

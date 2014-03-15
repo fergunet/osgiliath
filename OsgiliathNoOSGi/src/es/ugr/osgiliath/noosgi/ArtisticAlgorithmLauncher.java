@@ -32,6 +32,8 @@ import es.osgiliath.evolutionary.basicimplementations.selectors.DeterministicTou
 import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion;
 import es.ugr.osgiliart.ArtisticCrossover;
 import es.ugr.osgiliart.ArtisticInitializer;
+import es.ugr.osgiliart.ArtisticInitializerPrueba; // Añadido
+import es.ugr.osgiliart.ArtisticInitializerTriangle; // Añadido
 import es.ugr.osgiliart.ArtisticMutation;
 import es.ugr.osgiliart.ArtisticProblem;
 import es.ugr.osgiliart.ArtisticRecombinator;
@@ -69,7 +71,7 @@ public class ArtisticAlgorithmLauncher {
 			FileInputStream in;
 			try {
 				in = new FileInputStream(
-						"/Users/fergunet/Documents/workspace/osgiliath-code/osgiliath/parameterfiles/parameterART.properties");
+						"/home/afercab/osgiliath/osgiliath/parameterfiles/parameterART.properties");
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -99,11 +101,12 @@ public class ArtisticAlgorithmLauncher {
 			((ArtisticMatchingFitnessCalculator) fitnessCalculator).setAlgorithmParameters(params);
 			
 			//Population and Initializer
-			Population pop = new ListPopulation();		
-			Initializer init = new ArtisticInitializer();
-			((ArtisticInitializer) init).setAlgorithmParameters(params);
-			((ArtisticInitializer) init).setProblem(problem);
-			((ArtisticInitializer) init).setFitnessCalculator(fitnessCalculator);
+			Population pop = new ListPopulation();
+			
+			Initializer init = new ArtisticInitializerTriangle();
+			((ArtisticInitializerTriangle) init).setAlgorithmParameters(params);
+			((ArtisticInitializerTriangle) init).setProblem(problem);
+			((ArtisticInitializerTriangle) init).setFitnessCalculator(fitnessCalculator);
 			((ListPopulation) pop).setInitializer(init);
 			((ListPopulation) pop).setAlgorithmParameters(params);
 			((ListPopulation) pop).setProblem(problem);		
@@ -152,7 +155,7 @@ public class ArtisticAlgorithmLauncher {
 			((ArtisticReplacer) replacer).setFitnessCalculator(fitnessCalculator);
 			algo.setReplacer(replacer);
 			
-			algo.setLogger(new BasicLogger());
+			//algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();
 			String time = sw.toString();

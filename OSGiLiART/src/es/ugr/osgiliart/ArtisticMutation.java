@@ -37,6 +37,7 @@ import es.ugr.osgiliart.core.generators.point.RandomPointGenerator;
 import es.ugr.osgiliart.core.rand.RandU;
 import es.ugr.osgiliart.primitives.Primitive;
 import es.ugr.osgiliart.primitives.basic.Circle;
+import es.ugr.osgiliart.primitives.basic.Triangle;
 import es.ugr.osgiliart.primitives.patch.Patch;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.elements.Mutation;
@@ -124,6 +125,15 @@ public class ArtisticMutation extends OsgiliathService implements Mutation{
 			PathGenerator pg = new PathGenerator((String)this.getAlgorithmParameters().getParameter(ArtisticParameters.PATCHES_FOLDER));
 			patch.setFilePath(pg.generate());
 			patch.setLocation(pointGenerator.generate());
+		}
+		
+		if(primitive instanceof Triangle){
+			Triangle triangle = (Triangle) primitive;
+			triangle.setP1(pointGenerator.generate());
+			triangle.setP2(pointGenerator.generate());
+			triangle.setP3(pointGenerator.generate());
+			
+			triangle.setColor(colorGenerator.generate());
 		}
 		return primitive;
 	}

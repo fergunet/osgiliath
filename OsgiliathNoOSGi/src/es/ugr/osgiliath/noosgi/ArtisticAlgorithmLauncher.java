@@ -76,10 +76,17 @@ public class ArtisticAlgorithmLauncher {
 			try {
 				in = new FileInputStream(
 <<<<<<< HEAD
+<<<<<<< HEAD
 						"/home/afercab/osgiliath/osgiliath/parameterfiles/parameterART.properties");
 =======
 						"/Users/fergunet/Documents/workspace/osgiliathgit/osgiliath/osgiliath/parameterfiles/parameterART.properties");
 >>>>>>> 6567cbba7011b1f87607255a71ecd4b6582ef680
+=======
+						"/media/antares/Documentos/Repositorios/Hackathon_Fergu/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+=======
+						"/Users/fergunet/Documents/workspace/osgiliathgit/osgiliath/osgiliath/parameterfiles/parameterART.properties");
+>>>>>>> 0443ba36d76311bc4e01a26dc2349fc0a956695a
+>>>>>>> 382b81360c91b34a367bdad84333b5124ba7b0d0
 				defaultProps.load(in);
 				in.close();
 			} catch (Exception e) {
@@ -166,7 +173,11 @@ public class ArtisticAlgorithmLauncher {
 <<<<<<< HEAD
 =======
 			//TODO DESCOMENTAR ESTO PARA EL FUTURO
+<<<<<<< HEAD
 >>>>>>> 6567cbba7011b1f87607255a71ecd4b6582ef680
+=======
+>>>>>>> 0443ba36d76311bc4e01a26dc2349fc0a956695a
+>>>>>>> 382b81360c91b34a367bdad84333b5124ba7b0d0
 			//algo.setLogger(new BasicLogger());
 			//problem.getParameters().setup(null);
 			sw.stop();

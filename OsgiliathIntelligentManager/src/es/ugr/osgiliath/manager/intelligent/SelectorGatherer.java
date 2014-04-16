@@ -30,16 +30,18 @@ public class SelectorGatherer extends OsgiliathService implements ParentSelector
 		System.out.println("GATHERER OBTAINED PARENT SELECTOR "+name);
 		this.parentSelectors.put(name,c);
 		this.actualParentSelector = name;
-		System.out.println("ITERAMOS");
+		/*System.out.println("ITERAMOS");
 		for(String s:this.parentSelectors.keySet())
-			System.out.println(s);
+			System.out.println(s);*/
 		
 	}
 	
 	public void removeParentSelector(ParentSelector c){
 		this.parentSelectors.values().remove(c);
-		//TODO checkthis
 		System.out.println("HEMOS QUITADO UNO!");
+		
+		
+		this.actualParentSelector = this.parentSelectors.firstKey();
 	}
 	
 	public Set<String> getKeys(){
@@ -49,10 +51,12 @@ public class SelectorGatherer extends OsgiliathService implements ParentSelector
 	public void setCurrentParentSelector(String id){
 		this.actualParentSelector = id;
 	}
+	
 	@Override
 	public ArrayList<Individual> select(Population pop) {
-		System.out.println("Using "+actualParentSelector);
-		System.out.println("Hay "+this.parentSelectors.size());
+		//System.out.println("Using "+actualParentSelector);
+		//System.out.println("Hay "+this.parentSelectors.size());
+		System.out.print(this.actualParentSelector);
 		return this.parentSelectors.get(actualParentSelector).select(pop);
 		
 	}

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TestFitness
+Bundle-SymbolicName: TestFitness
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Service-Component: soapfitness.xml, initializerSpec.xml, initializerSpecSOAP.xml, client.xml,
+ configurator.xml
+Import-Package: es.ugr.osgiliath,
+ es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
+ es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
+ es.ugr.osgiliath.evolutionary.elements,
+ es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.problem,
+ es.ugr.osgiliath.problem.binary,
+ es.ugr.osgiliath.util.impl,
+ es.ugr.osgiliath.utils,
+ org.osgi.service.cm;version="1.4.0"
+Export-Package: es.ugr.osgiliath.test

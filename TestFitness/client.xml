@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" enabled="false" name="Client">
+   <implementation class="es.ugr.osgiliath.test.Client"/>
+   <reference bind="setSpecificInitializerInterface" cardinality="0..n" interface="es.ugr.osgiliath.test.SpecificInitializerInterface" name="SpecificInitializerInterface" policy="static" target="(service.imported=*)" unbind="unsetSpecificInitializerInterface"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.algorithms.Algorithm"/>
+   </service>
+</scr:component>

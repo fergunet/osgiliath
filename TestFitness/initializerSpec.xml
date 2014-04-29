@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" enabled="false" immediate="true" name="InitializerSpec">
+   <implementation class="es.ugr.osgiliath.test.SpecificInitializer"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.test.SpecificInitializerInterface"/>
+   </service>  
+</scr:component>

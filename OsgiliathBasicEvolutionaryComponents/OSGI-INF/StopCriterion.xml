@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="StopCriterion">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" immediate="true" name="StopCriterion">
    <implementation class="es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.NGenerationsStopCriterion"/>
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.StopCriterion"/>

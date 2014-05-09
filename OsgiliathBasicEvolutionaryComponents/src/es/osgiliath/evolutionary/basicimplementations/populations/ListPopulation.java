@@ -45,35 +45,42 @@ public class ListPopulation extends OsgiliathService implements Population{
 	
 	@Override
 	public void addIndividual(Individual ind) {
+		synchronized (individuals) {
 		individuals.add(ind);
+		}
 		
 		
 	}
 
 	@Override
 	public void removeIndividual(Individual ind) {
+		synchronized (individuals) {
 		individuals.remove(ind);
+		}
 		
 	}
 
 	@Override
 	public Individual getIndividual(Individual ind) {
+		synchronized (individuals) {
 		int index = this.individuals.indexOf(ind);
 		if(index==-1)
 			return null;
 		else
 			return this.individuals.get(index);
+		}
 	}
 
 	@Override
-	public ArrayList<Individual> getNBestIndividuals(int n) {
+	public synchronized ArrayList<Individual> getNBestIndividuals(int n) {
 		ArrayList<Individual> bests = new ArrayList<Individual>();
 		
-		Collections.sort(this.individuals); //TODO OJO! Que esto no termina de gustarme
-		for(int i = 0; i<n;i++){
-			bests.add(this.individuals.get(i));
+		synchronized (individuals) {	
+			Collections.sort(this.individuals); //TODO OJO! Que esto no termina de gustarme
+			for(int i = 0; i<n;i++){
+				bests.add(this.individuals.get(i));
+			}
 		}
-		
 		return bests;
 		
 	}
@@ -81,18 +88,20 @@ public class ListPopulation extends OsgiliathService implements Population{
 	@Override
 	public ArrayList<Individual> getNWorstIndividuals(int n) {
 		ArrayList<Individual> worst = new ArrayList<Individual>();
-		
+		synchronized (individuals) {
 		Collections.sort(this.individuals); //TODO OJO! Que esto no termina de gustarme
 		for(int i = individuals.size()-n; i<individuals.size();i++){
 			worst.add(this.individuals.get(i));
 		}
-		
+		}
 		return worst;
 	}
 
 	@Override
 	public int getSize() {
+		synchronized (individuals) {
 		return this.individuals.size();
+		}
 	}
 
 	@Override
@@ -101,7 +110,9 @@ public class ListPopulation extends OsgiliathService implements Population{
 		
 		//The initializer is the 
 		ArrayList<Individual> inds = this.initializer.initializeIndividuals(popSize);
+		synchronized (individuals) {
 		this.individuals = inds;
+		}
 		
 
 		
@@ -129,7 +140,9 @@ public class ListPopulation extends OsgiliathService implements Population{
 	public Individual getRandomIndividual() {
 		double value = Math.random()*individuals.size();
 		int i = (int) value;
+		synchronized (individuals) {
 		return this.individuals.get(i);
+		}
 	}
 
 	@Override
@@ -140,19 +153,25 @@ public class ListPopulation extends OsgiliathService implements Population{
 
 	@Override
 	public void addIndividuals(ArrayList<Individual> inds) {
+		synchronized (individuals) {
 		this.individuals.addAll(inds);
+		}
 		
 	}
 
 	@Override
 	public void removeAllIndividuals() {
+		synchronized (individuals) {
 		this.individuals.clear();
+		}
 		
 	}
 
 	@Override
 	public void removeIndividuals(ArrayList<Individual> inds) {
+		synchronized (individuals) {
 		this.individuals.removeAll(inds);
+		}
 		
 	}
 

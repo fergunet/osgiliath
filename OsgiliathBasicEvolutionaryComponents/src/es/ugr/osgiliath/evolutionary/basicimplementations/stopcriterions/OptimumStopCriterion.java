@@ -39,7 +39,7 @@ public class OptimumStopCriterion extends OsgiliathService implements StopCriter
 	@Override
 	public boolean hasFinished() {
 		Fitness best = this.pop.getNBestIndividuals(1).get(0).getFitness();
-		Object obj =  this.getProblem().getParameters().getParameter(ProblemParameters.OPTIMUM);
+		Object obj =  this.getAlgorithmParameters().getParameter(ProblemParameters.OPTIMUM);
 		
 		Fitness optimum = new IntegerFitness(1, false);//TODO cafrada
 		boolean maximize = best.toMaximize();

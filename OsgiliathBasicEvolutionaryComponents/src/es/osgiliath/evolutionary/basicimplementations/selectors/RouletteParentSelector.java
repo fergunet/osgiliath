@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import es.ugr.osgiliath.OsgiliathService;
-import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
-import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.IntegerFitness;
+
+import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
 import es.ugr.osgiliath.evolutionary.elements.Population;
-import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 
 public class RouletteParentSelector extends OsgiliathService implements ParentSelector{
@@ -25,11 +24,11 @@ public ArrayList<Individual> select(Population pop) {
 	double total = inds.get(0).getFitness().getWeight();
 	
 	for(int i = 1; i<inds.size();i++){
-		System.out.println("IND "+inds.get(i));
+		//System.out.println("IND "+inds.get(i));
 		total += inds.get(i).getFitness().getWeight();
 	}
 	
-	int selectorSize = 10;
+	int selectorSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
 	
 	for(int i = 0; i<selectorSize; i++){
 		Individual p = this.roulette(inds, total);
@@ -53,10 +52,10 @@ private Individual roulette(ArrayList<Individual> inds, double total){
 
 	//subtract until <0
 	double selected = Math.random()*total;
-	System.out.println("Selected "+selected);
+	//System.out.println("Selected "+selected);
 	int i = 0;
 	for(Individual ind:inds){
-		System.out.println(i); 
+		//System.out.println(i); 
 		i++;
 		selected -= ind.getFitness().getWeight();
 		if(selected < 0)

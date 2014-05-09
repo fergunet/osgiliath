@@ -22,6 +22,7 @@
  */
 package es.osgiliath.evolutionary.basicimplementations.replacers;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,13 @@ import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.Population;
 import es.ugr.osgiliath.evolutionary.elements.Replacer;
+import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.utils.Logger;
 
 public class NWorstIndividualsReplacer extends OsgiliathService implements Replacer {
 
+	Logger logger;
 	/*
 	 * Adds the whole new offspring to the Population and removes worst individuals to keep the population size
 	 * (obtained from AlgorithmParameters service) worst individuals
@@ -42,35 +46,73 @@ public class NWorstIndividualsReplacer extends OsgiliathService implements Repla
 	@Override
 	public void select(Population pop, ArrayList<Individual> parents,
 			ArrayList<Individual> offspring, ArrayList<Individual> mutatedOffspring) {
-		//System.out.println("SELECTOR PRE");
-		//System.out.println("POP "+pop);
-		//EvolutionaryBasicParameters evParams = (EvolutionaryBasicParameters) this.getAlgorithmParameters();
+	
 		int popSize = pop.getSize();
 		for(Individual i:offspring)
 			pop.addIndividual(i);
-		//int replacerSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.REPLACER_SIZE);
-		//int removed = (offspring.size() < replacerSize)?offspring.size():replacerSize;
 		int removed = pop.getSize() - popSize;
 		List<Individual> worst = pop.getNWorstIndividuals(removed);
-		//List<Individual> best = pop.getNBestIndividuals(1);
+
 		
 		for(Individual i:worst)
 			pop.removeIndividual(i);
-		//System.out.println(best);
-		//System.out.println("POP SIZE"+pop.getSize());
-		//System.out.println("SELECTOR POST");
-		//System.out.println("POP "+pop);
-		//System.out.println("====================================================");
 		
-		Individual best = pop.getNBestIndividuals(1).get(0);
-		System.out.println(best.getFitness()+" "+best.getGenome());
-		
+		Individual b = pop.getNBestIndividuals(1).get(0);
+		//TODO fix this adding information operation from population
+		analyzeInformation(pop);
 		
 	}
 	
+	private void analyzeInformation(Population pop){
+
+		List<Individual> all = pop.getAllIndividuals();
+
+		//All
+		Fitness bestFitness = all.get(0).getFitness();
+		Fitness total = all.get(0).getFitness();
+	
+		
+		Individual first = all.get(0);
+
+		/////////////TOTAL 
+		for(int i = 1; i<all.size(); i++){
+			Individual ind =  all.get(i);
+			//System.out.println(ind.getFitness()+" < "+bestFitness);
+			if(ind.getFitness().compareTo(bestFitness)< -1){
+				bestFitness = ind.getFitness(); //TODO mejor el pop.getNBestIndividuals();
+
+			}
+
+			total = total.add(ind.getFitness());
+			
+		}
+		
+		Fitness avgFitness = total.divide(all.size());
+		DecimalFormat num = new DecimalFormat("####.00000000");
+				
+		this.logger.stats(bestFitness.toString()+";"+
+				avgFitness.toString()+";"+
+				"\n");
+
+
+
+
+	}
+	
 	public void reset(){
+		logger.setup(null);
 		
 	}
+	
+	public void setLogger(Logger log){
+		this.logger = log;
+	}
+	
+	public void unsetLogger(Logger log){
+		this.logger = null;
+	}
+	
+	
 	
 
 

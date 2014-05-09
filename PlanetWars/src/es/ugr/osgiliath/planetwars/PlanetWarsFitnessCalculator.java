@@ -21,6 +21,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 
 	int logFile = 0;
+	
 	public PlanetWarsFitnessCalculator(int logFile){
 		this.logFile = logFile;
 	}

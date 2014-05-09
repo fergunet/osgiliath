@@ -4,8 +4,8 @@ import es.ugr.osgiliath.evolutionary.individual.Fitness;
 
 public class PlanetWarsHierarchicalFitness implements Fitness{
 
-	private double totalWins;
-	private double totalTurns;
+	protected double totalWins;
+	protected double totalTurns;
 	
 	public double getTotalWins() {
 		return totalWins;
@@ -101,9 +101,11 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 		return "("+this.totalWins+"-"+this.totalTurns+")";
 	}
 
-	@Override
+	
 	public double getWeight() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }

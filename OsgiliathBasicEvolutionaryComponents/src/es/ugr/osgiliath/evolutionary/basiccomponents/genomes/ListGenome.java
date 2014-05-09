@@ -30,7 +30,7 @@ import es.ugr.osgiliath.evolutionary.individual.Genome;
 
 public class ListGenome implements Cloneable,Genome{
 	
-	ArrayList<Gene> genes;
+	protected ArrayList<Gene> genes;
 	
 	public ListGenome(){
 		this.genes= new ArrayList<Gene>();

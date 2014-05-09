@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="false" name="UPXListCrossover">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" name="UPXListCrossover">
    <implementation class="es.ugr.osgiliath.evolutionary.basiccomponents.operators.TPXListCrossover"/>
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.Crossover"/>

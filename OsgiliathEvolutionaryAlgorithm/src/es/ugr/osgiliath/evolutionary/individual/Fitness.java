@@ -50,6 +50,12 @@ public interface Fitness extends Comparable, Serializable, Cloneable, SolutionVa
 	
 	public Fitness divide(int denominator);
 	
+	/**
+	 * A weight that can be used to Roulette wheel or other comparison operators
+	 * @return
+	 */
+	public double getWeight();
+	
 
 	
 	

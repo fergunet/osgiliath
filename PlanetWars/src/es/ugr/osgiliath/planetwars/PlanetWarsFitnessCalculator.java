@@ -30,8 +30,8 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 	public Fitness calculateFitness(Individual ind) {
 		BasicIndividual individual = (BasicIndividual) ind;
 
-		int numWins = 0;
-		int numTurns = 0;
+		double fitness_primary = 0;
+		double fitness_secondary = 0;
 
 		String mapList = (String) this.getAlgorithmParameters().getParameter(PlanetWarsParameters.FITNESS_MAPLIST);
 		String[] maps = mapList.split(" ");
@@ -280,6 +280,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 
 		String folder = (String)this.getAlgorithmParameters().getParameter(PlanetWarsParameters.ENVIRONMENT_FOLDER)+"/";
 		//String commandline = "/home/pgarcia/workspace/PlanetWars/environment/launch.sh";
+		
 		String commandline = folder+"launch.sh "+tree+" "+map+" "+this.logFile;
 		System.out.println("LAUNCHING "+commandline);
 		Process _p = Runtime.getRuntime().exec(commandline);
@@ -308,28 +309,31 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements Fit
 		File archivo = new File(folder+"error"+this.logFile+".txt");
 		FileReader fr = new FileReader(archivo);
 		BufferedReader br2 = new BufferedReader(fr);
-		String linea, winner = "", turn = "";
+		String  primary_fitness = "", secondary_fitness = "";
 
-		while ((linea = br2.readLine()) != null) {
-
-			turn = winner;
-			if (winner != "Draw!") {
-				winner = linea;
-			} else {
-				br2.readLine();
-				winner = linea;
-			}
-
+		primary_fitness = br2.readLine();
+		secondary_fitness = br2.readLine();
+		
+		System.err.println("-> " + primary_fitness + " " + secondary_fitness);
+		
+		if(primary_fitness == null){
+			//Es posible que haya individuos TAN malos que ni siquiera funcionen?
+			return new PlanetWarsHierarchicalFitnessMaximization(-1,0);
 		}
-
-		int turnInt = Integer.parseInt(turn.split(" ")[1]);
+		
+		double pfD = Double.parseDouble(primary_fitness);
+		double sfD = Double.parseDouble(secondary_fitness);
+		
 		//In line 3 we have the numbers of turn and in line2 we have the result
 		fr.close();
         br2.close();
+        
+        return new PlanetWarsHierarchicalFitnessMaximization(pfD,sfD);
+        /*
 		if (winner.charAt(7) == '2') {
 			return new PlanetWarsHierarchicalFitness(0,turnInt);
 		} else {
 			return new PlanetWarsHierarchicalFitness(1,0);
-		}
+		}*/
 	}
 }

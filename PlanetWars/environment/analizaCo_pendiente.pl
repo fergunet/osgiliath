@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-
 use Statistics::Regression;
 
 my $turno;
@@ -7,7 +6,7 @@ my @p1_planets; my @p1_ships; my  $p1_proc = 0;
 my @p2_planets; my @p2_ships; my  $p2_proc = 0;
 my @p3_planets; my @p3_ships; my  $p3_proc = 0;
 my @p4_planets; my @p4_ships; my  $p4_proc = 0;
-my $leer = 4;
+my $leer = 2;
 
 open (LOG, '>>log_analizador.txt'); 
 
@@ -15,12 +14,12 @@ while ($linea=<>){
 		chop($linea);
 	if ($linea=~/Turn ([^ \n]*)/){
 		$turno = $1;
-		$leer = 4;
+		$leer = 2;
 
 		$p1_proc = 0; $p2_proc = 0; $p3_proc = 0; $p4_proc = 0;
 	
-	#                          $1         $2            $3       $4    $5     $6     $7
-	}elsif($linea=~/Player (1|2|3|4): P(1|2|3|4) - (true|false)-(\d*)\/(\d*)-(\d*)\/(\d*)/){
+	#                      $1         $2            $3       $4    $5     $6     $7
+	}elsif($linea=~/Player (1|2): P(1|2) - (true|false)-(\d*)\/(\d*)-(\d*)\/(\d*)/){
 		if($1 == "1"){
 			if($2 == "1"){
 				#Hablamos del jugador 1
@@ -172,13 +171,13 @@ my $reg4 = Statistics::Regression->new("Title", ["Turno", "Slope"]);
 
 print LOG "Turnos;P1;P2;P3;P4";
 for($i = 1; $i< $turno; $i++ ){
-	#print LOG $i."Naves;". $p1_ships[$i] .";". $p2_ships[$i] .";". $p3_ships[$i] .";". $p4_ships[$i] ."\r\n";
-	print LOG $i.";". $p1_planets[$i] .";". $p2_planets[$i] .";". $p3_planets[$i] .";". $p4_planets[$i] ."\r\n";
+	print LOG $i."Naves;". $p1_ships[$i] .";". $p2_ships[$i] .";". $p3_ships[$i] .";". $p4_ships[$i] ."\r\n";
+	#print LOG $i.";". $p1_planets[$i] .";". $p2_planets[$i] .";". $p3_planets[$i] .";". $p4_planets[$i] ."\r\n";
 
 	$reg1->include( $p1_ships[$i] , [ 1.0 , $i]);
-	$reg2->include( $p2_ships[$i] , [ 1.0 , $i]);
-	$reg3->include( $p3_ships[$i] , [ 1.0 , $i]);
-	$reg4->include( $p4_ships[$i] , [ 1.0 , $i]);
+	#$reg2->include( $p2_ships[$i] , [ 1.0 , $i]);
+	#$reg3->include( $p3_ships[$i] , [ 1.0 , $i]);
+	#$reg4->include( $p4_ships[$i] , [ 1.0 , $i]);
 
 	# $reg1->include( $p1_planets[$i] , [ 1.0 , $i]);
 	# $reg2->include( $p2_planets[$i] , [ 1.0 , $i]);
@@ -187,17 +186,17 @@ for($i = 1; $i< $turno; $i++ ){
 }
 
  my @p1_theta = $reg1->theta();
- my @p2_theta = $reg2->theta();
- my @p3_theta = $reg3->theta();
- my @p4_theta = $reg4->theta();
+ #my @p2_theta = $reg2->theta();
+ #my @p3_theta = $reg3->theta();
+ #my @p4_theta = $reg4->theta();
 
-print " P1\n";
+#print " P1\n";
 print @p1_theta[0]."\n";
 print @p1_theta[1];
 print LOG "P1\t".@p1_theta[1]. "x + ". @p1_theta[0] . "\tR2 ". $reg1->rsq() ;
 print LOG "\n";
 print "\n";
-
+/*
 print " P2\n";
 print @p2_theta[0]."\n";
 print @p2_theta[1];
@@ -217,6 +216,6 @@ print @p4_theta[0]."\n";
 print @p4_theta[1];
 print LOG "P4\t".@p4_theta[1]. "x + ". @p4_theta[0] . "\tR2 ". $reg4->rsq() ;
 print LOG "\n";
-print "\n";
+print "\n";*/
 
 

@@ -21,7 +21,17 @@ public class PlanetWars {
     public int NumPlanets() {
 	return planets.size();
     }
-
+    
+    public List<Planet> NumPlanets(int id) {
+        List<Planet> r = new ArrayList<Planet>();
+        for (Planet p : planets) {
+          if (p.Owner() == id) {
+            r.add(p);
+          }
+        }
+        return r;
+      }
+    
     // Returns the planet with the given planet_id. There are NumPlanets()
     // planets. They are numbered starting at 0.
     public Planet GetPlanet(int planetID) {
@@ -229,6 +239,20 @@ public class PlanetWars {
 	}
 	return prod;
     }
+    
+    
+    public int TotalNumShips() {
+        int numShips = 0;
+        for (Planet p : planets) {
+          numShips += p.NumShips();
+        }
+        for (Fleet f : fleets) {
+          numShips += f.NumShips();
+        }
+        return numShips;
+      }
+    
+    
 
     // Parses a game state from a string. On success, returns 1. On failure,
     // returns 0.

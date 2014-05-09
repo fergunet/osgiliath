@@ -100,4 +100,10 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 	public String toString(){
 		return "("+this.totalWins+"-"+this.totalTurns+")";
 	}
+
+	@Override
+	public double getWeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -62,16 +62,39 @@ public class MatchImage  implements Feature {
 		//Imgproc.blur(resizedImg, blurredImg, new Size(FILTER_SIZE,FILTER_SIZE) );
 		
 		ArrayList<Mat> channels = new ArrayList<Mat>();
+			
 		Core.split(resizedImg, channels);
 		
+		int conta = 0;
+		
 		double corrcoef = 0;
-		for ( int i = 0; i < 3; ++i ) {
+		for ( int i = 0; i < 1; ++i ) {
+	/*		
+			for(int px = 0; px < SIZE; px++){
+				for(int py = 0; py < SIZE; py++){
+					if(resizedImg.get(px, py)[i]!=0.0){
+						double im_orig = templateChannels.get(i).get(px, py)[0];
+						double im_indi = resizedImg.get(px, py)[i];
+						
+						corrcoef +=  Math.pow(im_orig ,2) - Math.pow(im_indi, 2);
+						conta++;
+					}
+					
+					
+				}
+			}*/
+			
+			
+			
 			Mat result = new Mat();			
 			Imgproc.matchTemplate(channels.get(i), templateChannels.get(i), result, Imgproc.TM_CCOEFF_NORMED);
+			//Imgproc.matchTemplate(channels.get(i), templateChannels.get(i), result, Imgproc.TM_SQDIFF);
 			corrcoef += result.get(0, 0)[0];		
+			//corrcoef += result.get(0, 0)[0];
 		}
 		corrcoef /= 3.0;
-		return corrcoef;
+		//return (corrcoef/conta/(255*3));
+		return (corrcoef);
 	}
 	
 	

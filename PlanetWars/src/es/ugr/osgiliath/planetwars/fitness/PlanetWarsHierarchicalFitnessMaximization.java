@@ -29,13 +29,13 @@ public class PlanetWarsHierarchicalFitnessMaximization extends PlanetWarsHierarc
 	@Override
 	public void setAsWorstValue() {
 		this.secondaryFitness = Integer.MAX_VALUE;
-		this.primaryFitness = 0;
+		this.primaryFitness = Integer.MAX_VALUE;
 		
 	}
 
 	@Override
 	public void setAsBestValue() {
-		this.primaryFitness = Integer.MAX_VALUE;
+		this.primaryFitness = Integer.MIN_VALUE;
 		this.secondaryFitness = 0;
 	}
 

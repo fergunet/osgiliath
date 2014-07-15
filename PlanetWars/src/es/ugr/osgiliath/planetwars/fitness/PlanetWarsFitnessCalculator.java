@@ -126,7 +126,6 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 		theTree = writePlanetWarsTreeAux(tree.getRoot());
 
 		return theTree;
-
 	}
 
 	public String writePlanetWarsTreeIndented(TreeGenome tree) {

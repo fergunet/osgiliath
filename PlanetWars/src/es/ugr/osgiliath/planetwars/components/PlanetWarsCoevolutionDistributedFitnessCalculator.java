@@ -52,24 +52,19 @@ public class PlanetWarsCoevolutionDistributedFitnessCalculator implements Fitnes
 		
 		int indsPerCalculator = 2;
 		
-		ArrayList<PlanetWarsCoevolutionEvaluationResult> calculatedFitness = new ArrayList<PlanetWarsCoevolutionEvaluationResult>();
+		ArrayList<PlanetWarsCoevolutionEvaluationResult> calculatedResults = new ArrayList<PlanetWarsCoevolutionEvaluationResult>();
 		List<Thread> threads = new ArrayList<Thread>();
 		
+		ArrayList<Individual> portion1 = new ArrayList<Individual>();
+		ArrayList<Individual> portion2 = new ArrayList<Individual>();
 		
-		for(int i = 0; i<this.fitnessCalculators.size();i++){
-			int fromIndex = i*indsPerCalculator;
-			int toIndex = (i+1)*indsPerCalculator;
-			
-			if(toIndex>inds.size())
-				toIndex = inds.size();
-			
-			System.out.println("["+fromIndex+","+toIndex+"[");	
-			
-			ArrayList<Individual> portion = new ArrayList<Individual>();
-			portion.addAll(inds.subList(fromIndex, toIndex)); 
-			threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(i),portion));
+		portion1.addAll(inds.subList(0, inds.size()/2)); 
+		portion2.addAll(inds.subList(inds.size()/2, inds.size())); 
 		
-		}
+		
+		threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(0),portion1));
+		threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(1),portion2));
+		
 		
 		for(Thread t:threads){
 			t.start();
@@ -86,13 +81,13 @@ public class PlanetWarsCoevolutionDistributedFitnessCalculator implements Fitnes
 		
 		for(Thread t:threads){
 			PlanetWarsCoevolutionEvaluationResult calcFitnessPortion = ((ThreadFitnessCalculator) t).getResult();
-			calculatedFitness.add(calcFitnessPortion);
+			calculatedResults.add(calcFitnessPortion);
 		}
 		
 		
 		
 		
-		return null;
+		return calculatedResults;
 	}
 
 	@Override

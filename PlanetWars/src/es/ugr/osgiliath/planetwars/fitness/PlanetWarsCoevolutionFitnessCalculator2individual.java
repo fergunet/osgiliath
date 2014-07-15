@@ -22,6 +22,7 @@ import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.planetwars.PlanetWarsParameters;
 import es.ugr.osgiliath.planetwars.components.PlanetWarsCoevolutionEvaluationResult;
 import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.MaxEvaluationsStopCriterionNoOSGi;
+import es.ugr.osgiliath.planetwars.Debug;
 
 public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWarsFitnessCalculator {
 
@@ -30,8 +31,11 @@ public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWar
 	int i1;
 	int i2;
 
+	Debug _d = new Debug();
+	
 	public PlanetWarsCoevolutionFitnessCalculator2individual(int logFile) {
 	super(logFile);
+	this.logFile = logFile;
 	}
 
 	@Override
@@ -60,9 +64,11 @@ public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWar
 		String tree1 = this.writePlanetWarsTree((TreeGenome) ind1.getGenome());
 		tree1 = tree1.replace(" ", "@");
 		
-		String tree2 = this.writePlanetWarsTree((TreeGenome) ind1.getGenome());
-		tree1 = tree1.replace(" ", "@");
+		String tree2 = this.writePlanetWarsTree((TreeGenome) ind2.getGenome());
+		tree2 = tree2.replace(" ", "@");
 
+		System.out.println("BATTLE:" + _d.resumeTree(tree1) + " " + _d.resumeTree(tree2));
+		
 		if (!randomSelection) {
 
 			for (String map : maps) {
@@ -114,6 +120,7 @@ public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWar
 	}
 
 	@Override
+	@Deprecated
 	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
 		ArrayList<Fitness> fits = new ArrayList<Fitness>();
 
@@ -136,7 +143,7 @@ public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWar
 
 		String commandline = folder + "launch2i.sh " + tree1 + " " + tree2 + " " + map + " "
 				+ this.logFile;
-		System.out.println("LAUNCHING " + commandline);
+		//System.err.println("LAUNCHING " + commandline);
 		Process _p = Runtime.getRuntime().exec(commandline);
 
 		// The mistery code of Antares
@@ -168,8 +175,8 @@ public class PlanetWarsCoevolutionFitnessCalculator2individual extends PlanetWar
 		i2 = Integer.parseInt(i2_primary_fitness);
 		i2_secondary_fitness = br2.readLine();
 			
-		System.err.println("-> " + i1_primary_fitness + " " + i1_secondary_fitness);
-		System.err.println("-> " + i2_primary_fitness + " " + i2_secondary_fitness);
+		System.out.println("-> " + i1_primary_fitness + " " + i1_secondary_fitness);
+		System.out.println("-> " + i2_primary_fitness + " " + i2_secondary_fitness);
 
 		// In line 3 we have the numbers of turn and in line2 we have the result
 		fr.close();

@@ -13,6 +13,7 @@ import es.ugr.osgiliath.evolutionary.elements.Replacer;
 import es.ugr.osgiliath.evolutionary.elements.StopCriterion;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.planetwars.Debug;
 import es.ugr.osgiliath.planetwars.PlanetWarsReplacer;
 import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
 import es.ugr.osgiliath.utils.Logger;
@@ -24,6 +25,7 @@ public class PlanetWarsCoevolutionReplacer extends PlanetWarsReplacer {
 	Logger log;
 	
 	StopCriterion stopCriterion ; 
+	Debug _d = new Debug();
 	
 	
 	@Override
@@ -34,6 +36,11 @@ public class PlanetWarsCoevolutionReplacer extends PlanetWarsReplacer {
 		
 		//CALCULAR TODOS
 		pop.addIndividuals(offspring);
+		
+		for(Individual ind : offspring){
+			System.out.printf("NEW BOT: " + _d.resumeTree(ind));
+		}
+		
 				
 		for(int i = 0; i<pop.getAllIndividuals().size(); i++){
 			BasicIndividual ind = (BasicIndividual) pop.getAllIndividuals().get(i);
@@ -42,12 +49,14 @@ public class PlanetWarsCoevolutionReplacer extends PlanetWarsReplacer {
 	
 		//System.out.println("BEST FITNESS "+ pop.getNBestIndividuals(1).get(0));
 		
-		this.analyze(pop);
+		//this.analyze(pop);
 
 		((MaxEvaluationsStopCriterionNoOSGi) stopCriterion).incEvaluations();
 		
 	}
 
+
+	
 
 	public StopCriterion getStopCriterion() {
 		return stopCriterion;

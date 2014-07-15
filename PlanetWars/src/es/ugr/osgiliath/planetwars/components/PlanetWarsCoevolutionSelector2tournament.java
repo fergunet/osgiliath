@@ -33,6 +33,7 @@ import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
 import es.ugr.osgiliath.evolutionary.elements.Population;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.planetwars.Debug;
 import es.ugr.osgiliath.planetwars.fitness.PlanetWarsCoevolutionFitnessCalculator2individual;
 
 public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
@@ -40,26 +41,37 @@ public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 
 	PlanetWarsCoevolutionDistributedFitnessCalculator fitnessCalculator;
 
-	public Individual getRandomNotIn(Population p,
-			ArrayList<Individual> previous) {
+	Debug _d = new Debug();
+	
+	public Individual getRandomNotIn(Population p,ArrayList<Individual> previous) {
 		Individual sel;
 		do {
 			sel = p.getRandomIndividual();
-		} while (!previous.contains(sel));
+		} while (previous.contains(sel));
 
 		return sel;
 	}
 
 	@Override
 	public ArrayList<Individual> select(Population pop) {
+		System.out.print("BATTLE:");
+		
 		ArrayList<Individual> parents = new ArrayList<Individual>();
 		// First Parent
 		ArrayList<Individual> t1 = new ArrayList<Individual>();
 
 		t1.add(getRandomNotIn(pop, t1));
+		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+		System.out.print(" vs ");
 		t1.add(getRandomNotIn(pop, t1));
+		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+		System.out.print("   ");
 		t1.add(getRandomNotIn(pop, t1));
+		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+		System.out.print(" vs ");
 		t1.add(getRandomNotIn(pop, t1));
+		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+
 
 		ArrayList<PlanetWarsCoevolutionEvaluationResult> res = fitnessCalculator
 				.calculateFitness(t1);
@@ -69,6 +81,11 @@ public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 			pop.removeIndividual(r.loser);
 			parents.add(r.winner);
 		}
+		
+		System.out.print(" -> ");
+		System.out.print(_d.resumeTree(res.get(0).winner));
+		System.out.print("♥");
+		System.out.print(_d.resumeTree(res.get(1).winner));
 		
 		return parents;
 	}

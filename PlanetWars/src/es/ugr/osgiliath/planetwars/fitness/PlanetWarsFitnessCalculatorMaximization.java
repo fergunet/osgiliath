@@ -42,8 +42,8 @@ public class PlanetWarsFitnessCalculatorMaximization extends PlanetWarsFitnessCa
 				try{
 					PlanetWarsHierarchicalFitness one = (PlanetWarsHierarchicalFitness) this.executeMap(tree, map);
 					System.out.println(one);
-					fit.setTotalTurns(fit.getTotalTurns()+one.getTotalTurns());
-					fit.setTotalWins(fit.getTotalWins()+one.getTotalWins());
+					fit.setSecondaryFitness(fit.getSecondaryFitness()+one.getSecondaryFitness());
+					fit.setPrimaryFitness(fit.getPrimaryFitness()+one.getPrimaryFitness());
 				}catch(Exception ex){
 					System.out.println("ERROR IN FITNESS CALCULATOR");
 					ex.printStackTrace();

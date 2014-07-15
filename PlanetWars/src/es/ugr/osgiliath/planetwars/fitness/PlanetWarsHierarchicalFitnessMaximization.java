@@ -14,12 +14,12 @@ public class PlanetWarsHierarchicalFitnessMaximization extends PlanetWarsHierarc
 		
 		//negative if a<b
 		
-		if(this.totalWins < other.totalWins)
+		if(this.primaryFitness < other.primaryFitness)
 			return -1;
-		if(this.totalWins > other.totalWins)
+		if(this.primaryFitness > other.primaryFitness)
 			return 1;
-		if(this.totalWins == other.totalWins)
-			if(this.totalTurns < other.totalTurns)
+		if(this.primaryFitness == other.primaryFitness)
+			if(this.secondaryFitness < other.secondaryFitness)
 				return -1;
 			else
 				return 1;

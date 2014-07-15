@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsHierarchicalFitness;
 import es.ugr.osgiliath.util.impl.HashMapParameters;
 
 public class IndividualTester {
@@ -77,8 +79,8 @@ public class IndividualTester {
 					String mapName = parts[parts.length-1];
 					PlanetWarsHierarchicalFitness fit = (PlanetWarsHierarchicalFitness) pf.executeMap(individual, mapName);
 					System.out.println(fit);
-					total.setTotalWins(fit.getTotalWins()+total.getTotalWins());
-					total.setTotalTurns(fit.getTotalTurns()+total.getTotalTurns());
+					total.setPrimaryFitness(fit.getPrimaryFitness()+total.getPrimaryFitness());
+					total.setSecondaryFitness(fit.getSecondaryFitness()+total.getSecondaryFitness());
 					
 					
 				}

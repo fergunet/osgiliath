@@ -4,28 +4,28 @@ import es.ugr.osgiliath.evolutionary.individual.Fitness;
 
 public class PlanetWarsHierarchicalFitness implements Fitness{
 
-	protected double totalWins;
-	protected double totalTurns;
+	protected double primaryFitness;
+	protected double secondaryFitness;
 	
-	public double getTotalWins() {
-		return totalWins;
+	public double getPrimaryFitness() {
+		return primaryFitness;
 	}
 
-	public void setTotalWins(double totalWins) {
-		this.totalWins = totalWins;
+	public void setPrimaryFitness(double totalWins) {
+		this.primaryFitness = totalWins;
 	}
 
-	public double getTotalTurns() {
-		return totalTurns;
+	public double getSecondaryFitness() {
+		return secondaryFitness;
 	}
 
-	public void setTotalTurns(double totalTurns) {
-		this.totalTurns = totalTurns;
+	public void setSecondaryFitness(double totalTurns) {
+		this.secondaryFitness = totalTurns;
 	}
 
 	public PlanetWarsHierarchicalFitness(double wins, double turns){
-		this.totalTurns = turns;
-		this.totalWins = wins;
+		this.secondaryFitness = turns;
+		this.primaryFitness = wins;
 	}
 	
 	@Override
@@ -35,12 +35,12 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 		
 		//negative if a<b
 		
-		if(this.totalWins > other.totalWins)
+		if(this.primaryFitness > other.primaryFitness)
 			return -1;
-		if(this.totalWins < other.totalWins)
+		if(this.primaryFitness < other.primaryFitness)
 			return 1;
-		if(this.totalWins == other.totalWins)
-			if(this.totalTurns > other.totalTurns)
+		if(this.primaryFitness == other.primaryFitness)
+			if(this.secondaryFitness > other.secondaryFitness)
 				return -1;
 			else
 				return 1;
@@ -55,15 +55,15 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 
 	@Override
 	public void setAsWorstValue() {
-		this.totalTurns = Integer.MAX_VALUE;
-		this.totalWins = 0;
+		this.secondaryFitness = Integer.MAX_VALUE;
+		this.primaryFitness = 0;
 		
 	}
 
 	@Override
 	public void setAsBestValue() {
-		this.totalWins = Integer.MAX_VALUE;
-		this.totalTurns = 0;
+		this.primaryFitness = Integer.MAX_VALUE;
+		this.secondaryFitness = 0;
 		
 	}
 
@@ -82,23 +82,23 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 	@Override
 	public Fitness add(Fitness other) {
 		PlanetWarsHierarchicalFitness o = (PlanetWarsHierarchicalFitness)other;		
-		return new PlanetWarsHierarchicalFitness(this.totalWins + o.totalWins, this.totalTurns+o.totalTurns);
+		return new PlanetWarsHierarchicalFitness(this.primaryFitness + o.primaryFitness, this.secondaryFitness+o.secondaryFitness);
 	}
 
 	@Override
 	public Fitness subtract(Fitness another) {
 		PlanetWarsHierarchicalFitness o = (PlanetWarsHierarchicalFitness)another;		
-		return new PlanetWarsHierarchicalFitness(this.totalWins - o.totalWins, this.totalTurns-o.totalTurns);
+		return new PlanetWarsHierarchicalFitness(this.primaryFitness - o.primaryFitness, this.secondaryFitness-o.secondaryFitness);
 
 	}
 
 	@Override
 	public Fitness divide(int denominator) {
-		return new PlanetWarsHierarchicalFitness(this.totalWins/denominator, this.totalTurns/denominator);
+		return new PlanetWarsHierarchicalFitness(this.primaryFitness/denominator, this.secondaryFitness/denominator);
 	}
 
 	public String toString(){
-		return "("+this.totalWins+"-"+this.totalTurns+")";
+		return "("+this.primaryFitness+"-"+this.secondaryFitness+")";
 	}
 
 	

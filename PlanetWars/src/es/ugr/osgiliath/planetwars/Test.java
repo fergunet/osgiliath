@@ -12,6 +12,7 @@ import es.ugr.osgiliath.planetwars.agent.GPAgent;
 import es.ugr.osgiliath.planetwars.agent.GPbot;
 import es.ugr.osgiliath.planetwars.agent.Planet;
 import es.ugr.osgiliath.planetwars.agent.PlanetWars;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
 
 public class Test {
 

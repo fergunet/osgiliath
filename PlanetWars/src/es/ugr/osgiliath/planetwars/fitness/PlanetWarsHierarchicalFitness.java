@@ -6,7 +6,7 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 
 	protected double primaryFitness;
 	protected double secondaryFitness;
-	
+
 	public double getPrimaryFitness() {
 		return primaryFitness;
 	}
@@ -27,6 +27,7 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 		this.secondaryFitness = turns;
 		this.primaryFitness = wins;
 	}
+	
 	
 	@Override
 	public int compareTo(Object o) {
@@ -64,7 +65,6 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 	public void setAsBestValue() {
 		this.primaryFitness = Integer.MAX_VALUE;
 		this.secondaryFitness = 0;
-		
 	}
 
 	@Override

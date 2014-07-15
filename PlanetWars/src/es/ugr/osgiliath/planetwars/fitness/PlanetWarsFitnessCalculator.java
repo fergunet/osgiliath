@@ -9,28 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
+import es.ugr.osgiliath.evolutionary.elements.StopCriterion;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.planetwars.PlanetWarsParameters;
+import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.MaxEvaluationsStopCriterionNoOSGi;
 
 public class PlanetWarsFitnessCalculator extends OsgiliathService implements
-		FitnessCalculator {
+		FitnessCalculator{
 
 	int logFile = 0;
-	private static int numTotalSimulations = 0;
 
 	public PlanetWarsFitnessCalculator(int logFile) {
 		this.logFile = logFile;
 	}
 
-	public static int getNumTotalSimulations() {
-		return numTotalSimulations;
-	}
 
 	@Override
 	public Fitness calculateFitness(Individual ind) {
@@ -67,8 +67,6 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 								.executeMap(tree, map);
 						System.out.println(one);
 						
-						numTotalSimulations++;
-						
 						fit.setSecondaryFitness(fit.getSecondaryFitness()
 								+ one.getSecondaryFitness());
 						fit.setPrimaryFitness(fit.getPrimaryFitness()
@@ -89,7 +87,6 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 					PlanetWarsHierarchicalFitness one = (PlanetWarsHierarchicalFitness) this
 							.executeMap(tree, map);
 					System.out.println(one);
-					numTotalSimulations++;
 					
 					fit.setSecondaryFitness(fit.getSecondaryFitness()
 							+ one.getSecondaryFitness());
@@ -376,11 +373,6 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 
 		System.err.println("-> " + primary_fitness + " " + secondary_fitness);
 
-		if (primary_fitness == null) {
-			// Es posible que haya individuos TAN malos que ni siquiera
-			// funcionen?
-			return new PlanetWarsHierarchicalFitnessMaximization(-1, 0);
-		}
 
 		double pfD = Double.parseDouble(primary_fitness);
 		double sfD = Double.parseDouble(secondary_fitness);

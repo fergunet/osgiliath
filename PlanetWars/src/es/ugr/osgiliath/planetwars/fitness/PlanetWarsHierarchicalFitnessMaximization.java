@@ -25,5 +25,18 @@ public class PlanetWarsHierarchicalFitnessMaximization extends PlanetWarsHierarc
 				return 1;
 		return 0;
 	}
+	
+	@Override
+	public void setAsWorstValue() {
+		this.secondaryFitness = Integer.MAX_VALUE;
+		this.primaryFitness = 0;
+		
+	}
+
+	@Override
+	public void setAsBestValue() {
+		this.primaryFitness = Integer.MAX_VALUE;
+		this.secondaryFitness = 0;
+	}
 
 }

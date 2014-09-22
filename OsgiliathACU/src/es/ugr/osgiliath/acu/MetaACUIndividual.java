@@ -22,61 +22,79 @@
  */
 package es.ugr.osgiliath.acu;
 
+import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
+import es.ugr.osgiliath.evolutionary.individual.Genome;
 import java.util.ArrayList;
 
-import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
+public class MetaACUIndividual extends BasicIndividual
+{
+  int numACUs;
+  int islandGenerations;
+  double migrationProb;
+  String islandId;
+  ArrayList<MetaACUIndividual> fathers;
 
+  public MetaACUIndividual()
+  {
+    this.numACUs = 0;
+  }
 
-public class MetaACUIndividual extends BasicIndividual{
-	
-	int numACUs;
-	double migrationProb;
-	String islandId;
-	
-	ArrayList<MetaACUIndividual> fathers;
-	
-	
-	public MetaACUIndividual() {
-		numACUs = 0;
-	}
-	
-	public int getACUs(){
-		return this.numACUs;
-	}
-	
-	public void increaseACUs(int numACUs){
-		this.numACUs += numACUs;
-	}
-	
-	public void decreaseACUs(int numACUs){
-		this.numACUs -= numACUs;
-	}
+  public int getACUs() {
+    return this.numACUs;
+  }
 
-	public double getMigrationProb() {
-		return migrationProb;
-	}
-	
-	public void setMigrationProb(double migrationProb) {
-		this.migrationProb = migrationProb;
-	}
-	
-	public ArrayList<MetaACUIndividual> getFathers() {
-		return fathers;
-	}
-	
-	public void setFathers(ArrayList<MetaACUIndividual> fathers) {
-		this.fathers = fathers;
-	}
-	
-	public String getIslandId(){
-		return this.islandId;
-	}
-	
-	public void setIslandId(String id){
-		this.islandId = id;
-	}
-	
-	public String toString(){
-		return "["+this.getFitness().toString()+"] "+this.getACUs()+" ACUs. Prob:"+this.migrationProb;
-	}
+  public void increaseACUs(int numACUs) {
+    this.numACUs += numACUs;
+  }
+
+  public void decreaseACUs(int numACUs) {
+    this.numACUs -= numACUs;
+  }
+
+  public double getMigrationProb() {
+    return this.migrationProb;
+  }
+
+  public void setMigrationProb(double migrationProb) {
+    this.migrationProb = migrationProb;
+  }
+
+  public ArrayList<MetaACUIndividual> getFathers() {
+    return this.fathers;
+  }
+
+  public void setFathers(ArrayList<MetaACUIndividual> fathers) {
+    this.fathers = fathers;
+  }
+
+  public String getIslandId() {
+    return this.islandId;
+  }
+
+  public void setIslandId(String id) {
+    this.islandId = id;
+  }
+
+  public int getIslandGenerations()
+  {
+    return this.islandGenerations;
+  }
+
+  public void setIslandGenerations(int islandGenerations) {
+    this.islandGenerations = islandGenerations;
+  }
+
+  public String toString() {
+    return "[" + getFitness().toString() + "] " + getACUs() + " ACUs. Prob:" + this.migrationProb;
+  }
+
+  public Object clone() {
+    MetaACUIndividual newInd = new MetaACUIndividual();
+    newInd.setGenome((Genome)getGenome().clone());
+    newInd.setFitness(getFitness());
+    newInd.setIslandGenerations(getIslandGenerations());
+    newInd.setIslandId(getIslandId());
+    newInd.setMigrationProb(getMigrationProb());
+    return newInd;
+  }
 }

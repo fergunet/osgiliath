@@ -65,6 +65,13 @@ public class GPbot {
 				//agent.attackQuickPlanet(0.25);
 			}
 			System.err.println("3");
+			
+			 int total_Ships = pw.TotalNumShips();
+             System.err.println("P1 - " + pw.IsAlive(1) + "-" + pw.NumPlanets(1).size() +"/"+ pw.NumPlanets() + "-"+ pw.NumShips(1) + "/" + total_Ships);
+             System.err.println("P2 - " + pw.IsAlive(2) + "-" + pw.NumPlanets(2).size() +"/"+ pw.NumPlanets() + "-"+ pw.NumShips(2) + "/" + total_Ships);
+             System.err.println("P3 - " + pw.IsAlive(3) + "-" + pw.NumPlanets(3).size() +"/"+ pw.NumPlanets() + "-"+ pw.NumShips(3) + "/" + total_Ships);
+             System.err.println("P4 - " + pw.IsAlive(4) + "-" + pw.NumPlanets(4).size() +"/"+ pw.NumPlanets() + "-"+ pw.NumShips(4) + "/" + total_Ships);
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

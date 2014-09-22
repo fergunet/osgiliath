@@ -11,6 +11,7 @@ import es.ugr.osgiliath.evolutionary.elements.Population;
 import es.ugr.osgiliath.evolutionary.elements.Replacer;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
 import es.ugr.osgiliath.utils.Logger;
 
 public class PlanetWarsReplacer extends OsgiliathService implements Replacer {

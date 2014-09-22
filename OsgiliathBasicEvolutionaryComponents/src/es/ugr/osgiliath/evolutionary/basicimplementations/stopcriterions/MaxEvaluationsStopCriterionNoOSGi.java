@@ -31,7 +31,7 @@ import es.ugr.osgiliath.events.EventCreator;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.StopCriterion;
 
-public class MaxEvaluationsStopCriterion extends OsgiliathService implements StopCriterion, EventHandler{
+public class MaxEvaluationsStopCriterionNoOSGi extends OsgiliathService implements StopCriterion{
 
 	int evaluations = 0;
 	boolean forceStop = false;
@@ -61,12 +61,13 @@ public class MaxEvaluationsStopCriterion extends OsgiliathService implements Sto
 		forceStop = true;
 		
 	}
-
-	@Override
-	public void handleEvent(Event arg0) {
-		int newEv = (Integer) arg0.getProperty(EventCreator.PROP_EVALUATIONS_NUMBER);
-		this.evaluations+=newEv; 
-		//System.out.println("EVS RECV "+newEv);
-	} 
+	
+	public void incEvaluations(){
+		evaluations++;
+	}
+	
+	public void incEvaluations(int n){
+		evaluations=evaluations+n;
+	}
 
 }

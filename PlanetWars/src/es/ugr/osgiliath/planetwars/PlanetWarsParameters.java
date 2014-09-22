@@ -15,6 +15,9 @@ public class PlanetWarsParameters {
 	
 	public static final String FITNESS_MAPLIST = "planetwars.fitness.maplist";
 	public static final String FITNESS_RUNS_PER_MAP = "planetwars.fitness.runspermap";
+	public static final String FITNESS_RANDOM_SELECTION ="planetwars.fitness.randomSelection";
+	public static final String FITNESS_MAPS_USED_IN_EVALUATION = "planetwars.fitness.mapsUsedInEvaluation";
+	
 	
 	public static final String MAX_DEPTH = "planetwars.depth.max";
 	public static final String INITIAL_DEPTH = "planetwars.depth.initial";

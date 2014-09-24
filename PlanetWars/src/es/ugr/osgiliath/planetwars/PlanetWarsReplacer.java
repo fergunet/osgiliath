@@ -28,17 +28,6 @@ public class PlanetWarsReplacer extends OsgiliathService implements Replacer {
 		int popSize = pop.getSize();
 		currentGeneration++;
 		
-		
-		//CALCULAR SOLO LOS NUEVOS
-		/*List<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(offspring);
-		int w = 0;
-		
-		for(Fitness f:fits){
-			offspring.get(w).setFitness(f);
-			pop.addIndividual(offspring.get(w));
-			w++;
-		}*/
-		
 		//CALCULAR TODOS
 		pop.addIndividuals(offspring);
 		List<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(pop.getAllIndividuals());

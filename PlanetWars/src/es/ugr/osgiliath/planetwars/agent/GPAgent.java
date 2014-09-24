@@ -81,6 +81,8 @@ public class GPAgent {
 		decissionList.add("myShipsLandedFlyingRatio");
 		decissionList.add("myPlanetsEnemyRatio");
 		decissionList.add("myPlanetsTotalRatio");
+		//Random
+		decissionList.add("randomValue");
 	}
 
 	
@@ -121,6 +123,8 @@ public class GPAgent {
 	double myShipsLandedFlyingRatio = 0;
 	double myPlanetsEnemyRatio = 0;
 	double myPlanetsTotalRatio = 0;
+	
+	double randomValue;
 	
 	boolean debug = true;
 
@@ -416,6 +420,7 @@ public class GPAgent {
 		myShipsLandedFlyingRatio=0;
 		myPlanetsEnemyRatio=0;
 		myPlanetsTotalRatio=0;
+		randomValue = Math.random();
 		
 		int myShips = 0;
 		int enemyShips = 0;

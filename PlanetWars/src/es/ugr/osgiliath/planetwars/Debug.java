@@ -10,9 +10,9 @@ public class Debug {
 	public String resumeTree(String tree){
 		String res = tree;
 		
-		res= res.replace("else if", "");
-		res= res.replace("if", "");
-		res= res.replace("else","");
+		res= res.replace("else if", "][");
+		res= res.replace("if", "[");
+		res= res.replace("else","]");
 		res= res.replace("attackNearestEnemyPlanet","A");
 		res= res.replace("attackNearestNeutralPlanet","B");
 		res= res.replace("attackNearestPlanet","C");
@@ -38,13 +38,13 @@ public class Debug {
 		res= res.replace("reinforceWeakest","X");
 		res= res.replace("doNothing","Z");
 		
-		
 		res= res.replace("actualMyShipsRatio","a");
 		res= res.replace("actualLandedFlyingRatio","b");		
 		res= res.replace("myShipsEnemyRatio","c");
 		res= res.replace("myShipsLandedFlyingRatio","d");
 		res= res.replace("myPlanetsEnemyRatio","e");
 		res= res.replace("myPlanetsTotalRatio","f");
+		res= res.replace("randomValue", "?");
 		
 		res= res.replace(" ", "");
 		res= res.replace(";", "");

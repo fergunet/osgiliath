@@ -29,11 +29,14 @@ import java.util.List;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
-import es.ugr.osgiliath.planetwars.fitness.PlanetWarsCoevolutionFitnessCalculator2individual;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsCoevolutionFitnessCalculator;
 
 public class PlanetWarsCoevolutionDistributedFitnessCalculator implements FitnessCalculator {
 
 	private List<FitnessCalculator> fitnessCalculators;
+	
+	int indsPerCalculator;
+	
 	
 	public PlanetWarsCoevolutionDistributedFitnessCalculator(){
 		this.fitnessCalculators = new ArrayList<FitnessCalculator>();
@@ -45,12 +48,20 @@ public class PlanetWarsCoevolutionDistributedFitnessCalculator implements Fitnes
 	}
 	
 	public PlanetWarsCoevolutionEvaluationResult calculateFitness(Individual ind1,Individual ind2) {
-		return ((PlanetWarsCoevolutionFitnessCalculator2individual)fitnessCalculators.get(0)).calculateFitness(ind1,ind2);
+		return ((PlanetWarsCoevolutionFitnessCalculator)fitnessCalculators.get(0)).calculateFitness(ind1,ind2);
 	}
 	
+	
+	public int getIndsPerCalculator() {
+		return indsPerCalculator;
+	}
+
+	public void setIndsPerCalculator(int indsPerCalculator) {
+		this.indsPerCalculator = indsPerCalculator;
+	}
+
 	public ArrayList<PlanetWarsCoevolutionEvaluationResult> calculateFitness(ArrayList<Individual> inds) {
 		
-		int indsPerCalculator = 2;
 		
 		ArrayList<PlanetWarsCoevolutionEvaluationResult> calculatedResults = new ArrayList<PlanetWarsCoevolutionEvaluationResult>();
 		List<Thread> threads = new ArrayList<Thread>();
@@ -123,7 +134,11 @@ public class PlanetWarsCoevolutionDistributedFitnessCalculator implements Fitnes
 		public void run(){
 			//System.out.println("HEBRA: VOY A INICIAR");
 			fc.calculateFitness(this.indsToCalculate.get(0));
-			this.calculatedFitness = ((PlanetWarsCoevolutionFitnessCalculator2individual)fc).calculateFitness(this.indsToCalculate.get(0), this.indsToCalculate.get(1));
+			if(this.indsToCalculate.size() == 2){
+				this.calculatedFitness = ((PlanetWarsCoevolutionFitnessCalculator)fc).calculateFitness(this.indsToCalculate.get(0), this.indsToCalculate.get(1));
+			}else if(this.indsToCalculate.size() == 4){
+				this.calculatedFitness = ((PlanetWarsCoevolutionFitnessCalculator)fc).calculateFitness(this.indsToCalculate.get(0), this.indsToCalculate.get(1),this.indsToCalculate.get(2), this.indsToCalculate.get(3));
+			}
 		}
 		
 		public PlanetWarsCoevolutionEvaluationResult getResult(){

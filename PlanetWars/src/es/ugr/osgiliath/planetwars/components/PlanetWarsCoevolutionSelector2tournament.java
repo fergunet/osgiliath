@@ -34,7 +34,7 @@ import es.ugr.osgiliath.evolutionary.elements.ParentSelector;
 import es.ugr.osgiliath.evolutionary.elements.Population;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.planetwars.Debug;
-import es.ugr.osgiliath.planetwars.fitness.PlanetWarsCoevolutionFitnessCalculator2individual;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsCoevolutionFitnessCalculator;
 
 public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 		implements ParentSelector {
@@ -42,7 +42,18 @@ public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 	PlanetWarsCoevolutionDistributedFitnessCalculator fitnessCalculator;
 
 	Debug _d = new Debug();
+	int indInEvaluations;
 	
+	
+	
+	public int getIndInEvaluations() {
+		return indInEvaluations;
+	}
+
+	public void setIndInEvaluations(int indInEvaluations) {
+		this.indInEvaluations = indInEvaluations;
+	}
+
 	public Individual getRandomNotIn(Population p,ArrayList<Individual> previous) {
 		Individual sel;
 		do {
@@ -54,7 +65,7 @@ public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 
 	@Override
 	public ArrayList<Individual> select(Population pop) {
-		System.out.print("BATTLE:");
+		System.out.print("PARENTS:");
 		
 		ArrayList<Individual> parents = new ArrayList<Individual>();
 		// First Parent
@@ -62,15 +73,32 @@ public class PlanetWarsCoevolutionSelector2tournament extends OsgiliathService
 
 		t1.add(getRandomNotIn(pop, t1));
 		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
-		System.out.print(" vs ");
+		System.out.print(" ");
 		t1.add(getRandomNotIn(pop, t1));
 		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
 		System.out.print("   ");
 		t1.add(getRandomNotIn(pop, t1));
 		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
-		System.out.print(" vs ");
+		System.out.print("  ");
 		t1.add(getRandomNotIn(pop, t1));
 		System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+		
+		if(indInEvaluations == 4){
+			t1.add(getRandomNotIn(pop, t1));
+			System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+			System.out.print("  ");
+			t1.add(getRandomNotIn(pop, t1));
+			System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+			System.out.print("   ");
+			t1.add(getRandomNotIn(pop, t1));
+			System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+			System.out.print("  ");
+			t1.add(getRandomNotIn(pop, t1));
+			System.out.print(_d.resumeTree(t1.get(t1.size()-1)));
+			
+		}
+		
+		System.out.print("\n");
 
 
 		ArrayList<PlanetWarsCoevolutionEvaluationResult> res = fitnessCalculator

@@ -7,16 +7,21 @@ import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
+import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.MaxEvaluationsStopCriterionNoOSGi;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
 import es.ugr.osgiliath.evolutionary.elements.Population;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.evolutionary.individual.Initializer;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
 import es.ugr.osgiliath.planetwars.fitness.PlanetWarsHierarchicalFitnessMaximization;
+import es.ugr.osgiliath.utils.Logger;
 
 public class PlanetWarsCoevolutionRandomInitializer extends OsgiliathService implements Initializer{
 
 	FitnessCalculator fc;
+	Logger log;
+	
 	@Override
 	public ArrayList<Individual> initializeIndividuals(int size) {
 		ArrayList<Individual> pop = new ArrayList<Individual>();
@@ -37,6 +42,19 @@ public class PlanetWarsCoevolutionRandomInitializer extends OsgiliathService imp
 			//System.out.print(in.toString());
 			
 			System.out.println(_d.resumeTree(in));
+		}
+		
+		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator(1);
+		
+		for(Individual ind: pop){
+			
+			log.stats(0 + "," +
+							( (TreeGenome) ind.getGenome()).getNumberOfNodes() + "," +
+							( (TreeGenome) ind.getGenome()).getDepth() + "," +
+							((BasicIndividual) ind ).getAge() + "," +
+							_d.resumeTree(ind) + "," +
+							fc.writePlanetWarsTree((TreeGenome)ind.getGenome()) + "\n" );
+
 		}
 		
 		return pop;
@@ -76,6 +94,12 @@ public class PlanetWarsCoevolutionRandomInitializer extends OsgiliathService imp
 			addRandomChilds(a2, depth-1);
 		}
 			
+	}
+	
+	
+
+	public void setLog(Logger log) {
+		this.log = log;
 	}
 
 	public void setFitnessCalculator(FitnessCalculator fitnessCalculator) {

@@ -38,7 +38,7 @@ public class PlanetWarsCrossover extends OsgiliathService implements Crossover{
 			 totalA = b.getDepth() +branchA.getAncestorsNumber();
 			 totalB = a.getDepth() +branchB.getAncestorsNumber();
 			
-		}while((totalA > maxDepth) || (totalB >maxDepth));
+		}while((totalA > maxDepth) || (totalB >maxDepth) || (totalA == 2) || (totalB == 2) )  ;
 		
 		//System.out.println("BRANCH A: "+branchA);
 		//System.out.println("BRANCH B: "+branchB);

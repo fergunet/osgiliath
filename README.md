@@ -1,13 +1,13 @@
-OSGiLiath - OSGi Laboratory for Implementation And Testing of meta-Heuristics (by Pablo García-Sánchez)
+# OSGiLiath - OSGi Laboratory for Implementation And Testing of meta-Heuristics (by Pablo García-Sánchez)
 
 Visit http://www.osgiliath.org for additional information.
 
-[Version 1.0 - May 2013]
+##Version 1.0 - May 2013
 
 - Project decription:
 OSGiLiath is a Service Oriented Evolutionary Framework for Evolutionary Algorithms. It can be used inside an OSGi container (such as Equinox of Felix) to take advantage of OSGi capabilities, or be used as a normal Java library.
 
-- Components:
+###Components:
 
 * osgiliath: This is the core bundle. It includes all the interfaces common to the algorithms such as "Algorithm", "AlgorithmParameters" or "Problem". 
 * Evolutionary Algorithm:  Includes the "EvolutionaryAlgorithm" implementation and interfaces to create the rest of the services that form an EA: "Recombinator" and "Crossover", "Mutator" and "Mutation", "StopCriterion" or "FitnessCalculator". It also provides interfaces for the creation of individuals: "Individual", "Fitness", "Gene", and "Genome". 
@@ -21,42 +21,45 @@ OSGiLiath is a Service Oriented Evolutionary Framework for Evolutionary Algorith
 * HumanGuidance: a web application to deploy in Tomcat or Glassfish to vote images.
 
 
-- How to obtain the project:
+## How to obtain the project:
 Project sources can be obtained from GitHub using the command
 
-git clone https://github.com/fergunet/osgiliath.git
+
+    git clone https://github.com/fergunet/osgiliath.git
+
 (or via Eclipse following the tutorial in [2])
 
-- Requisites:
+## Requisites:
 It requires Java 1.6 or superior (Oracle or OpenJDK). It can be deployed in a OSGi container, if desired (Equinox 3.5 or higher and Apache Felix). For distribution capabilities, ECF (Eclipse Communication Framework) can be added. Follow tutorial [2] to add into the OSGi container.
 
-- Install OSGiLiath in Eclipse IDE:
+## Install OSGiLiath in Eclipse IDE:
 
 A complete guide about how to set-up OSGiLiath in Eclipse, and how to use OSGi capabilities (such as distribution with ECF) is explained in [2]. Two papers with tutorials are available: Introduction to SOA-EA [3] and a more technology-specific one in [4].
 
-- Documentation and tutorials:
+## Documentation and tutorials:
 Two tutorials about the framework usage can be found in [3] and [4].
 
-- License:
+## License:
 OSGiLiath uses a GNU/LGLP License, please check the LICENSE file for more information.
 
-- References:
+## References:
 [1] Main page: http://www.osgiliath.org
 [2] Getting Started tutorial: http://osgiliath.org/2013/03/05/getting-started-osgiliath-eclipse/
 [3] Service Oriented Evolutionary Algorithms: http://geneura.ugr.es/~pgarcia/papers/2013/2013_soco_soa.pdf
 [4] Developing Services in a Service Oriented Architecture for Evolutionary Algorithms: http://geneura.ugr.es/~pgarcia/papers/2013/osgi-evosoft.pdf
 
-- Contact:
+## Contact:
 pgarcia@atc.ugr.es (email) or @osgiliathSOA (Twitter).
 
-- Acknowledgements
+## Acknowledgements
 
 Thanks to all collaborators that have improved OSGiLiath:
 Daniel Calandria
 Rubén Héctor García
 Carlos García Pardillos
 Fruela Palacio
-JJ Merelo
+[JJ Merelo](http://jj.github.io/)
+
 Roberto Morcillo
 Ana Belén Pelegrina
 

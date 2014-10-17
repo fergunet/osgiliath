@@ -64,8 +64,14 @@ public class MaxEvaluationsStopCriterionNoOSGi extends OsgiliathService implemen
 	
 	public void incEvaluations(){
 		evaluations++;
+		
 	}
 	
+	
+	public int getEvaluations() {
+		return evaluations;
+	}
+
 	public void incEvaluations(int n){
 		evaluations=evaluations+n;
 	}

@@ -130,7 +130,6 @@ public class GPAgent {
 
 	public GPAgent(){
 
-
 	}
 
 	public void setPlanetWarsData(PlanetWars data){

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathFunctionsProblemsMutator">
-   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomMutator"/>
-   <service>
-      <provide interface="es.ugr.osgiliath.evolutionary.elements.Mutator"/>
-   </service>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="Mutation">
+   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.NdimFunctionRandomMutation"/>
    <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
-   <reference bind="setFitnessCalculator" cardinality="1..1" interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator" name="FitnessCalculator" policy="static" target="(calculatorType=distributed)" unbind="unsetFitnessCalculator"/>
+   <service>
+      <provide interface="es.ugr.osgiliath.evolutionary.elements.Mutation"/>
+   </service>
 </scr:component>

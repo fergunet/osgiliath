@@ -31,11 +31,13 @@ import es.ugr.osgiliath.problem.ProblemParameters;
 
 public interface NdimFunctionProblemParameters {
 
-	public static final String DIMENSIONS_PROP = "parameters.ndimfunction.dimensions";
-	public static final String NUM_RANGES_PROP = "parameters.ndimfunction.ranges";
-	public static final String RANGE_ID_PROP = "parameters.ndimfunction.ranges.id";
-	public static final String TOMAXIMIZE_PROP = "parameters.ndimfunction.ranges.id";
-	public static final String STEPSIZE_PROP = "parameters.ndimfunction.stepsize";
+	public static final String DIMENSIONS_PROP = "problem.ndimfunction.dimensions";
+	public static final String NUM_RANGES_PROP = "problem.ndimfunction.ranges";
+	public static final String RANGE_ID_PROP = "problem.ndimfunction.ranges.id";
+	//public static final String TOMAXIMIZE_PROP = "parameters.ndimfunction.ranges.id";
+	public static final String STEPSIZE_PROP = "problem.ndimfunction.stepsize";
+	public static final String MINRANGE_PROP = "problem.ndimfunction.minrange";
+	public static final String MAXRANGE_PROP = "problem.ndimfunction.maxrange";
 	
 	/*private int dimensions;
 	private List<Double> ranges;

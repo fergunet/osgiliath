@@ -46,7 +46,9 @@ public class NdimFunctionRandomMutation extends OsgiliathService implements Muta
 	FitnessCalculator fitnessCalculator;
 
 
-
+	public void activate(){
+		System.out.println("Ndim Random Mutation activated");
+	}
 	
 	
 	public  void setFitnessCalculator(FitnessCalculator f){

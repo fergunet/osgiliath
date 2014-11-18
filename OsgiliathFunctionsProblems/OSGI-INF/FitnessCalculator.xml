@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" modified="modified" name="OsgiliathFunctionsProblemsFitnessCalculator">
-   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.GriewankFitnessCalculator"/>
+   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations.CEC2005FitnessCalculator"/>
    <service>
       <provide interface="es.ugr.osgiliath.evolutionary.elements.FitnessCalculator"/>
    </service>
-   <reference bind="setProblem" cardinality="1..1" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="unsetProblem"/>
    <property name="calculatorType" type="String" value="daiwal"/>
    <property name="remoteService" type="String" value="true"/>
+   <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
    <property name="service.pid" type="String" value="pollas"/>
    <!--<property name="service.exported.interfaces" type="String" value="*"/>
    <property name="service.exported.configs" type="String" value="ecf.generic.server"/>

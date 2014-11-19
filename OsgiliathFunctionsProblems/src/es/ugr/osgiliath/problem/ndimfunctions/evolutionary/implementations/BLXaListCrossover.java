@@ -44,7 +44,9 @@ public class BLXaListCrossover extends OsgiliathService implements Crossover  {
 		
 		ListGenome fatherL = (ListGenome) father;
 		ListGenome motherL = (ListGenome) mother;
-		
+		/*System.out.println(father.toString());
+		System.out.println(mother.toString());
+		System.out.println(" ");*/
 		int fatherSize = fatherL.getGeneList().size();
 		int motherSize = motherL.getGeneList().size();
 		

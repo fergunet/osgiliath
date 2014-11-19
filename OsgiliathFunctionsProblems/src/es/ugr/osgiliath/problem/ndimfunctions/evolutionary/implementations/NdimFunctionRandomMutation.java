@@ -28,6 +28,7 @@ import java.util.List;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
+import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BooleanGene;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleGene;
 import es.ugr.osgiliath.evolutionary.elements.EvolutionaryBasicParameters;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
@@ -43,36 +44,41 @@ import es.ugr.osgiliath.problem.ndimfunctions.NdimFunctionProblemParameters;
 public class NdimFunctionRandomMutation extends OsgiliathService implements Mutation{
 
 
-	FitnessCalculator fitnessCalculator;
-
-
-	public void activate(){
-		System.out.println("Ndim Random Mutation activated");
-	}
 	
-	
-	public  void setFitnessCalculator(FitnessCalculator f){
-		this.fitnessCalculator = f;
+	double randomWithRange(double min, double max)
+	{
+	   double range = (max - min);     
+	   return (Math.random() * range) + min;
 	}
-	
-	public  void unsetFitnessCalculator(FitnessCalculator f){
-		this.fitnessCalculator = null;
-	}
-
-
 
 	@Override
 	public Genome mutate(Genome genome) {
-		ListGenome gen = (ListGenome)genome;
+	
+		ListGenome lg = (ListGenome) genome;
+			
+		double rate = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.MUTATOR_PROB);
+			
+		//One to one
 		
-			int position = (int) Math.random()*gen.getGeneList().size();
-			DoubleGene g = (DoubleGene) gen.getGeneList().get(position);
-			double stepSize = (Double)this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.STEPSIZE_PROP);
-			stepSize = Math.random()*stepSize;
-			if(Math.random()>0.5)
-				stepSize *=-1;
-			g.setValue(g.getValue()+stepSize);
-			return gen; //TODO ref
+		double min = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MINRANGE_PROP);
+		double max = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MAXRANGE_PROP);
+		
+		
+		for(int i = 0; i<lg.getGeneList().size();i++){
+			if(Math.random()<rate){
+				DoubleGene bg = (DoubleGene) lg.getGeneList().get(i);
+				//double newValue = this.randomWithRange(min, max);
+				double newValue = Math.random()*0.25;
+				if(Math.random()<0.5)
+					newValue = -newValue;
+				DoubleGene newg = new DoubleGene(newValue+bg.getValue());
+				lg.getGeneList().set(i, newg);
+				
+			}			
+			
+		}
+		
+		return lg;
 	}
 
 }

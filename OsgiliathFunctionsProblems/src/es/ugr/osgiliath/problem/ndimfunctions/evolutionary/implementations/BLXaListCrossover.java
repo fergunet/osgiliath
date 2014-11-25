@@ -50,12 +50,12 @@ public class BLXaListCrossover extends OsgiliathService implements Crossover  {
 		int fatherSize = fatherL.getGeneList().size();
 		int motherSize = motherL.getGeneList().size();
 		
-		double alpha = 0.5; //TODO parameter
+	
 		int minimum = (fatherSize<motherSize)?fatherSize:motherSize;
 		
 		double minrange = (Double)this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MINRANGE_PROP);
 		double maxrange = (Double)this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MAXRANGE_PROP);
-		
+		double alpha =    (Double)this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.BLX_ALPHA_PROP);
 		for(int i = 0; i<minimum; i++){
 
 						
@@ -68,6 +68,11 @@ public class BLXaListCrossover extends OsgiliathService implements Crossover  {
 			
 			double intervalmin = cmin -I*alpha;
 			double intervalmax = cmax +I*alpha;
+			
+			if(intervalmin<minrange)
+				intervalmin = minrange;
+			if(intervalmax>maxrange)
+				intervalmax = maxrange;
 			
 			//Limit
 			

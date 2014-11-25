@@ -38,6 +38,7 @@ public interface NdimFunctionProblemParameters {
 	public static final String STEPSIZE_PROP = "problem.ndimfunction.stepsize";
 	public static final String MINRANGE_PROP = "problem.ndimfunction.minrange";
 	public static final String MAXRANGE_PROP = "problem.ndimfunction.maxrange";
+	public static final String BLX_ALPHA_PROP = "problem.ndimfunction.blx.alpha";
 	
 	/*private int dimensions;
 	private List<Double> ranges;

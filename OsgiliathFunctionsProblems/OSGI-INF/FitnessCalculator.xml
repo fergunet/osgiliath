@@ -8,6 +8,7 @@
    <property name="remoteService" type="String" value="true"/>
    <reference bind="setAlgorithmParameters" cardinality="1..1" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="static" unbind="unsetAlgorithmParameters"/>
    <property name="service.pid" type="String" value="pollas"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
    <!--<property name="service.exported.interfaces" type="String" value="*"/>
    <property name="service.exported.configs" type="String" value="ecf.generic.server"/>
    <property name="ecf.exported.containerfactoryargs" type="String" value="ecftcp://localhost:3787/server"/>

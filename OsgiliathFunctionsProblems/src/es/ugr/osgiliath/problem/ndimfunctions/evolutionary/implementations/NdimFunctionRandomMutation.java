@@ -62,13 +62,13 @@ public class NdimFunctionRandomMutation extends OsgiliathService implements Muta
 		
 		double min = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MINRANGE_PROP);
 		double max = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MAXRANGE_PROP);
-		
+		double stepSize = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.STEPSIZE_PROP);
 		
 		for(int i = 0; i<lg.getGeneList().size();i++){
 			if(Math.random()<rate){
 				DoubleGene bg = (DoubleGene) lg.getGeneList().get(i);
 				//double newValue = this.randomWithRange(min, max);
-				double newValue = Math.random()*0.25;
+				double newValue = Math.random()*stepSize;
 				if(Math.random()<0.5)
 					newValue = -newValue;
 				DoubleGene newg = new DoubleGene(newValue+bg.getValue());

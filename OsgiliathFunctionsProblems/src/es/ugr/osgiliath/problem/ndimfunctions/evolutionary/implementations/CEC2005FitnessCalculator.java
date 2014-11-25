@@ -7,6 +7,7 @@ import cec05.benchmark;
 import cec05.test_func;
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.algorithms.AlgorithmParameters;
+import es.ugr.osgiliath.events.EventCreator;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.ListGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleFitness;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.DoubleGene;
@@ -60,6 +61,7 @@ public class CEC2005FitnessCalculator  extends OsgiliathService implements Fitne
 			allFitness.add(f);
 		}
 		
+		this.getEventAdmin().sendEvent(EventCreator.createEvaluationsEvent(allFitness.size(), true));
 		return allFitness;
 	}
 	

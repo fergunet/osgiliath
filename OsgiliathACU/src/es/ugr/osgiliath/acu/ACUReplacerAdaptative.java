@@ -51,19 +51,24 @@ public class ACUReplacerAdaptative extends OsgiliathService
     ArrayList<Individual> received = this.migrator.readLOCAL();
 
     int receivedSize = received.size();
+    int toDelete = 0;
     if (receivedSize > 0) {
       for (int z = 0; z < received.size(); z++) {
         MetaACUIndividual mind = (MetaACUIndividual)received.get(z);
 
         if (mind == null) {
           System.out.println("AQUI HAY UN POBLEMA");
-          System.out.println("Received size" + received.size());
+          System.out.println("Received size-> " + received.size());
           System.out.println(received.toString());
-        }
-        mind.setFathers(null);
+        }else{
+			mind.setFathers(null);
+			toDelete++;
+			pop.addIndividual(mind);
+		}
       }
-      pop.addIndividuals(received);
-      removeWorstIndividuals(receivedSize, pop);
+      //pop.addIndividuals(received);
+      //removeWorstIndividuals(receivedSize, pop);
+      removeWorstIndividuals(toDelete, pop);
     }
 
     this.generations += 1;
@@ -228,7 +233,7 @@ public class ACUReplacerAdaptative extends OsgiliathService
       bestFitnessSentStr = bestFitnessSent.toString();
     }
 
-    if (received.size() > 0) {
+    /*if (received.size() > 0) {
       Fitness bestFitnessReceived = ((Individual)received.get(0)).getFitness();
       Fitness totalReceived = ((Individual)received.get(0)).getFitness();
 
@@ -243,7 +248,7 @@ public class ACUReplacerAdaptative extends OsgiliathService
       Fitness avgFitnessReceived = totalReceived.divide(received.size());
       avgFitnessReceivedStr = avgFitnessReceived.toString();
       bestFitnessReceivedStr = bestFitnessReceived.toString();
-    }
+    }*/
 
     this.log.stats(bestFitness.toString() + ";" + 
       avgFitness.toString() + ";" + 

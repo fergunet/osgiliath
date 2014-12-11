@@ -36,7 +36,10 @@ public class DeterministicTournamentSelection extends OsgiliathService implement
 	@Override
 	public ArrayList<Individual> select(Population pop) {
 		
-		int n = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
+		//int n = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
+		double rate = (Double) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_SIZE);
+		
+		int n = (int) (pop.getSize()*rate);
 		ArrayList<Individual> parents = new ArrayList<Individual>();
 		ArrayList<Individual> tournament = new ArrayList<Individual>();
 		int tournamentSize = (Integer) this.getAlgorithmParameters().getParameter(EvolutionaryBasicParameters.SELECTOR_TOURNAMENT_SIZE);//TODO CHANGE THIS!!!

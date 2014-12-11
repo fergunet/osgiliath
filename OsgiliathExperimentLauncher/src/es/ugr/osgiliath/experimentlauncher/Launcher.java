@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.osgi.framework.console.CommandInterpreter;
 import org.eclipse.osgi.framework.console.CommandProvider;
@@ -221,7 +222,7 @@ public class Launcher extends OsgiliathService implements CommandProvider {
 				// BEGIN RUN
 				/*this.getEventAdmin().sendEvent(
 						EventCreator.createResetEvent(true));*/
-
+				
 				Stopwatch sw = new Stopwatch();
 				sw.start();
 				for (int i = 0; i < this.algorithms.size(); i++) {
@@ -269,7 +270,7 @@ public class Launcher extends OsgiliathService implements CommandProvider {
 	}
 
 	public void addAlgorithm(Algorithm alg) {
-		System.out.println("ALGORITHM ADDED--->");
+		System.out.println("ALGORITHM ADDED OCT--->");
 		//String id = ((EvolutionaryAlgorithm)alg).getFrameworkId();
 		//System.out.println("ALGORITHM ADDED--->"+id);
 		algorithms.add(alg);
@@ -314,9 +315,14 @@ public class Launcher extends OsgiliathService implements CommandProvider {
 		@Override
 		public void run() {
 			Algorithm a = algorithms.get(id);
-		
+		    System.out.println("resetting algorithm");
 			a.reset();
-			
+			try {
+				TimeUnit.SECONDS.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			a.start(); //OJO! QUE NO DURE MÁS QUE REMOTECALL!
 			
 			Solution sol = a.getObtainedSolution();

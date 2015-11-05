@@ -74,12 +74,15 @@ public class BasicOrderRecombinator extends OsgiliathService implements Recombin
 			
 			
 		}
-		List<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(offspring);
 		
-		int ind = 0;
-		for(Fitness f:fits){
-			offspring.get(ind).setFitness(f);
-			ind++;
+		if(this.fitnessCalculator!=null){
+			List<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(offspring);
+			
+			int ind = 0;
+			for(Fitness f:fits){
+				offspring.get(ind).setFitness(f);
+				ind++;
+			}
 		}
 		return offspring;
 	}

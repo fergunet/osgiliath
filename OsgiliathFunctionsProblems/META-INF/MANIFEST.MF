@@ -6,6 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.algorithms,
+ es.ugr.osgiliath.events,
  es.ugr.osgiliath.evolutionary.basiccomponents.genomes,
  es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
  es.ugr.osgiliath.evolutionary.distances,
@@ -14,5 +15,17 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.individual.comparators,
  es.ugr.osgiliath.problem,
  es.ugr.osgiliath.utils,
- org.osgi.service.component;version="1.1.0"
-Service-Component: OSGI-INF/FitnessCalculator.xml, OSGI-INF/Initializer.xml, OSGI-INF/Mutator.xml, OSGI-INF/EvolutionaryParameters.xml, OSGI-INF/ProblemParameters.xml, OSGI-INF/Problem.xml
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.1.0",
+ org.osgi.service.event;version="1.3.0"
+Service-Component: OSGI-INF/FitnessCalculator.xml, OSGI-INF/Initializer.xml, OSGI-INF/Mutation.xml,
+ OSGI-INF/Crossover.xml
+Bundle-ClassPath: .,
+ src/cec05/,
+ src/,
+ cec05,
+ bin/
+Export-Package: 
+ es.ugr.osgiliath.problem.mofunctions,
+ es.ugr.osgiliath.problem.ndimfunctions,
+ es.ugr.osgiliath.problem.ndimfunctions.evolutionary.implementations

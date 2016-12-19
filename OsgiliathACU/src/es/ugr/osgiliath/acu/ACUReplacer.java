@@ -88,19 +88,24 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 		ArrayList<Individual> received = this.migrator.readLOCAL();
 		//System.out.println("RECEIVED "+received.size());
 		int receivedSize = received.size();
+		int toDelete = 0;
 		if(receivedSize>0){
 			for(int z = 0; z<received.size(); z++){
 				MetaACUIndividual mind = (MetaACUIndividual) received.get(z);///null??
 				
 				if(mind == null){
 					System.out.println("AQUI HAY UN POBLEMA");
-					System.out.println("Received size" +received.size());
+					System.out.println("Received size-> " +received.size());
 					System.out.println(received.toString());
+				}else{
+					mind.setFathers(null);
+					toDelete++;
+					pop.addIndividual(mind);
 				}
-				mind.setFathers(null);
 			}
-			pop.addIndividuals(received);
-			removeWorstIndividuals(receivedSize, pop);	
+			//pop.addIndividuals(received);
+			//removeWorstIndividuals(receivedSize, pop);
+			removeWorstIndividuals(toDelete, pop);
 		}
 
 	
@@ -242,7 +247,7 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 		
 			
 		///////////RECEIVED
-		if(received.size()>0){
+		/*if(received.size()>0){
 			Fitness bestFitnessReceived = received.get(0).getFitness();
 			Fitness totalReceived = received.get(0).getFitness();
 		
@@ -259,7 +264,7 @@ public class ACUReplacer extends OsgiliathService implements  Replacer{
 			bestFitnessReceivedStr = bestFitnessReceived.toString();
 			//this.getEventAdmin().sendEvent(EventCreator.createNewMigrationReceiveEvent(received.size(), bestFitnessReceived.toString(),avgReceived.toString(), true));
 		}//else this.getEventAdmin().sendEvent(EventCreator.createNewMigrationReceiveEvent(received.size(), "","", true));
-
+		*/
 		
 		log.stats(bestFitness.toString()+";"+
 				avgFitness.toString()+";"+

@@ -42,8 +42,17 @@ import es.ugr.osgiliath.problem.ndimfunctions.NdimFunctionProblemParameters;
 public class NdimFunctionRandomInitializer extends OsgiliathService implements Initializer {
 
 	FitnessCalculator fitnessCalculator;
-	AlgorithmParameters parameters;
 	
+	
+	public void activate(){
+		System.out.println("NdimFunctionRandomInitializer Activated");
+	}
+	
+	double randomWithRange(double min, double max)
+	{
+	   double range = (max - min);     
+	   return (Math.random() * range) + min;
+	}
 	
 	public Individual initializeIndividual() {
 		BasicIndividual ind = new BasicIndividual();
@@ -51,17 +60,22 @@ public class NdimFunctionRandomInitializer extends OsgiliathService implements I
 		
 		
 		//NdimFunctionProblemParameters problemParameters = (NdimFunctionProblemParameters) this.getProblem().getParameters();
-		int dimension = (Integer) parameters.getParameter(NdimFunctionProblemParameters.DIMENSIONS_PROP);
-		for(int i=0; i<dimension;i++){
-			double d = Math.random();//TODO cambia esto
-			Gene g = new DoubleGene(d);
+		int dimension = (Integer) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.DIMENSIONS_PROP);
+		double min = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MINRANGE_PROP);
+		double max = (Double) this.getAlgorithmParameters().getParameter(NdimFunctionProblemParameters.MAXRANGE_PROP);
+		
+		
+		
+		for(int i=0; i<dimension;i++){			
+			double newValue = this.randomWithRange(min, max);
+			Gene g = new DoubleGene(newValue);
 			genome.getGeneList().add(g);
 			
 		}
 		ind.setGenome(genome);
 		Fitness f = fitnessCalculator.calculateFitness(ind);
 		ind.setFitness(f);
-		System.out.println(ind);
+		//System.out.println(ind);
 		return ind;
 	}
 	

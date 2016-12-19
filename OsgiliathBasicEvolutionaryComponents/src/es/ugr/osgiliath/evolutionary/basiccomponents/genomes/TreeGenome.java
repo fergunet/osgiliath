@@ -263,14 +263,14 @@ private GenericTreeNode root;
    }
    
    /**
-    * The root can be selected
+    * The root can be selected (FIXED)
     * @return 
     */
    public GenericTreeNode getRandomNode(){
 	   List<GenericTreeNode> list = this.getNodeList();
-	   double r = (Math.random()*list.size()-1)+1;
-	   int ir = (int) r;
-	   return list.get(ir);
+	   int idx = new Random().nextInt(list.size());
+	   
+	   return list.get(idx);
 	   
    }
    

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiliathFunctionsProblemsProblem">
-   <implementation class="es.ugr.osgiliath.problem.ndimfunctions.NdimFunctionProblem"/>
-   <service>
-      <provide interface="es.ugr.osgiliath.problem.Problem"/>
-   </service>
-   <reference bind="setProblemParameters" cardinality="1..1" interface="es.ugr.osgiliath.problem.ProblemParameters" name="ProblemParameters" policy="static" unbind="unsetProblemParameters"/>
-</scr:component>

@@ -6,6 +6,5 @@
    </service>
    <reference bind="addAlgorithm" cardinality="0..n" interface="es.ugr.osgiliath.algorithms.Algorithm" name="Algorithm" policy="dynamic" unbind="removeAlgorithm"/>
    <reference bind="addParameters" cardinality="1..n" interface="es.ugr.osgiliath.algorithms.AlgorithmParameters" name="AlgorithmParameters" policy="dynamic" unbind="removeParameters"/>
-   <reference bind="addProblem" cardinality="0..n" interface="es.ugr.osgiliath.problem.Problem" name="Problem" policy="static" unbind="removeProblem"/>
    <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
 </scr:component>

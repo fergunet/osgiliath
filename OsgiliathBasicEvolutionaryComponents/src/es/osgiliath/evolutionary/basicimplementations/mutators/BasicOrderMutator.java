@@ -87,14 +87,15 @@ public class BasicOrderMutator extends OsgiliathService implements Mutator{
 				//System.out.println("MUT DESPS:"+ind);
 			}
 			
-			ArrayList<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(mutated);
+			if(this.fitnessCalculator!=null){
+				ArrayList<Fitness> fits = this.fitnessCalculator.calculateFitnessForAll(mutated);
 			
-			int ind= 0;
-			for(Fitness f:fits){
-				mutated.get(ind).setFitness(f);
-				ind++;
+				int ind= 0;
+				for(Fitness f:fits){
+					mutated.get(ind).setFitness(f);
+					ind++;
+				}
 			}
-				
 			return mutated;
 		}
 		

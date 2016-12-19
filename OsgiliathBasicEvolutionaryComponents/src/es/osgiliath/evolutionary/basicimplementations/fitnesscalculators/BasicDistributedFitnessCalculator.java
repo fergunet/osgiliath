@@ -46,26 +46,54 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 	@Override
 	public ArrayList<Fitness> calculateFitnessForAll(ArrayList<Individual> inds) {
 		
-		int indsPerCalculator = inds.size()/this.fitnessCalculators.size()+1; //+1 to increase the load balancing
+		//System.err.println("----> Calculate fitness de :" + inds.size());
+
+		
+		//int indsPerCalculator = (int) Math.ceil((double) inds.size()/ (double) this.fitnessCalculators.size()); //+1 to increase the load balancing
+		
+		//System.err.println("----> indsPerCalculator:" + indsPerCalculator);
+
 		
 		
 		ArrayList<Fitness> calculatedFitness = new ArrayList<Fitness>();
 		List<Thread> threads = new ArrayList<Thread>();
+		ArrayList<ArrayList<Individual>> portions = new ArrayList<ArrayList<Individual>>(this.fitnessCalculators.size());
 		
+		for(int i = 0; i < 16; i++){
+			portions.add(new ArrayList<Individual>());
+		}
+		
+		int dispacher = 0;
+		for (Individual ind : inds) {
+			//System.out.println("dispacher:" + dispacher + "  i:" + i );
+			portions.get(dispacher).add(ind);
+			dispacher = dispacher+1<this.fitnessCalculators.size()?dispacher+1:0;
+		}
+		
+		
+		//System.err.println("----> calculatedFitness:" + calculatedFitness.size());
 		
 		for(int i = 0; i<this.fitnessCalculators.size();i++){
-			int fromIndex = i*indsPerCalculator;
-			int toIndex = (i+1)*indsPerCalculator;
+			if(portions.get(i).size()>0){
+				System.out.println("Hola, soy la hebra " + i + "y me voy a hacer cargo de " + portions.get(i).size() +  "individuos");
+				threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(i), portions.get(i)));
+			}
 			
-			if(toIndex>inds.size())
-				toIndex = inds.size();
 			
-			System.out.println("["+fromIndex+","+toIndex+"[");	
-			
-			ArrayList<Individual> portion = new ArrayList<Individual>();
-			portion.addAll(inds.subList(fromIndex, toIndex)); 
-			threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(i),portion));
-		
+//			int fromIndex = i*indsPerCalculator;
+//			int toIndex = (i+1)*indsPerCalculator;
+//			
+//			if(toIndex>inds.size()){
+//				toIndex = inds.size();
+//			}
+//			
+//			System.out.println("["+fromIndex+","+toIndex+"[");	
+//			
+//			ArrayList<Individual> portion = new ArrayList<Individual>();
+//			portion.addAll(inds.subList(fromIndex, toIndex)); 
+//			threads.add(new ThreadFitnessCalculator(fitnessCalculators.get(i),portion));
+//			System.err.println("----> hebra :" + i + " tiene " + portion.size());
+
 		}
 		
 		for(Thread t:threads){
@@ -114,7 +142,7 @@ public class BasicDistributedFitnessCalculator implements FitnessCalculator {
 		
 		public void run(){
 			//System.out.println("HEBRA: VOY A INICIAR");
-			fc.calculateFitness(this.indsToCalculate.get(0));
+			//fc.calculateFitness(this.indsToCalculate.get(0));
 			this.calculatedFitness = fc.calculateFitnessForAll(this.indsToCalculate);
 		}
 		

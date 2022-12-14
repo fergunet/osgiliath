@@ -10,8 +10,16 @@ Import-Package: es.ugr.osgiliath,
  es.ugr.osgiliath.evolutionary.basiccomponents.individuals,
  es.ugr.osgiliath.evolutionary.elements,
  es.ugr.osgiliath.evolutionary.individual,
+ es.ugr.osgiliath.planetwars,
+ es.ugr.osgiliath.planetwars.agent,
+ es.ugr.osgiliath.planetwars.components,
+ es.ugr.osgiliath.planetwars.fitness,
  es.ugr.osgiliath.problem,
  es.ugr.osgiliath.util.impl,
  es.ugr.osgiliath.utils
 Bundle-ClassPath: lib/com.springsource.javassist-3.15.0.GA.jar,
  .
+Export-Package: es.ugr.osgiliath.planetwars,
+ es.ugr.osgiliath.planetwars.agent,
+ es.ugr.osgiliath.planetwars.components,
+ es.ugr.osgiliath.planetwars.fitness

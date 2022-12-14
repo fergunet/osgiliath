@@ -6,22 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import es.ugr.osgiliath.OsgiliathService;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.GenericTreeNode;
 import es.ugr.osgiliath.evolutionary.basiccomponents.genomes.TreeGenome;
 import es.ugr.osgiliath.evolutionary.basiccomponents.individuals.BasicIndividual;
 import es.ugr.osgiliath.evolutionary.elements.FitnessCalculator;
-import es.ugr.osgiliath.evolutionary.elements.StopCriterion;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
+import es.ugr.osgiliath.planetwars.Debug;
 import es.ugr.osgiliath.planetwars.PlanetWarsParameters;
-import es.ugr.osgiliath.evolutionary.basicimplementations.stopcriterions.MaxEvaluationsStopCriterionNoOSGi;
-
+ 
 public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 		FitnessCalculator{
 
@@ -29,6 +25,7 @@ public class PlanetWarsFitnessCalculator extends OsgiliathService implements
 
 	public PlanetWarsFitnessCalculator(int logFile) {
 		this.logFile = logFile;
+		Debug d = new Debug();
 	}
 
 

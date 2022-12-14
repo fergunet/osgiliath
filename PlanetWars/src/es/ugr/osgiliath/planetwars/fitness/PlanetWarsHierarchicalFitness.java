@@ -6,6 +6,7 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 
 	protected double primaryFitness;
 	protected double secondaryFitness;
+	protected double optional;
 
 	public double getPrimaryFitness() {
 		return primaryFitness;
@@ -21,6 +22,14 @@ public class PlanetWarsHierarchicalFitness implements Fitness{
 
 	public void setSecondaryFitness(double totalTurns) {
 		this.secondaryFitness = totalTurns;
+	}
+	
+	public double getOptional() {
+		return optional;
+	}
+
+	public void setOptional(double totalTurns) {
+		this.optional = totalTurns;
 	}
 
 	public PlanetWarsHierarchicalFitness(double wins, double turns){

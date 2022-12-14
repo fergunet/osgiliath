@@ -12,6 +12,7 @@ import es.ugr.osgiliath.evolutionary.elements.Replacer;
 import es.ugr.osgiliath.evolutionary.individual.Fitness;
 import es.ugr.osgiliath.evolutionary.individual.Individual;
 import es.ugr.osgiliath.planetwars.fitness.PlanetWarsFitnessCalculator;
+import es.ugr.osgiliath.planetwars.fitness.PlanetWarsHierarchicalFitness;
 import es.ugr.osgiliath.utils.Logger;
 
 public class PlanetWarsReplacer extends OsgiliathService implements Replacer {
@@ -52,7 +53,34 @@ public class PlanetWarsReplacer extends OsgiliathService implements Replacer {
 		
 		System.out.println("BEST FITNESS "+ pop.getNBestIndividuals(1).get(0));
 		
-		this.analyze(pop);
+		//this.analyze(pop);
+		//PRINTING ALL THE POPULATION		
+		List<Individual> all = pop.getAllIndividuals();
+		Debug debug = new Debug();
+		for(Individual inda:all){
+			String message = "";
+			BasicIndividual ind = (BasicIndividual) inda;
+						
+			int indSize = ((TreeGenome)ind.getGenome()).getDepth();
+			int indNodes = ((TreeGenome)ind.getGenome()).getNumberOfNodes();
+			int age = ((TreeGenome)ind.getGenome()).getNumberOfNodes();
+			String treeString = debug.resumeTree(inda);
+			String treelargo = debug.writePlanetWarsTree((TreeGenome)ind.getGenome());
+			double victories = ((PlanetWarsHierarchicalFitness) ind.getFitness()).getPrimaryFitness();
+			double turns = ((PlanetWarsHierarchicalFitness) ind.getFitness()).getSecondaryFitness();
+			//IT,NUM_EVALUATIONS,TIME,SIM,SIZE,DEPTH,AGE,STAMP,TREE,VICTORIES,TURNS
+			message = currentGeneration+","+
+			"0"+","+
+			"0"+","+
+			indNodes+","+
+			indSize+","+
+			age+","+
+			treeString+","+
+			treelargo+","+
+			victories+
+			turns+"\n";
+			this.log.statsX(message, "");
+		}
 	}
 
 	
@@ -117,14 +145,14 @@ public class PlanetWarsReplacer extends OsgiliathService implements Replacer {
 		PlanetWarsFitnessCalculator fc = new PlanetWarsFitnessCalculator(1);
 		String tree = fc.writePlanetWarsTree((TreeGenome)bestI.getGenome());
 		log.stats(
-				bestFitness.toString()+";"+
-				avgFitness.toString()+";"+
-				bestSize+";"+
-				averageSize+";"+
-				bestNodes+";"+
-				averageNodes+";"+
-				bestAge+";"+
-				averageAge+";"+
+				bestFitness.toString()+","+
+				avgFitness.toString()+","+
+				bestSize+","+
+				averageSize+","+
+				bestNodes+","+
+				averageNodes+","+
+				bestAge+","+
+				averageAge+","+
 				tree+"\n"
 				);
 	}

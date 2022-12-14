@@ -21,4 +21,6 @@ public class PlanetWarsParameters {
 	
 	public static final String MAX_DEPTH = "planetwars.depth.max";
 	public static final String INITIAL_DEPTH = "planetwars.depth.initial";
+	
+	public static final String TEST = "test";
 }

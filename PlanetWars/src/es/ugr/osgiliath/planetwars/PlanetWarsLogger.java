@@ -169,7 +169,16 @@ public class PlanetWarsLogger extends OsgiliathService implements Logger{
 	}
 	@Override
 	public void statsX(String message, String appendix) {
-		// TODO Auto-generated method stub
+		
+		try{
+			FileWriter fstream = new FileWriter(filename,true); //EXISTENT FILE
+			BufferedWriter out = new BufferedWriter(fstream);
+			long time =  (System.currentTimeMillis() -initTime) / 1000;
+			out.write(message);
+			out.close();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 		
 	}
 
